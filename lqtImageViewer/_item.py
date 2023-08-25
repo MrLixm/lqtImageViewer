@@ -11,7 +11,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 def _generate_default_image():
-    image = QtGui.QImage(128, 128, QtGui.QImage.Format_RGB888)
+    image = QtGui.QImage(512, 512, QtGui.QImage.Format_RGB888)
     image.fill(QtGui.QColor(0, 0, 0))
     return image
 
