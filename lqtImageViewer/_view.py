@@ -71,6 +71,7 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
 
         self.setCacheMode(self.CacheBackground)
         self.setRenderHint(QtGui.QPainter.Antialiasing)
+        self.setRenderHint(QtGui.QPainter.SmoothPixmapTransform)
 
     def _cache_grid(self):
         grid_shape = create_dot_grid(
