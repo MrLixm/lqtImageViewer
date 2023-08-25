@@ -1,3 +1,4 @@
+import dataclasses
 import enum
 import logging
 from typing import Optional
@@ -16,6 +17,66 @@ class GraphicViewState(enum.IntFlag):
     selectState = enum.auto()
     pickState = enum.auto()
     unpickState = enum.auto()
+
+
+@dataclasses.dataclass(frozen=True)
+class _BackgroundStyle:
+    label: str
+    primary: QtGui.QColor
+    secondary: QtGui.QColor
+    draw_grid: bool
+
+
+class BackgroundStyle(enum.Enum):
+    light = _BackgroundStyle(
+        "Light",
+        QtGui.QColor(240, 240, 238),
+        QtGui.QColor(200, 200, 200),
+        False,
+    )
+    light_grid_dot = _BackgroundStyle(
+        "Light Grid of Dots",
+        QtGui.QColor(240, 240, 238),
+        QtGui.QColor(200, 200, 200),
+        True,
+    )
+    mid_grey = _BackgroundStyle(
+        "Mid Grey",
+        QtGui.QColor(125, 125, 125),
+        QtGui.QColor(100, 100, 100),
+        False,
+    )
+    dark_grid_dot = _BackgroundStyle(
+        "Dark Grid of Dots",
+        QtGui.QColor(0, 0, 0),
+        QtGui.QColor(30, 30, 30),
+        True,
+    )
+    dark = _BackgroundStyle(
+        "Dark",
+        QtGui.QColor(0, 0, 0),
+        QtGui.QColor(30, 30, 30),
+        False,
+    )
+
+    @classmethod
+    def all(cls):
+        return [
+            cls.light,
+            cls.light_grid_dot,
+            cls.mid_grey,
+            cls.dark,
+            cls.dark_grid_dot,
+        ]
+
+    @classmethod
+    def next(cls, style: "BackgroundStyle"):
+        all_styles = cls.all()
+        index = all_styles.index(style)
+        try:
+            return all_styles[index + 1]
+        except IndexError:
+            return all_styles[0]
 
 
 def create_dot_grid(background_color: QtGui.QColor, foreground_color: QtGui.QColor):
@@ -63,8 +124,7 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
         self._selected_items_initial: list[QtWidgets.QGraphicsItem] = []
         self._rubber_band = QtWidgets.QRubberBand(QtWidgets.QRubberBand.Rectangle, self)
 
-        self._background_color = QtGui.QColor(240, 240, 238)
-        self._background_grid_color = QtGui.QColor(200, 200, 200)
+        self._background_style = BackgroundStyle.dark_grid_dot
         self._zoom: float = 1.0
 
         self._grid_cache = self._cache_grid()
@@ -73,12 +133,21 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
         self.setRenderHint(QtGui.QPainter.Antialiasing)
         self.setRenderHint(QtGui.QPainter.SmoothPixmapTransform)
 
+    @property
+    def background_style(self) -> BackgroundStyle:
+        return self._background_style
+
+    @background_style.setter
+    def background_style(self, new_background_style: BackgroundStyle):
+        self._background_style = new_background_style
+
     def _cache_grid(self):
         grid_shape = create_dot_grid(
-            self._background_color,
-            self._background_grid_color,
+            self._background_style.value.primary,
+            self._background_style.value.secondary,
         )
-        grid_brush = QtGui.QBrush(self._background_color)
+
+        grid_brush = QtGui.QBrush(self._background_style.value.primary)
         grid_brush.setTexture(grid_shape)
         # hack to avoid pixelated image when zooming
         transform = QtGui.QTransform()
@@ -147,8 +216,8 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
         """
         Generated a grid pattern as background.
         """
-        brush = self._background_color
-        if self._zoom > 0.3:
+        brush = self._background_style.value.primary
+        if self._zoom > 0.3 and self._background_style.value.draw_grid:
             brush = self._grid_cache
         painter.fillRect(rect, brush)
 
@@ -159,6 +228,13 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
         # TODO expose shortcuts as variables
         if event.key() == QtCore.Qt.Key_Home:
             self._reset_zoom()
+            return
+
+        elif event.key() == QtCore.Qt.Key_B:
+            self._background_style = self._background_style.next(self._background_style)
+            self._cache_grid()
+            self.resetCachedContent()
+            self.update()
             return
 
         super().keyPressEvent(event)
