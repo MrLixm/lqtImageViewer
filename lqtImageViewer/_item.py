@@ -11,8 +11,28 @@ LOGGER = logging.getLogger(__name__)
 
 
 def _generate_default_image():
-    image = QtGui.QImage(512, 512, QtGui.QImage.Format_RGB888)
-    image.fill(QtGui.QColor(0, 0, 0))
+    image_size = 512
+    tile_number = 5
+    tile_size = image_size / tile_number
+
+    image = QtGui.QImage(image_size, image_size, QtGui.QImage.Format_RGB888)
+    image.fill(QtGui.QColor(100, 100, 100))
+
+    painter = QtGui.QPainter(image)
+    painter.setRenderHint(painter.Antialiasing, False)
+
+    for tile_n_x in range(0, tile_number, 1):
+        for tile_n_y in range(0, tile_number, 1):
+            if (tile_n_x + tile_n_y) % 2 == 0:
+                rect = QtCore.QRectF(
+                    tile_size * tile_n_x,
+                    tile_size * tile_n_y,
+                    tile_size,
+                    tile_size,
+                )
+                painter.fillRect(rect, QtGui.QColor(135, 135, 135))
+
+    painter.end()
     return image
 
 
