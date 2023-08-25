@@ -101,7 +101,7 @@ class InteractiveImageViewer(QtWidgets.QMainWindow):
 
         # remove alpha if existing
         if array.shape[2] > 3:
-            array = array[:, :, 2]
+            array = array[:, :, :3]
 
         # we need an alpha channel at max value
         alpha = numpy.full(
