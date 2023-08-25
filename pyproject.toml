@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "lqtimageviewer"
+version = "0.1.0"
+description = ""
+authors = ["Liam Collod <monsieurlixm@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.11"
+# we use a local version to get teh stubs working in pycharm
+Qt = { path = "./vendor/Qt.py" }
+numpy = "^1.25"
+
+[tool.poetry.group.imageio]
+optional = true
+[tool.poetry.group.imageio.dependencies]
+imageio = "*"
+
+[tool.poetry.dev-dependencies]
+black = "*"
+PySide2 = "^5.15"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
