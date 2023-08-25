@@ -9,7 +9,7 @@ from Qt import QtWidgets
 LOGGER = logging.getLogger(__name__)
 
 
-class NodegraphViewState(enum.IntFlag):
+class GraphicViewState(enum.IntFlag):
     noneState = enum.auto()
     panState = enum.auto()
     zoomState = enum.auto()
@@ -45,7 +45,7 @@ def create_dot_grid(background_color: QtGui.QColor, foreground_color: QtGui.QCol
 
 
 class LIVGraphicView(QtWidgets.QGraphicsView):
-    states = NodegraphViewState
+    states = GraphicViewState
 
     zoom_min = 0.1
     zoom_max = 7
@@ -55,7 +55,7 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
     def __init__(self, scene: QtWidgets.QGraphicsScene):
         super().__init__(scene)
 
-        self._state = NodegraphViewState.noneState
+        self._state = GraphicViewState.noneState
         # save at each move
         self._mouse_previous_pos: Optional[QtCore.QPoint] = None
         # save at each click
