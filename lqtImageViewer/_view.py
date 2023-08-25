@@ -130,7 +130,6 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
 
         self.setCacheMode(self.CacheBackground)
         self.setRenderHint(QtGui.QPainter.Antialiasing)
-        self.setRenderHint(QtGui.QPainter.SmoothPixmapTransform)
 
     @property
     def background_style(self) -> BackgroundStyle:
