@@ -122,7 +122,6 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
         # save at each click
         self._mouse_initial_pos: Optional[QtCore.QPoint] = None
         self._selected_items_initial: list[QtWidgets.QGraphicsItem] = []
-        self._rubber_band = QtWidgets.QRubberBand(QtWidgets.QRubberBand.Rectangle, self)
 
         self._background_style = BackgroundStyle.dark_grid_dot
         self._zoom: float = 1.0
@@ -237,6 +236,12 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
             self.update()
             return
 
+        elif event.key() == QtCore.Qt.Key_F:
+            scene_rect = self.sceneRect()
+            scene_rect.moveCenter(QtCore.QPointF(0, 0))
+            self.setSceneRect(scene_rect)
+            return
+
         super().keyPressEvent(event)
 
     def mouseMoveEvent(self, event: QtGui.QMouseEvent):
@@ -268,7 +273,6 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
         """
         On mouse button pressed, set states depending on buttons.
         """
-        super().mousePressEvent(event)
         self._mouse_initial_pos = QtGui.QCursor.pos()
         self._selected_items_initial = self.scene().selectedItems()
 
@@ -294,8 +298,6 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
             # ensure the user is not clicking an item
             and not self.items(event.pos())
         ):
-            self._rubber_band.setGeometry(QtCore.QRect(event.pos(), QtCore.QSize()))
-            self._rubber_band.show()
             self._state = self._state | self.states.selectState
 
         elif (
@@ -304,8 +306,6 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
             # ensure the user is not clicking an item
             and not self.items(event.pos())
         ):
-            self._rubber_band.setGeometry(QtCore.QRect(event.pos(), QtCore.QSize()))
-            self._rubber_band.show()
             self._state = self._state | self.states.unpickState
 
         elif (
@@ -314,8 +314,6 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
             # ensure the user is not clicking an item
             and not self.items(event.pos())
         ):
-            self._rubber_band.setGeometry(QtCore.QRect(event.pos(), QtCore.QSize()))
-            self._rubber_band.show()
             self._state = self._state | self.states.pickState
 
     def mouseReleaseEvent(self, event: QtGui.QMouseEvent):
@@ -326,10 +324,6 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
         self._mouse_previous_pos = None
         self._mouse_initial_pos = None
         self._selected_items_initial = []
-        self._rubber_band.hide()
-
-        if event.button() == QtCore.Qt.LeftButton and not self.scene().selectedItems():
-            self.scene().setSelectionArea(QtGui.QPainterPath())
 
         if self._state & self.states.panState:
             self._state = self._state ^ self.states.panState

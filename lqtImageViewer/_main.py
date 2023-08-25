@@ -3,7 +3,6 @@ from Qt import QtCore
 from Qt import QtGui
 from Qt import QtWidgets
 
-from lqtImageViewer._scene import LIVGraphicScene
 from lqtImageViewer._view import LIVGraphicView
 from lqtImageViewer._item import ImageItem
 
@@ -16,7 +15,7 @@ class LqtImageViewer(QtWidgets.QWidget):
         self.layout_main = QtWidgets.QVBoxLayout()
         # we need only a single item
         self.graphic_item = ImageItem()
-        self.graphic_scene = LIVGraphicScene(-1280 / 2, -720 / 2, 1280, 720)
+        self.graphic_scene = QtWidgets.QGraphicsScene(-1280 / 2, -720 / 2, 1280, 720)
         self.graphic_view = LIVGraphicView(self.graphic_scene)
 
         # 2. Add
@@ -27,6 +26,7 @@ class LqtImageViewer(QtWidgets.QWidget):
         # 3. Modify
         self.layout_main.setContentsMargins(0, 0, 0, 0)
         self.graphic_item.move_to_scene_origin()
+        self.graphic_item.setSelected(True)
 
     def set_image_from_array(self, array: numpy.ndarray):
         """

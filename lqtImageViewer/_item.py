@@ -41,6 +41,7 @@ class ImageItem(QtWidgets.QGraphicsItem):
         super().__init__(parent)
         self._image: QtGui.QImage = _generate_default_image()
         self._array: Optional[numpy.ndarray] = None
+        self.setFlag(self.ItemIsSelectable)
 
     def move_to_scene_origin(self):
         self.setPos(0, 0)
