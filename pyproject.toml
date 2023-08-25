@@ -1,13 +1,16 @@
 [tool.poetry]
 name = "lqtimageviewer"
 version = "0.1.0"
-description = ""
+description = "A PyQT image viewer for numpy arrays."
 authors = ["Liam Collod <monsieurlixm@gmail.com>"]
 readme = "README.md"
+packages = [
+    { include = "lqtImageViewer" }
+]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.11"
-# we use a local version to get teh stubs working in pycharm
+# we use a local version to get the stubs working in pycharm
 Qt = { path = "./vendor/Qt.py" }
 numpy = "^1.25"
 
