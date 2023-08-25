@@ -99,17 +99,26 @@ class InteractiveImageViewer(QtWidgets.QMainWindow):
         LOGGER.info(f"pre-processing array <{array.dtype} {array.shape}> ...")
         array = convert_bit_depth(array, numpy.core.uint16)
 
-        # remove alpha if existing
-        if array.shape[2] > 3:
-            array = array[:, :, :3]
+        # single channel with no third axis
+        if len(array.shape) == 2:
+            array = numpy.repeat(array[..., numpy.newaxis], 3, axis=-1)
 
-        # we need an alpha channel at max value
-        alpha = numpy.full(
-            (array.shape[0], array.shape[1], 1),
-            numpy.iinfo(numpy.core.uint16).max,
-            dtype=numpy.core.uint16,
-        )
-        array = numpy.concatenate((array, alpha), axis=-1)
+        # remove alpha if existing
+        elif array.shape[2] > 4:
+            array = array[:, :, :4]
+
+        # single channel
+        elif array.shape[2] == 1:
+            array = numpy.repeat(array, 3, axis=-1)
+
+        # ensure an alpha channel at max value if not found
+        if array.shape[2] == 3:
+            alpha = numpy.full(
+                (array.shape[0], array.shape[1], 1),
+                numpy.iinfo(numpy.core.uint16).max,
+                dtype=numpy.core.uint16,
+            )
+            array = numpy.concatenate((array, alpha), axis=-1)
 
         LOGGER.info(f"loading image array <{array.dtype} {array.shape}> ...")
         self.image_viewer.set_image_from_array(array)
