@@ -6,8 +6,6 @@ from Qt import QtCore
 from Qt import QtGui
 from Qt import QtWidgets
 
-from lqtImageViewer._grids import generate_points_grid
-
 LOGGER = logging.getLogger(__name__)
 
 
@@ -18,6 +16,32 @@ class NodegraphViewState(enum.IntFlag):
     selectState = enum.auto()
     pickState = enum.auto()
     unpickState = enum.auto()
+
+
+def create_dot_grid(background_color: QtGui.QColor, foreground_color: QtGui.QColor):
+    """
+    Generate the pattern necessary to build a grid of dots once tiles.
+    """
+    resolution = 1024
+    dot_size = 50
+    center = QtCore.QPointF(resolution // 2, resolution // 2)
+
+    gradient = QtGui.QRadialGradient(center, 50)
+    gradient.setColorAt(1, QtCore.Qt.transparent)
+    gradient.setColorAt(0, foreground_color)
+    gradient.setFocalRadius(44)
+
+    pixmap = QtGui.QPixmap(QtCore.QSize(resolution, resolution))
+    pixmap.fill(background_color)
+
+    painter = QtGui.QPainter(pixmap)
+    painter.setRenderHint(painter.Antialiasing)
+
+    painter.setPen(QtCore.Qt.PenStyle.NoPen)
+    painter.setBrush(QtGui.QBrush(gradient))
+    painter.drawEllipse(center, dot_size, dot_size)
+    painter.end()
+    return pixmap
 
 
 class LIVGraphicView(QtWidgets.QGraphicsView):
@@ -43,10 +67,25 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
         self._background_grid_color = QtGui.QColor(200, 200, 200)
         self._zoom: float = 1.0
 
-        # TODO evaluate if caching make a difference
-        # seems it cause some minor graphical imperfection
+        self._grid_cache = self._cache_grid()
+
         self.setCacheMode(self.CacheBackground)
         self.setRenderHint(QtGui.QPainter.Antialiasing)
+
+    def _cache_grid(self):
+        grid_shape = create_dot_grid(
+            self._background_color,
+            self._background_grid_color,
+        )
+        grid_brush = QtGui.QBrush(self._background_color)
+        grid_brush.setTexture(grid_shape)
+        # hack to avoid pixelated image when zooming
+        transform = QtGui.QTransform()
+        transform.scale(0.05, 0.05)
+        grid_brush.setTransform(transform)
+
+        self._grid_cache = grid_brush
+        return self._grid_cache
 
     def _pan_viewport(self, x_amount: float, y_amount: float):
         """
@@ -107,21 +146,10 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
         """
         Generated a grid pattern as background.
         """
-        painter.fillRect(rect, self._background_color)
-        grid_thickness = 2.0
-        grid_size = 20
-
-        # too low zoom produce performance issue and mess up visually anyway
-        if self._zoom <= 0.3:
-            return
-
-        pen = QtGui.QPen(self._background_grid_color, grid_thickness)
-        painter.setPen(pen)
-
-        points = generate_points_grid(surface=rect, size=grid_size)
-        pen.setCapStyle(QtCore.Qt.RoundCap)
-        painter.setPen(pen)
-        painter.drawPoints(points)
+        brush = self._background_color
+        if self._zoom > 0.3:
+            brush = self._grid_cache
+        painter.fillRect(rect, brush)
 
     def keyPressEvent(self, event: QtGui.QKeyEvent):
         """
