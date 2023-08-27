@@ -20,7 +20,7 @@ except ImportError:
             raise RuntimeError("imageio dependency not installed")
 
 
-from lqtImageViewer import LqtImageViewer
+from lqtImageViewer import LqtImageViewport
 
 
 LOGGER = logging.getLogger(__name__)
@@ -29,7 +29,7 @@ LOGGER = logging.getLogger(__name__)
 class InteractiveImageViewer(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.image_viewer = LqtImageViewer()
+        self.image_viewer = LqtImageViewport()
         self.setCentralWidget(self.image_viewer)
         self.setWindowTitle("LqtImageViewer")
 

@@ -14,7 +14,17 @@ from lqtImageViewer._encoding import ensure_rgba_array
 LOGGER = logging.getLogger(__name__)
 
 
-class LqtImageViewer(QtWidgets.QWidget):
+class LqtImageViewport(QtWidgets.QWidget):
+    """
+    A widget showing a rectangular area called "viewport". The viewport is an infinite
+    2D canvas containing the image to display.
+
+    You can move in that canvas freely, using panning or zooming.
+
+    That viewport doesn't know anything about image processing, like isolating channels,
+    color-management and so on. It just displays directly the numpy array.
+    """
+
     def __init__(self, parent: QtWidgets.QWidget = None):
         super().__init__(parent)
 
