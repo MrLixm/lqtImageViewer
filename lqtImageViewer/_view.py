@@ -8,6 +8,7 @@ from Qt import QtGui
 from Qt import QtWidgets
 
 from ._config import LIVKeyShortcuts
+from ._config import BackgroundStyle
 
 LOGGER = logging.getLogger(__name__)
 
@@ -18,66 +19,6 @@ class GraphicViewState(enum.IntFlag):
     zoomState = enum.auto()
     pickState = enum.auto()
     unpickState = enum.auto()
-
-
-@dataclasses.dataclass(frozen=True)
-class _BackgroundStyle:
-    label: str
-    primary: QtGui.QColor
-    secondary: QtGui.QColor
-    draw_grid: bool
-
-
-class BackgroundStyle(enum.Enum):
-    light = _BackgroundStyle(
-        "Light",
-        QtGui.QColor(240, 240, 238),
-        QtGui.QColor(200, 200, 200),
-        False,
-    )
-    light_grid_dot = _BackgroundStyle(
-        "Light Grid of Dots",
-        QtGui.QColor(240, 240, 238),
-        QtGui.QColor(200, 200, 200),
-        True,
-    )
-    mid_grey = _BackgroundStyle(
-        "Mid Grey",
-        QtGui.QColor(125, 125, 125),
-        QtGui.QColor(100, 100, 100),
-        False,
-    )
-    dark_grid_dot = _BackgroundStyle(
-        "Dark Grid of Dots",
-        QtGui.QColor(0, 0, 0),
-        QtGui.QColor(30, 30, 30),
-        True,
-    )
-    dark = _BackgroundStyle(
-        "Dark",
-        QtGui.QColor(0, 0, 0),
-        QtGui.QColor(30, 30, 30),
-        False,
-    )
-
-    @classmethod
-    def all(cls):
-        return [
-            cls.light,
-            cls.light_grid_dot,
-            cls.mid_grey,
-            cls.dark,
-            cls.dark_grid_dot,
-        ]
-
-    @classmethod
-    def next(cls, style: "BackgroundStyle"):
-        all_styles = cls.all()
-        index = all_styles.index(style)
-        try:
-            return all_styles[index + 1]
-        except IndexError:
-            return all_styles[0]
 
 
 def create_dot_grid(background_color: QtGui.QColor, foreground_color: QtGui.QColor):
@@ -116,6 +57,7 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
         self,
         scene: QtWidgets.QGraphicsScene,
         key_shortcuts: Optional[LIVKeyShortcuts] = None,
+        background_style: Optional[BackgroundStyle] = None,
     ):
         super().__init__(scene)
 
@@ -127,7 +69,7 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
         self._mouse_initial_pos: Optional[QtCore.QPoint] = None
         self._selected_items_initial: list[QtWidgets.QGraphicsItem] = []
 
-        self._background_style = BackgroundStyle.dark_grid_dot
+        self._background_style = background_style or BackgroundStyle.dark_grid_dot
         self._zoom: float = 1.0
 
         self._grid_cache = self._cache_grid()

@@ -1,4 +1,5 @@
 import dataclasses
+import enum
 from typing import Optional
 from typing import Union
 
@@ -50,3 +51,67 @@ class LIVKeyShortcuts:
             pick=LIVKeyShortcut(QtCore.Qt.LeftButton, QtCore.Qt.ShiftModifier),
             unpick=LIVKeyShortcut(QtCore.Qt.LeftButton, QtCore.Qt.ControlModifier),
         )
+
+
+@dataclasses.dataclass(frozen=True)
+class _BackgroundStyle:
+    label: str
+    primary: QtGui.QColor
+    secondary: QtGui.QColor
+    draw_grid: bool
+
+
+class BackgroundStyle(enum.Enum):
+    """
+    Collection of style the background of the viewport can be set to.
+    """
+
+    light = _BackgroundStyle(
+        "Light",
+        QtGui.QColor(240, 240, 238),
+        QtGui.QColor(200, 200, 200),
+        False,
+    )
+    light_grid_dot = _BackgroundStyle(
+        "Light Grid of Dots",
+        QtGui.QColor(240, 240, 238),
+        QtGui.QColor(200, 200, 200),
+        True,
+    )
+    mid_grey = _BackgroundStyle(
+        "Mid Grey",
+        QtGui.QColor(125, 125, 125),
+        QtGui.QColor(100, 100, 100),
+        False,
+    )
+    dark_grid_dot = _BackgroundStyle(
+        "Dark Grid of Dots",
+        QtGui.QColor(0, 0, 0),
+        QtGui.QColor(30, 30, 30),
+        True,
+    )
+    dark = _BackgroundStyle(
+        "Dark",
+        QtGui.QColor(0, 0, 0),
+        QtGui.QColor(30, 30, 30),
+        False,
+    )
+
+    @classmethod
+    def all(cls):
+        return [
+            cls.light,
+            cls.light_grid_dot,
+            cls.mid_grey,
+            cls.dark,
+            cls.dark_grid_dot,
+        ]
+
+    @classmethod
+    def next(cls, style: "BackgroundStyle"):
+        all_styles = cls.all()
+        index = all_styles.index(style)
+        try:
+            return all_styles[index + 1]
+        except IndexError:
+            return all_styles[0]
