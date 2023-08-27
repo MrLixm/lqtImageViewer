@@ -7,6 +7,8 @@ from Qt import QtCore
 from Qt import QtGui
 from Qt import QtWidgets
 
+from ._config import LIVKeyShortcuts
+
 LOGGER = logging.getLogger(__name__)
 
 
@@ -14,7 +16,6 @@ class GraphicViewState(enum.IntFlag):
     noneState = enum.auto()
     panState = enum.auto()
     zoomState = enum.auto()
-    selectState = enum.auto()
     pickState = enum.auto()
     unpickState = enum.auto()
 
@@ -111,11 +112,14 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
     zoom_min = 0.1
     zoom_max = 7
 
-    selection_mode = QtCore.Qt.IntersectsItemShape
-
-    def __init__(self, scene: QtWidgets.QGraphicsScene):
+    def __init__(
+        self,
+        scene: QtWidgets.QGraphicsScene,
+        key_shortcuts: Optional[LIVKeyShortcuts] = None,
+    ):
         super().__init__(scene)
 
+        self._shortcuts = key_shortcuts or LIVKeyShortcuts.get_default()
         self._state = GraphicViewState.noneState
         # save at each move
         self._mouse_previous_pos: Optional[QtCore.QPoint] = None
@@ -224,18 +228,18 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
         Configure key shortucts.
         """
         # TODO expose shortcuts as variables
-        if event.key() == QtCore.Qt.Key_Home:
+        if self._shortcuts.reset_zoom.match_event(event):
             self._reset_zoom()
             return
 
-        elif event.key() == QtCore.Qt.Key_B:
+        elif self._shortcuts.change_background.match_event(event):
             self._background_style = self._background_style.next(self._background_style)
             self._cache_grid()
             self.resetCachedContent()
             self.update()
             return
 
-        elif event.key() == QtCore.Qt.Key_F:
+        elif self._shortcuts.reset_pan.match_event(event):
             scene_rect = self.sceneRect()
             scene_rect.moveCenter(QtCore.QPointF(0, 0))
             self.setSceneRect(scene_rect)
@@ -275,43 +279,25 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
         self._mouse_initial_pos = QtGui.QCursor.pos()
         self._selected_items_initial = self.scene().selectedItems()
 
-        # TODO expose shortcuts as variables
-        if (
-            event.button() == QtCore.Qt.LeftButton
-            and event.modifiers() == QtCore.Qt.AltModifier
-        ) or (
-            event.button() == QtCore.Qt.MiddleButton
-            and event.modifiers() == QtCore.Qt.NoModifier
+        if self._shortcuts.pan1.match_event(event) or self._shortcuts.pan2.match_event(
+            event
         ):
             self._state = self._state | self.states.panState
 
-        elif (
-            event.button() == QtCore.Qt.MiddleButton
-            and event.modifiers() == QtCore.Qt.AltModifier
-        ):
+        elif self._shortcuts.zoom2.match_event(event):
             self._state = self._state | self.states.zoomState
 
         elif (
-            event.button() == QtCore.Qt.LeftButton
-            and event.modifiers() == QtCore.Qt.NoModifier
-            # ensure the user is not clicking an item
-            and not self.items(event.pos())
-        ):
-            self._state = self._state | self.states.selectState
-
-        elif (
-            event.button() == QtCore.Qt.LeftButton
-            and event.modifiers() == QtCore.Qt.ControlModifier
-            # ensure the user is not clicking an item
-            and not self.items(event.pos())
+            self._shortcuts.unpick.match_event(event)
+            # ensure the user IS clicking an item
+            and self.items(event.pos())
         ):
             self._state = self._state | self.states.unpickState
 
         elif (
-            event.button() == QtCore.Qt.LeftButton
-            and event.modifiers() == QtCore.Qt.ShiftModifier
+            self._shortcuts.pick.match_event(event)
             # ensure the user is not clicking an item
-            and not self.items(event.pos())
+            and self.items(event.pos())
         ):
             self._state = self._state | self.states.pickState
 
@@ -328,8 +314,6 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
             self._state = self._state ^ self.states.panState
         if self._state & self.states.zoomState:
             self._state = self._state ^ self.states.zoomState
-        if self._state & self.states.selectState:
-            self._state = self._state ^ self.states.selectState
         if self._state & self.states.unpickState:
             self._state = self._state ^ self.states.unpickState
         if self._state & self.states.pickState:
