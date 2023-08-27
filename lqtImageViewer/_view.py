@@ -9,6 +9,7 @@ from Qt import QtWidgets
 
 from ._config import LIVKeyShortcuts
 from ._config import BackgroundStyle
+from ._scene import LIVGraphicScene
 
 LOGGER = logging.getLogger(__name__)
 
@@ -55,12 +56,12 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
 
     def __init__(
         self,
-        scene: QtWidgets.QGraphicsScene,
+        scene: LIVGraphicScene,
         key_shortcuts: Optional[LIVKeyShortcuts] = None,
         background_style: Optional[BackgroundStyle] = None,
     ):
         super().__init__(scene)
-
+        self._scene = scene
         self._shortcuts = key_shortcuts or LIVKeyShortcuts.get_default()
         self._state = GraphicViewState.noneState
         # save at each move
