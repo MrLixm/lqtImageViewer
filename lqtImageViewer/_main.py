@@ -1,3 +1,5 @@
+import logging
+
 import numpy
 from Qt import QtCore
 from Qt import QtGui
@@ -5,6 +7,11 @@ from Qt import QtWidgets
 
 from lqtImageViewer._view import LIVGraphicView
 from lqtImageViewer._item import ImageItem
+from lqtImageViewer._encoding import convert_bit_depth
+from lqtImageViewer._encoding import ensure_rgba_array
+
+
+LOGGER = logging.getLogger(__name__)
 
 
 class LqtImageViewer(QtWidgets.QWidget):
@@ -33,13 +40,15 @@ class LqtImageViewer(QtWidgets.QWidget):
         Set the image displayed, from a numpy array.
 
         Args:
-            array: MUST be an uint16 R-G-B array (3 channels)
+            array: SHOULD be an uint16 R-G-B-A array (4 channels), else the method will
+            try to uniform it, so it become encoded as such.
         """
         if array.dtype != numpy.core.uint16:
-            raise TypeError(f"Array dtype must be uint16, not {array.dtype}")
-        if array.shape[2] != 4:
-            raise TypeError(
-                f"Number of array's channel must be 4, not {array.shape[2]}"
-            )
+            LOGGER.debug(f"converting array dtype from {array.dtype} to uint16 ...")
+            array = convert_bit_depth(array, numpy.core.uint16)
+
+        if len(array.shape) == 2 or array.shape[2] != 4:
+            LOGGER.debug(f"ensuring array of shape {array.shape} has 4 channels ...")
+            array = ensure_rgba_array(array)
 
         self.graphic_item.set_image_array(array)

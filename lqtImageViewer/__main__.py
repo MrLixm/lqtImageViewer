@@ -26,49 +26,6 @@ from lqtImageViewer import LqtImageViewer
 LOGGER = logging.getLogger(__name__)
 
 
-def convert_bit_depth(
-    array: numpy.ndarray,
-    bit_depth: numpy.typing.DTypeLike = numpy.core.float32,
-) -> numpy.ndarray:
-    """
-    Convert given array to given bit-depth, the current bit-depth of the array
-    is used to determine the appropriate conversion path.
-
-    References:
-        - [1] https://github.com/colour-science/colour/blob/develop/colour/io/image.py
-    """
-    uint8 = numpy.core.uint8
-    uint16 = numpy.core.uint16
-    float16 = numpy.core.float16
-    float32 = numpy.core.float32
-    float64 = numpy.core.float64
-
-    source_dtype = array.dtype
-    target_dtype = numpy.dtype(bit_depth)
-
-    if source_dtype == uint8:
-        if bit_depth == uint16:
-            array = (array * 257).astype(target_dtype)
-        elif bit_depth in (float16, float32, float64):
-            array = (array / 255).astype(target_dtype)
-    elif source_dtype == uint16:
-        if bit_depth == uint8:
-            array = (array / 257).astype(target_dtype)
-        elif bit_depth in (float16, float32, float64):
-            array = (array / 65535).astype(target_dtype)
-    elif source_dtype in (float16, float32, float64):
-        if bit_depth == uint8:
-            array = numpy.around(array * 255).astype(target_dtype)
-        elif bit_depth == uint16:
-            array = numpy.around(array * 65535).astype(target_dtype)
-        elif bit_depth in (float16, float32, float64):
-            array = array.astype(target_dtype)
-    else:
-        raise TypeError(f"unsported source dtype {source_dtype}")
-
-    return array
-
-
 class InteractiveImageViewer(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -95,30 +52,6 @@ class InteractiveImageViewer(QtWidgets.QMainWindow):
             raise IOError(
                 f"Cannot read image {file_path}, it might not be a supported format: {error}"
             )
-
-        LOGGER.info(f"pre-processing array <{array.dtype} {array.shape}> ...")
-        array = convert_bit_depth(array, numpy.core.uint16)
-
-        # single channel with no third axis
-        if len(array.shape) == 2:
-            array = numpy.repeat(array[..., numpy.newaxis], 3, axis=-1)
-
-        # remove alpha if existing
-        elif array.shape[2] > 4:
-            array = array[:, :, :4]
-
-        # single channel
-        elif array.shape[2] == 1:
-            array = numpy.repeat(array, 3, axis=-1)
-
-        # ensure an alpha channel at max value if not found
-        if array.shape[2] == 3:
-            alpha = numpy.full(
-                (array.shape[0], array.shape[1], 1),
-                numpy.iinfo(numpy.core.uint16).max,
-                dtype=numpy.core.uint16,
-            )
-            array = numpy.concatenate((array, alpha), axis=-1)
 
         LOGGER.info(f"loading image array <{array.dtype} {array.shape}> ...")
         self.image_viewer.set_image_from_array(array)
