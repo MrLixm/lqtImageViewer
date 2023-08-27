@@ -1,6 +1,7 @@
 import logging
 
 import numpy
+import numpy.typing
 from numpy.core import uint8
 from numpy.core import uint16
 from numpy.core import float16
