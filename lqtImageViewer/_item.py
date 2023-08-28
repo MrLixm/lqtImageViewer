@@ -41,7 +41,16 @@ class ImageItem(QtWidgets.QGraphicsItem):
         super().__init__(parent)
         self._image: QtGui.QImage = _generate_default_image()
         self._array: Optional[numpy.ndarray] = None
+        self._is_mouse_over: bool = False
         self.setFlag(self.ItemIsSelectable)
+        self.setAcceptHoverEvents(True)
+
+    @property
+    def is_mouse_hover(self) -> bool:
+        """
+        Return True if the mouse cursor is currently hovering that item.
+        """
+        return self._is_mouse_over
 
     def move_to_scene_origin(self):
         self.setPos(0, 0)
@@ -78,6 +87,12 @@ class ImageItem(QtWidgets.QGraphicsItem):
 
     def boundingRect(self) -> QtCore.QRectF:
         return QtCore.QRectF(self._image.rect())
+
+    def hoverEnterEvent(self, event: QtWidgets.QGraphicsSceneHoverEvent) -> None:
+        self._is_mouse_over = True
+
+    def hoverLeaveEvent(self, event: QtWidgets.QGraphicsSceneHoverEvent) -> None:
+        self._is_mouse_over = False
 
     def paint(
         self,
