@@ -162,6 +162,13 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
         """
         self._widgets_to_resize.append(widget)
 
+    def get_image_viewport_rect(self):
+        """
+        Get the area currently taken by the image item, in viewport coordinates.
+        """
+        shape = self.mapFromScene(self._scene.image_item.sceneBoundingRect())
+        return shape.boundingRect()
+
     # Overrides
 
     def drawBackground(self, painter: QtGui.QPainter, rect: QtCore.QRectF):

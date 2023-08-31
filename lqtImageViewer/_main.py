@@ -5,11 +5,13 @@ from Qt import QtCore
 from Qt import QtGui
 from Qt import QtWidgets
 
+from lqtImageViewer._config import LIVKeyShortcuts
 from lqtImageViewer._scene import LIVGraphicScene
 from lqtImageViewer._view import LIVGraphicView
-from lqtImageViewer._item import ImageItem
 from lqtImageViewer._encoding import convert_bit_depth
 from lqtImageViewer._encoding import ensure_rgba_array
+from lqtImageViewer._plugin import BasePluginType
+from lqtImageViewer._plugin import BaseScreenSpacePlugin
 
 
 LOGGER = logging.getLogger(__name__)
@@ -29,7 +31,9 @@ class LqtImageViewport(QtWidgets.QWidget):
     def __init__(self, parent: QtWidgets.QWidget = None):
         super().__init__(parent)
 
+        self._plugins: list[BasePluginType] = []
         self._shortcuts = LIVKeyShortcuts.get_default()
+
         # 1. Create
         self.layout_main = QtWidgets.QVBoxLayout()
         self.graphic_scene = LIVGraphicScene(-1280 / 2, -720 / 2, 1280, 720)
@@ -62,3 +66,26 @@ class LqtImageViewport(QtWidgets.QWidget):
             array = ensure_rgba_array(array)
 
         self.graphic_scene.image_item.set_image_array(array)
+
+    def add_plugin(self, plugin: BasePluginType):
+        """
+        Add the given plugin to handle.
+
+        Args:
+            plugin:
+                instance of the plugin to draw when necessary.
+                already-added plugins are handled properly (discarded).
+        """
+        if plugin in self._plugins:
+            return
+
+        if isinstance(plugin, BaseScreenSpacePlugin):
+            plugin.initialize(
+                self.graphic_scene.image_item,
+                view=self.graphic_view,
+                parent=self,
+            )
+        else:
+            raise TypeError(f"Unsupported plugin subclass {plugin}")
+
+        self._plugins.append(plugin)

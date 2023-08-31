@@ -21,6 +21,7 @@ except ImportError:
 
 
 from lqtImageViewer import LqtImageViewport
+from lqtImageViewer import ColorPickerPlugin
 
 
 LOGGER = logging.getLogger(__name__)
@@ -30,13 +31,15 @@ class InteractiveImageViewer(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.image_viewer = LqtImageViewport()
-        self.setCentralWidget(self.image_viewer)
-        self.setWindowTitle("LqtImageViewer")
-
+        self.plugin_color_picker = ColorPickerPlugin()
         LOGGER.debug("registering shortcut Ctrl+O")
         QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+O"), self, self.open_image_browser)
 
+        self.setCentralWidget(self.image_viewer)
+        self.setWindowTitle("LqtImageViewer")
         self.statusBar().showMessage("Use Ctrl+O to open an image.")
+        LOGGER.debug(f"registering builtin plugin {self.plugin_color_picker}")
+        self.image_viewer.add_plugin(self.plugin_color_picker)
 
     def open_image_browser(self):
         file_path, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open Image")
