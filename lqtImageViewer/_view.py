@@ -62,6 +62,7 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
     ):
         super().__init__(scene)
         self._scene = scene
+        self._widgets_to_resize: list[QtWidgets.QWidget] = []
         self._shortcuts = key_shortcuts or LIVKeyShortcuts.get_default()
         self._state = GraphicViewState.noneState
         # save at each move
@@ -154,6 +155,12 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
         # offset back the viewport to make it look like we zoom relative to
         # the cursor position
         self._pan_viewport(pos_diff.x(), pos_diff.y())
+
+    def add_widget_to_resize(self, widget: QtWidgets.QWidget):
+        """
+        Ensure the given widget is always scaled to the same dimension as this instance.
+        """
+        self._widgets_to_resize.append(widget)
 
     # Overrides
 
@@ -265,6 +272,7 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
     def resizeEvent(self, event: QtGui.QResizeEvent) -> None:
         super().resizeEvent(event)
         self._update_scene_rect()
+        [widget.setGeometry(self.geometry()) for widget in self._widgets_to_resize]
 
     def wheelEvent(self, event: QtGui.QWheelEvent) -> None:
         """
