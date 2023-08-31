@@ -52,7 +52,7 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
     states = GraphicViewState
 
     zoom_min = 0.1
-    zoom_max = 7
+    zoom_max = 20
 
     def __init__(
         self,
