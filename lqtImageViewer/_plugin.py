@@ -54,6 +54,24 @@ class BaseScreenSpacePlugin(QtWidgets.QWidget):
         self._visible = False
         self.installEventFilter(self)
 
+    @abc.abstractmethod
+    def handle_self_event(self, event: QtCore.QEvent) -> bool:
+        """
+        Determine if the plugin must handle this event or delegate it.
+
+        The override implementation usually handle visiblity and activation by setting
+        the corresponding attributes.
+
+        All event not handled are sent to the QGraphicsView.
+
+        Args:
+            event: any kind of QEvent passed to this instance.
+
+        Returns:
+            True if the plugin must handle/consume this event.
+        """
+        pass
+
     def initialize(
         self, image_item: ImageItem, view: LIVGraphicView, parent: QtWidgets.QWidget
     ):
@@ -153,6 +171,11 @@ class BaseScreenSpacePlugin(QtWidgets.QWidget):
         if event.type() == event.Paint and not self._visible:
             return True
 
+        handle = self.handle_self_event(event)
+        if not handle:
+            QtWidgets.QApplication.sendEvent(self._graphicview.viewport(), event)
+            return True
+
         return super().eventFilter(watched, event)
 
 
@@ -166,8 +189,8 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
         self._origin: Optional[QtCore.QPointF] = None
         self._target: Optional[QtCore.QPointF] = None
 
-    def eventFilter(self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
-        filter_event = False
+    def handle_self_event(self, event: QtCore.QEvent) -> bool:
+        handle_event = True
 
         # we first assume that all mouse events are not consumed by default
         if event.type() in (
@@ -176,7 +199,7 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
             event.MouseMove,
             event.Wheel,
         ):
-            filter_event = True
+            handle_event = False
 
         if (
             isinstance(event, QtGui.QMouseEvent)
@@ -186,7 +209,7 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
         ):
             self._visible = True
             self._activated = True
-            filter_event = False
+            handle_event = True
 
         if (
             isinstance(event, QtGui.QMouseEvent)
@@ -195,16 +218,12 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
             and self._activated
         ):
             self._activated = False
-            filter_event = False
+            handle_event = True
 
-        if filter_event and self._activated:
-            filter_event = False
+        if not handle_event and self._activated:
+            handle_event = True
 
-        if filter_event:
-            QtWidgets.QApplication.sendEvent(self._graphicview.viewport(), event)
-            return True
-
-        return super().eventFilter(watched, event)
+        return handle_event
 
     def mousePressEvent(self, event: QtGui.QMouseEvent):
         super().mousePressEvent(event)
