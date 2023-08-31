@@ -29,10 +29,14 @@ class LqtImageViewport(QtWidgets.QWidget):
     def __init__(self, parent: QtWidgets.QWidget = None):
         super().__init__(parent)
 
+        self._shortcuts = LIVKeyShortcuts.get_default()
         # 1. Create
         self.layout_main = QtWidgets.QVBoxLayout()
         self.graphic_scene = LIVGraphicScene(-1280 / 2, -720 / 2, 1280, 720)
-        self.graphic_view = LIVGraphicView(self.graphic_scene)
+        self.graphic_view = LIVGraphicView(
+            scene=self.graphic_scene,
+            key_shortcuts=self._shortcuts,
+        )
 
         # 2. Add
         self.setLayout(self.layout_main)
