@@ -15,26 +15,6 @@ from ._view import LIVGraphicView
 LOGGER = logging.getLogger(__name__)
 
 
-class BaseWorldSpacePlugin(QtWidgets.QGraphicsItem):
-    def __init__(self, image_item: ImageItem) -> None:
-        super().__init__()
-
-    # Overrides
-
-    @abc.abstractmethod
-    def boundingRect(self) -> QtCore.QRectF:
-        pass
-
-    @abc.abstractmethod
-    def paint(
-        self,
-        painter: QtGui.QPainter,
-        option: QtWidgets.QStyleOptionGraphicsItem,
-        widget: Optional[QtWidgets.QWidget] = None,
-    ) -> None:
-        pass
-
-
 class BaseScreenSpacePlugin(QtWidgets.QWidget):
     """
 
