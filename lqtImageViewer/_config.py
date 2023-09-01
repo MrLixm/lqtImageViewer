@@ -57,6 +57,18 @@ class LIVKeyShortcuts:
             unpick=LIVKeyShortcut(QtCore.Qt.LeftButton, QtCore.Qt.ControlModifier),
         )
 
+    def get_event_matching_shortcut(
+        self, event: QtCore.QEvent
+    ) -> Optional[LIVKeyShortcut]:
+        """
+        Get the shortcut that match the given event or None if not found.
+        """
+        for field in dataclasses.fields(self):
+            field_value: LIVKeyShortcut = getattr(self, field.name)
+            if field_value.match_event(event):
+                return field_value
+        return None
+
 
 @dataclasses.dataclass(frozen=True)
 class _BackgroundStyle:
