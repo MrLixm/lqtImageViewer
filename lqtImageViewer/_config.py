@@ -13,11 +13,16 @@ class LIVKeyShortcut:
     key: Union[QtCore.Qt.Key, QtCore.Qt.MouseButton]
     modifier: Optional[QtCore.Qt.KeyboardModifier]
 
-    def match_event(self, event: Union[QtGui.QKeyEvent, QtGui.QMouseEvent]):
+    def match_event(self, event: QtCore.QEvent):
+        """
+        Return True if the given event match this shortcut.
+        """
         if isinstance(event, QtGui.QKeyEvent):
             key = event.key()
-        else:
+        elif isinstance(event, QtGui.QMouseEvent):
             key = event.button()
+        else:
+            return False
 
         if self.modifier is not None and event.modifiers() != self.modifier:
             return False
