@@ -39,18 +39,9 @@ def _generate_default_image():
 class ImageItem(QtWidgets.QGraphicsItem):
     def __init__(self, parent: Optional[QtWidgets.QGraphicsItem] = None) -> None:
         super().__init__(parent)
+        # TODO expose default image as parameter
         self._image: QtGui.QImage = _generate_default_image()
         self._array: Optional[numpy.ndarray] = None
-        self._is_mouse_over: bool = False
-        self.setFlag(self.ItemIsSelectable)
-        self.setAcceptHoverEvents(True)
-
-    @property
-    def is_mouse_hover(self) -> bool:
-        """
-        Return True if the mouse cursor is currently hovering that item.
-        """
-        return self._is_mouse_over
 
     def set_image_array(self, array: Optional[numpy.ndarray]):
         """
@@ -68,7 +59,7 @@ class ImageItem(QtWidgets.QGraphicsItem):
         # we keep an internal reference to avoid garbage collection
         self._array = array.tobytes()
 
-        LOGGER.debug("generating QImage ...")
+        LOGGER.debug(f"generating QImage from array {array.shape} ...")
 
         self._image = QtGui.QImage(
             self._array,
@@ -82,12 +73,6 @@ class ImageItem(QtWidgets.QGraphicsItem):
 
     def boundingRect(self) -> QtCore.QRectF:
         return QtCore.QRectF(self._image.rect())
-
-    def hoverEnterEvent(self, event: QtWidgets.QGraphicsSceneHoverEvent) -> None:
-        self._is_mouse_over = True
-
-    def hoverLeaveEvent(self, event: QtWidgets.QGraphicsSceneHoverEvent) -> None:
-        self._is_mouse_over = False
 
     def paint(
         self,
