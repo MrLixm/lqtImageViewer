@@ -10,7 +10,6 @@ class LIVGraphicScene(QtWidgets.QGraphicsScene):
         super().__init__(*args, **kwargs)
         self._image_item = ImageItem()
         self.addItem(self._image_item)
-        self._image_item.move_to_scene_origin()
 
     @property
     def image_item(self) -> ImageItem:

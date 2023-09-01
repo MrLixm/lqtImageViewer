@@ -78,6 +78,7 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
 
         self.setCacheMode(self.CacheBackground)
         self.setRenderHint(QtGui.QPainter.Antialiasing)
+        self._center_image()
 
     @property
     def background_style(self) -> BackgroundStyle:
@@ -102,6 +103,12 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
 
         self._grid_cache = grid_brush
         return self._grid_cache
+
+    def _center_image(self):
+        image_rect = self.get_image_rect()
+        scene_rect = self.sceneRect()
+        scene_rect.moveCenter(image_rect.center())
+        self.setSceneRect(scene_rect)
 
     def _pan_viewport(self, x_amount: float, y_amount: float):
         """
@@ -162,12 +169,14 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
         """
         self._widgets_to_resize.append(widget)
 
-    def get_image_viewport_rect(self):
+    def get_image_rect(self) -> QtCore.QRectF:
         """
-        Get the area currently taken by the image item, in viewport coordinates.
+        Get the image area in scene coordinates relative to himself.
+
+        (top-left start at 0,0)
         """
-        shape = self.mapFromScene(self._scene.image_item.sceneBoundingRect())
-        return shape.boundingRect()
+        return self._scene.image_item.sceneBoundingRect()
+
 
     # Overrides
 
@@ -197,9 +206,7 @@ class LIVGraphicView(QtWidgets.QGraphicsView):
             return
 
         elif self._shortcuts.reset_pan.match_event(event):
-            scene_rect = self.sceneRect()
-            scene_rect.moveCenter(QtCore.QPointF(0, 0))
-            self.setSceneRect(scene_rect)
+            self._center_image()
             return
 
         super().keyPressEvent(event)

@@ -52,10 +52,6 @@ class ImageItem(QtWidgets.QGraphicsItem):
         """
         return self._is_mouse_over
 
-    def move_to_scene_origin(self):
-        self.setPos(0, 0)
-        self.moveBy(-self.boundingRect().width() / 2, -self.boundingRect().height() / 2)
-
     def set_image_array(self, array: Optional[numpy.ndarray]):
         """
         References:
@@ -81,7 +77,6 @@ class ImageItem(QtWidgets.QGraphicsItem):
             QtGui.QImage.Format_RGBA64,
         )
         self.update()
-        self.move_to_scene_origin()
 
     # Overrides
 
