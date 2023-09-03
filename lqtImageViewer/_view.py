@@ -175,6 +175,7 @@ class NavigableGraphicView(QtWidgets.QGraphicsView):
         """
         On mouse button pressed, set states depending on buttons.
         """
+        super().mousePressEvent(event)
         self._mouse_initial_pos = QtGui.QCursor.pos()
         self._selected_items_initial = self.scene().selectedItems()
 
