@@ -48,18 +48,27 @@ class BaseScreenSpacePlugin(QtWidgets.QGraphicsItem):
         self._transform = new_transform
 
     @property
-    def image_item(self) -> ImageItem:
+    def image_item(self) -> Optional[ImageItem]:
         """
         The image item living in the same scene as this plugin.
+
+        Return None if the plugin hasn't been loaded into a scene yet.
         """
         scene: LIVGraphicScene = self.scene()
+        if not scene:
+            return None
         return scene.image_item
 
     @property
-    def image_scene_rect(self) -> QtCore.QRectF:
+    def image_scene_rect(self) -> Optional[QtCore.QRectF]:
         """
         Rectangular area of the image in screenspace coordinates (already mapped).
+
+        Return None if the plugin hasn't been loaded into a scene yet.
         """
+        image = self.image_item
+        if not image:
+            return None
         return self.map_to_screenspace(self.image_item.sceneBoundingRect())
 
     @typing.overload
