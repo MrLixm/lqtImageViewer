@@ -209,6 +209,7 @@ class NavigableGraphicView(QtWidgets.QGraphicsView):
         """
         On mouse wheel active, zoom the viewport.
         """
+        super().wheelEvent(event)
         delta = event.angleDelta().y()
         amount = 2 ** (delta * 0.001)
         self._zoom_viewport(amount, QtGui.QCursor.pos())
