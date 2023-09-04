@@ -21,7 +21,7 @@ class LIVKeyShortcut:
     Main input to match the event against
     """
 
-    modifiers: Optional[tuple[QtCore.Qt.KeyboardModifier]]
+    modifiers: Optional[tuple[QtCore.Qt.KeyboardModifier, ...]]
     """
     Modifiers keys that must be active along the main key to be matched.
     
@@ -34,10 +34,18 @@ class LIVKeyShortcut:
     Determine how strict the modifier must be matched against the event 
     """
 
-    def match_event(self, event: QtCore.QEvent):
+    def match_event(
+        self,
+        event: QtCore.QEvent,
+        modifier_matching: Optional[ShortcutModifierMatching] = None,
+    ):
         """
         Return True if the given event match this shortcut.
         """
+        modifier_matching = (
+            self.modifier_matching if modifier_matching is None else modifier_matching
+        )
+
         if isinstance(event, QtGui.QKeyEvent):
             key = event.key()
         elif isinstance(event, QtGui.QMouseEvent):
@@ -52,19 +60,19 @@ class LIVKeyShortcut:
 
         if (
             self.modifiers is not None
-            and self.modifier_matching == ShortcutModifierMatching.exact
+            and modifier_matching == ShortcutModifierMatching.exact
             and event.modifiers() != exact_modifiers
         ):
             return False
         elif (
             self.modifiers is not None
-            and self.modifier_matching == ShortcutModifierMatching.contains_all
+            and modifier_matching == ShortcutModifierMatching.contains_all
             and not all([event.modifiers() & modifier for modifier in self.modifiers])
         ):
             return False
         elif (
             self.modifiers is not None
-            and self.modifier_matching == ShortcutModifierMatching.contains_any
+            and modifier_matching == ShortcutModifierMatching.contains_any
             and not any([event.modifiers() & modifier for modifier in self.modifiers])
         ):
             return False
