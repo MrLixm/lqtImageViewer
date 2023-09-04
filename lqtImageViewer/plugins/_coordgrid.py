@@ -1,4 +1,5 @@
 import logging
+import time
 from typing import Optional
 
 from Qt import QtCore
@@ -114,21 +115,22 @@ class CoordinatesGridPlugin(BaseScreenSpacePlugin):
         self.hide()
 
     def set_visibility_from_scene_event(self, event: QtCore.QEvent):
+        modifier_matching_any = (
+            self.shortcuts.view_coordinates2.modifier_matching.contains_any
+        )
+
         if (
-            isinstance(event, QtGui.QKeyEvent)
-            and (
-                event.type() == event.ShortcutOverride or event.type() == event.KeyPress
-            )
-            and event.modifiers() & QtCore.Qt.AltModifier
-            and event.modifiers() & QtCore.Qt.ShiftModifier
+            event.type() == event.ShortcutOverride or event.type() == event.KeyPress
+        ) and (
+            self.shortcuts.view_coordinates1.match_event(event)
+            or self.shortcuts.view_coordinates2.match_event(event)
         ):
             self.show()
-        elif (
-            isinstance(event, QtGui.QKeyEvent)
-            and event.type() == event.KeyRelease
-            and not (
-                event.modifiers() & QtCore.Qt.AltModifier
-                and event.modifiers() & QtCore.Qt.ShiftModifier
+
+        elif event.type() == event.KeyRelease and (
+            self.shortcuts.view_coordinates1.match_event(event, modifier_matching_any)
+            or self.shortcuts.view_coordinates2.match_event(
+                event, modifier_matching_any
             )
         ):
             self.hide()
@@ -139,13 +141,9 @@ class CoordinatesGridPlugin(BaseScreenSpacePlugin):
             self._rect = self.image_item.sceneBoundingRect()
         super().reload()
 
-    def sceneEvent(self, event: QtCore.QEvent) -> bool:
-        print(event.type())
-        return super().sceneEvent(event)
-
     def wheelEvent(self, event: QtWidgets.QGraphicsSceneWheelEvent):
-        if not event.modifiers() & QtCore.Qt.AltModifier:
-            return
+        # can only be called when visible, which is when shortcut is active,
+        # so no need to double-check modifiers
         if event.delta() > 0:
             self._tiles_number += 1
         else:

@@ -93,6 +93,9 @@ class LIVKeyShortcuts:
     zoom2: LIVKeyShortcut
     pick: LIVKeyShortcut
     unpick: LIVKeyShortcut
+    view_coordinates1: LIVKeyShortcut
+    view_coordinates2: LIVKeyShortcut
+    set_coordinates_tiles: LIVKeyShortcut
 
     @classmethod
     def get_default(cls):
@@ -105,6 +108,16 @@ class LIVKeyShortcuts:
             zoom2=LIVKeyShortcut(QtCore.Qt.MiddleButton, (QtCore.Qt.AltModifier,)),
             pick=LIVKeyShortcut(QtCore.Qt.LeftButton, (QtCore.Qt.ShiftModifier,)),
             unpick=LIVKeyShortcut(QtCore.Qt.LeftButton, (QtCore.Qt.ControlModifier,)),
+            view_coordinates1=LIVKeyShortcut(
+                QtCore.Qt.Key_Alt, (QtCore.Qt.ShiftModifier, QtCore.Qt.AltModifier)
+            ),
+            view_coordinates2=LIVKeyShortcut(
+                QtCore.Qt.Key_Shift, (QtCore.Qt.AltModifier, QtCore.Qt.ShiftModifier)
+            ),
+            # not actually used
+            set_coordinates_tiles=LIVKeyShortcut(
+                QtCore.Qt.MiddleButton, (QtCore.Qt.AltModifier, QtCore.Qt.ShiftModifier)
+            ),
         )
 
     def get_event_matching_shortcut(
