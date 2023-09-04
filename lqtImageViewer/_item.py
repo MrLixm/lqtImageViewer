@@ -1,4 +1,6 @@
 import logging
+import random
+import time
 from typing import Optional
 
 import numpy
@@ -10,9 +12,15 @@ from Qt import QtWidgets
 LOGGER = logging.getLogger(__name__)
 
 
-def _generate_default_image():
-    image_size = 512
-    tile_number = 5
+def _generate_default_image(image_size=512, tile_number=5, noise_opacity=5):
+    """
+    Generate a checker image to use as default when no image loaded yet.
+
+    Args:
+        image_size: in pixels, width and height of the image.
+        tile_number: number of checker tile visible. MUST be uneven number.
+        noise_opacity: [0-255] range, opcaity of the random nosie layered on top.
+    """
     tile_size = image_size / tile_number
 
     image = QtGui.QImage(image_size, image_size, QtGui.QImage.Format_RGB888)
@@ -21,16 +29,33 @@ def _generate_default_image():
     painter = QtGui.QPainter(image)
     painter.setRenderHint(painter.Antialiasing, False)
 
+    # we precalculate a tile of noise that will be repeated, to avoid performance hit
+    # it is faster than iterating over all the image pixel to draw a random color
+    pixmap_noise = QtGui.QPixmap(int(tile_size), int(tile_size))
+    pixmap_noise.fill(QtGui.QColor(0, 0, 0, 0))
+    painter_noise = QtGui.QPainter(pixmap_noise)
+    # arbitrary seed to ensure noise pattern is the same between runs
+    random.seed(4325615)
+    for x in range(int(tile_size)):
+        for y in range(int(tile_size)):
+            color = random.randint(0, 255)
+            painter_noise.fillRect(
+                QtCore.QRect(x, y, 1, 1),
+                QtGui.QColor(color, color, color, noise_opacity),
+            )
+    painter_noise.end()
+
     for tile_n_x in range(0, tile_number, 1):
         for tile_n_y in range(0, tile_number, 1):
+            rect = QtCore.QRectF(
+                tile_size * tile_n_x,
+                tile_size * tile_n_y,
+                tile_size,
+                tile_size,
+            )
             if (tile_n_x + tile_n_y) % 2 == 0:
-                rect = QtCore.QRectF(
-                    tile_size * tile_n_x,
-                    tile_size * tile_n_y,
-                    tile_size,
-                    tile_size,
-                )
                 painter.fillRect(rect, QtGui.QColor(135, 135, 135))
+            painter.drawPixmap(rect.toRect(), pixmap_noise)
 
     painter.end()
     return image
