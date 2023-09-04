@@ -30,6 +30,7 @@ class LqtImageViewport(QtWidgets.QWidget):
     def __init__(self, parent: QtWidgets.QWidget = None):
         super().__init__(parent)
 
+        self._plugins: list[BasePluginType] = []
         self._shortcuts = LIVKeyShortcuts.get_default()
         # 1. Create
         self.layout_main = QtWidgets.QVBoxLayout()
@@ -45,6 +46,12 @@ class LqtImageViewport(QtWidgets.QWidget):
 
         # 3. Modify
         self.layout_main.setContentsMargins(0, 0, 0, 0)
+        self.graphic_scene.installEventFilter(self)
+
+    def eventFilter(self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
+        if watched is self.graphic_scene:
+            [plugin.set_visibility_from_scene_event(event) for plugin in self._plugins]
+        return super().eventFilter(watched, event)
 
     def set_image_from_array(self, array: numpy.ndarray):
         """
@@ -73,4 +80,7 @@ class LqtImageViewport(QtWidgets.QWidget):
                 instance of the plugin to draw when necessary.
                 already-added plugins are handled properly (discarded).
         """
+        if plugin in self._plugins:
+            return
+        self._plugins.append(plugin)
         self.graphic_view.add_plugin(plugin)

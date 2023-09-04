@@ -155,6 +155,19 @@ class BaseScreenSpacePlugin(QtWidgets.QGraphicsItem):
         """
         self.prepareGeometryChange()
 
+    def set_visibility_from_scene_event(self, event: QtCore.QEvent):
+        """
+        Method to override in super class that can be used to show or hide the plugin
+        based on the current events.
+
+        You are responsible for calling show() or hide() properly and not overriding
+        any existing shortcuts.
+
+        Args:
+            event: arbitrary event send to the graphics scene
+        """
+        pass
+
     # Overrides
 
     @abc.abstractmethod
