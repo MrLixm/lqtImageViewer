@@ -12,6 +12,7 @@ from lqtImageViewer._encoding import convert_bit_depth
 from lqtImageViewer._encoding import ensure_rgba_array
 from lqtImageViewer.plugins import BasePluginType
 from lqtImageViewer.plugins import CoordinatesGridPlugin
+from lqtImageViewer.plugins import ColorPickerPlugin
 
 LOGGER = logging.getLogger(__name__)
 
@@ -39,17 +40,28 @@ class LqtImageViewport(QtWidgets.QWidget):
             scene=self.graphic_scene,
             key_shortcuts=self._shortcuts,
         )
+        self.plugin_color_picker = ColorPickerPlugin()
         self.plugins_coord = CoordinatesGridPlugin()
 
         # 2. Add
         self.setLayout(self.layout_main)
         self.layout_main.addWidget(self.graphic_view)
+        LOGGER.debug(f"registering builtin plugin {self.plugins_coord}")
         self.add_plugin(self.plugins_coord)
+        LOGGER.debug(f"registering builtin plugin {self.plugin_color_picker}")
+        self.add_plugin(self.plugin_color_picker)
 
         # 3. Modify
         self.layout_main.setContentsMargins(0, 0, 0, 0)
         self.graphic_scene.installEventFilter(self)
         self.graphic_scene.shortcuts = self._shortcuts
+
+    @property
+    def color_picker(self):
+        """
+        Get the color picker builtin plugin.
+        """
+        return self.plugin_color_picker
 
     def eventFilter(self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
         if watched is self.graphic_scene:
