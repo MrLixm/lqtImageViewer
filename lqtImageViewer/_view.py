@@ -11,7 +11,7 @@ from ._config import LIVKeyShortcuts
 from ._config import BackgroundStyle
 from ._item import ImageItem
 from ._scene import LIVGraphicScene
-from ._scene import ScreenSpaceGraphicsScene
+from ._plugin import BasePluginType
 
 LOGGER = logging.getLogger(__name__)
 
@@ -223,6 +223,7 @@ class LIVGraphicView(NavigableGraphicView):
     ):
         super().__init__(scene=scene, key_shortcuts=key_shortcuts)
         self._scene: LIVGraphicScene = scene
+        self._plugins: list[BasePluginType] = []
 
         self._background_style = background_style or BackgroundStyle.dark_grid_dot
         self._grid_cache = self._cache_grid()
@@ -265,6 +266,24 @@ class LIVGraphicView(NavigableGraphicView):
         scene_rect.moveCenter(image_rect.center())
         self.setSceneRect(scene_rect)
 
+    def _update_plugins(self):
+        """
+        Propagate zoom changes to the plugins, so they can update visually.
+        """
+        for plugin in self._plugins:
+            plugin.transform = self.transform()
+            plugin.prepareGeometryChange()
+
+    def add_plugin(self, plugin: BasePluginType):
+        """
+        Add the given plugin to handle in the scene and view.
+        """
+        if plugin in self._plugins:
+            return
+
+        self._plugins.append(plugin)
+        self.scene().addItem(plugin)
+
     def get_image_rect(self) -> QtCore.QRectF:
         """
         Get the image area in scene coordinates relative to himself.
@@ -273,55 +292,11 @@ class LIVGraphicView(NavigableGraphicView):
         """
         return self._scene.image_item.sceneBoundingRect()
 
-    @typing.overload
-    def map_to_image_coordinates(self, obj: QtGui.QPainterPath) -> QtGui.QPainterPath:
-        ...
-
-    @typing.overload
-    def map_to_image_coordinates(self, obj: QtCore.QPoint) -> QtCore.QPointF:
-        ...
-
-    @typing.overload
-    def map_to_image_coordinates(self, obj: QtCore.QRect) -> QtGui.QPolygonF:
-        ...
-
-    @typing.overload
-    def map_to_image_coordinates(self, obj: QtGui.QPolygon) -> QtGui.QPolygonF:
-        ...
-
-    def map_to_image_coordinates(self, obj):
-        """
-        Convert local widget coordinates to image scene coordinates.
-
-        Image coordinates assume top-left is x=0,y=0
-        """
-        return self.image_item.mapFromScene(self.mapToScene(obj))
-
-    @typing.overload
-    def map_from_image_coordinates(self, obj: QtGui.QPainterPath) -> QtGui.QPainterPath:
-        ...
-
-    @typing.overload
-    def map_from_image_coordinates(self, obj: QtCore.QPointF) -> QtCore.QPoint:
-        ...
-
-    @typing.overload
-    def map_from_image_coordinates(self, obj: QtCore.QRectF) -> QtGui.QPolygon:
-        ...
-
-    @typing.overload
-    def map_from_image_coordinates(self, obj: QtGui.QPolygonF) -> QtGui.QPolygon:
-        ...
-
-    def map_from_image_coordinates(self, obj):
-        """
-        Convert scene image coordinates to local widget coordinates.
-
-        Image coordinates assume top-left is x=0,y=0
-        """
-        return self.mapFromScene(self.image_item.mapToScene(obj))
-
     # Overrides
+
+    def _zoom_viewport(self, amount: float, cursor_pos: QtCore.QPoint):
+        super()._zoom_viewport(amount, cursor_pos)
+        self._update_plugins()
 
     def drawBackground(self, painter: QtGui.QPainter, rect: QtCore.QRectF):
         """
@@ -348,90 +323,3 @@ class LIVGraphicView(NavigableGraphicView):
             return
 
         super().keyPressEvent(event)
-
-
-class ScreenSpaceGraphicsView(NavigableGraphicView):
-    states = GraphicViewState
-    zoom_enable = False
-
-    def __init__(
-        self,
-        scene: ScreenSpaceGraphicsScene,
-        view_background: LIVGraphicView,
-        key_shortcuts: Optional[LIVKeyShortcuts] = None,
-    ):
-        super().__init__(scene=scene, key_shortcuts=key_shortcuts)
-        self._scene: ScreenSpaceGraphicsScene = scene
-        self._view_background: LIVGraphicView = view_background
-        # XXX: only way to make the background transparent
-        self.setStyleSheet("background: transparent;")
-
-    def get_image_rect(self):
-        """
-        Get the image area in scene coordinates relative to himself.
-
-        (top-left start at 0,0)
-        """
-        return self._view_background.get_image_rect()
-
-    @typing.overload
-    def map_to_image_coordinates(self, obj: QtGui.QPainterPath) -> QtGui.QPainterPath:
-        ...
-
-    @typing.overload
-    def map_to_image_coordinates(self, obj: QtCore.QPoint) -> QtCore.QPointF:
-        ...
-
-    @typing.overload
-    def map_to_image_coordinates(self, obj: QtCore.QRect) -> QtGui.QPolygonF:
-        ...
-
-    @typing.overload
-    def map_to_image_coordinates(self, obj: QtGui.QPolygon) -> QtGui.QPolygonF:
-        ...
-
-    def map_to_image_coordinates(self, obj):
-        """
-        Convert local widget coordinates to image scene coordinates.
-
-        Image coordinates assume top-left is x=0,y=0
-        """
-        mapped = self.mapFromScene(self._view_background.map_to_image_coordinates(obj))
-        if isinstance(mapped, QtGui.QPolygon):
-            mapped = QtGui.QPolygonF(mapped)
-        elif isinstance(mapped, QtCore.QRect):
-            mapped = QtCore.QRectF(mapped)
-        elif isinstance(mapped, QtCore.QPoint):
-            mapped = QtCore.QPointF(mapped)
-        return mapped
-
-    @typing.overload
-    def map_from_image_coordinates(self, obj: QtGui.QPainterPath) -> QtGui.QPainterPath:
-        ...
-
-    @typing.overload
-    def map_from_image_coordinates(self, obj: QtCore.QPointF) -> QtCore.QPoint:
-        ...
-
-    @typing.overload
-    def map_from_image_coordinates(self, obj: QtCore.QRectF) -> QtGui.QPolygon:
-        ...
-
-    @typing.overload
-    def map_from_image_coordinates(self, obj: QtGui.QPolygonF) -> QtGui.QPolygon:
-        ...
-
-    def map_from_image_coordinates(self, obj):
-        """
-        Convert image coordinates to local widget coordinates.
-
-        Image coordinates assume top-left is x=0,y=0
-        """
-        mapped = self.mapToScene(self._view_background.map_from_image_coordinates(obj))
-        if isinstance(mapped, QtGui.QPolygonF):
-            mapped = mapped.toPolygon()
-        elif isinstance(mapped, QtCore.QRectF):
-            mapped = mapped.toRect()
-        elif isinstance(mapped, QtCore.QPointF):
-            mapped = mapped.toPoint()
-        return mapped

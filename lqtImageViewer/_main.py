@@ -7,26 +7,13 @@ from Qt import QtWidgets
 
 from lqtImageViewer._config import LIVKeyShortcuts
 from lqtImageViewer._scene import LIVGraphicScene
-from lqtImageViewer._scene import ScreenSpaceGraphicsScene
 from lqtImageViewer._view import LIVGraphicView
-from lqtImageViewer._view import ScreenSpaceGraphicsView
 from lqtImageViewer._encoding import convert_bit_depth
 from lqtImageViewer._encoding import ensure_rgba_array
 from lqtImageViewer._plugin import BasePluginType
 from lqtImageViewer._plugin import BaseScreenSpacePlugin
 
 LOGGER = logging.getLogger(__name__)
-
-
-class MouseEventCatcher(QtWidgets.QWidget):
-    """
-    A widget made to be top level and just catch mosue events.
-    """
-
-    def __init__(self):
-        super().__init__()
-        self.setAttribute(QtCore.Qt.WA_AlwaysStackOnTop)
-        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
 
 class LqtImageViewport(QtWidgets.QWidget):
@@ -43,54 +30,21 @@ class LqtImageViewport(QtWidgets.QWidget):
     def __init__(self, parent: QtWidgets.QWidget = None):
         super().__init__(parent)
 
-        self._plugins: list[BasePluginType] = []
         self._shortcuts = LIVKeyShortcuts.get_default()
-
         # 1. Create
-        self.event_catcher = MouseEventCatcher()
-        self.graphic_scene = LIVGraphicScene(0, 0, 128, 128)
-        self.graphic_scene_top = ScreenSpaceGraphicsScene(0, 0, 128, 128)
+        self.layout_main = QtWidgets.QVBoxLayout()
+        self.graphic_scene = LIVGraphicScene(-1280 / 2, -720 / 2, 1280, 720)
         self.graphic_view = LIVGraphicView(
             scene=self.graphic_scene,
             key_shortcuts=self._shortcuts,
         )
-        self.graphic_view_top = ScreenSpaceGraphicsView(
-            scene=self.graphic_scene_top,
-            view_background=self.graphic_view,
-            key_shortcuts=self._shortcuts,
-        )
 
         # 2. Add
-        self.graphic_view.setParent(self)
-        self.graphic_view_top.setParent(self)
-        # ! must be added last to be on top
-        self.event_catcher.setParent(self)
+        self.setLayout(self.layout_main)
+        self.layout_main.addWidget(self.graphic_view)
 
         # 3. Modify
-        self.event_catcher.installEventFilter(self)
-
-    def resizeEvent(self, event: QtGui.QResizeEvent):
-        super().resizeEvent(event)
-        geometry = self.geometry()
-        self.event_catcher.setGeometry(geometry)
-        self.graphic_view.setGeometry(geometry)
-        self.graphic_view_top.setGeometry(geometry)
-
-    def eventFilter(self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
-        if watched != self.event_catcher:
-            return super().eventFilter(watched, event)
-
-        if event.type() in (
-            event.MouseButtonPress,
-            event.MouseButtonRelease,
-            event.MouseMove,
-            event.Wheel,
-        ):
-            QtWidgets.QApplication.sendEvent(self.graphic_view.viewport(), event)
-            QtWidgets.QApplication.sendEvent(self.graphic_view_top.viewport(), event)
-            return True
-
-        return super().eventFilter(watched, event)
+        self.layout_main.setContentsMargins(0, 0, 0, 0)
 
     def set_image_from_array(self, array: numpy.ndarray):
         """
@@ -119,12 +73,4 @@ class LqtImageViewport(QtWidgets.QWidget):
                 instance of the plugin to draw when necessary.
                 already-added plugins are handled properly (discarded).
         """
-        if plugin in self._plugins:
-            return
-
-        if isinstance(plugin, BaseScreenSpacePlugin):
-            plugin.initialize(screenspace_view=self.graphic_view_top)
-        else:
-            raise TypeError(f"Unsupported plugin subclass {plugin}")
-
-        self._plugins.append(plugin)
+        self.graphic_view.add_plugin(plugin)
