@@ -10,8 +10,8 @@ from lqtImageViewer._scene import LIVGraphicScene
 from lqtImageViewer._view import LIVGraphicView
 from lqtImageViewer._encoding import convert_bit_depth
 from lqtImageViewer._encoding import ensure_rgba_array
-from lqtImageViewer._plugin import BasePluginType
-from lqtImageViewer._plugin import BaseScreenSpacePlugin
+from lqtImageViewer.plugins import BasePluginType
+from lqtImageViewer.plugins import BaseScreenSpacePlugin
 
 LOGGER = logging.getLogger(__name__)
 

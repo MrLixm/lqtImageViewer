@@ -11,7 +11,7 @@ from ._config import LIVKeyShortcuts
 from ._config import BackgroundStyle
 from ._item import ImageItem
 from ._scene import LIVGraphicScene
-from ._plugin import BasePluginType
+from .plugins import BasePluginType
 
 LOGGER = logging.getLogger(__name__)
 
