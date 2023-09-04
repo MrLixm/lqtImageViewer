@@ -92,9 +92,9 @@ def _draw_coordinates_grid(
 
         painter.save()
         painter.drawPoint(screenspace_point)
-        x = source_grid[index].x()
-        y = source_grid[index].y()
-        painter.drawText(text_rect, alignment, f"x{x:0.2f}\ny{y:0.2f}")
+        x = int(source_grid[index].x())
+        y = int(source_grid[index].y())
+        painter.drawText(text_rect, alignment, f"x{x}\ny{y}")
         painter.restore()
 
 
