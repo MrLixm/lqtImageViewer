@@ -7,3 +7,5 @@ from .plugins import ColorPickerPlugin
 from ._scene import LIVGraphicScene
 from ._view import LIVGraphicView
 from ._main import LqtImageViewport
+from ._config import BaseBackgroundStyle
+from ._config import LIVKeyShortcut

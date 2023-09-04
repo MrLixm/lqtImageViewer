@@ -1,6 +1,5 @@
 import enum
 import logging
-import typing
 from typing import Optional
 
 from Qt import QtCore
@@ -8,7 +7,8 @@ from Qt import QtGui
 from Qt import QtWidgets
 
 from ._config import LIVKeyShortcuts
-from ._config import BackgroundStyle
+from ._config import BaseBackgroundStyle
+from ._config import BackgroundStyleLibrary
 from ._item import ImageItem
 from ._scene import LIVGraphicScene
 from .plugins import BasePluginType
@@ -22,32 +22,6 @@ class GraphicViewState(enum.IntFlag):
     zoomState = enum.auto()
     pickState = enum.auto()
     unpickState = enum.auto()
-
-
-def create_dot_grid(background_color: QtGui.QColor, foreground_color: QtGui.QColor):
-    """
-    Generate the pattern necessary to build a grid of dots once tiles.
-    """
-    resolution = 1024
-    dot_size = 50
-    center = QtCore.QPointF(resolution // 2, resolution // 2)
-
-    gradient = QtGui.QRadialGradient(center, 50)
-    gradient.setColorAt(1, QtCore.Qt.transparent)
-    gradient.setColorAt(0, foreground_color)
-    gradient.setFocalRadius(44)
-
-    pixmap = QtGui.QPixmap(QtCore.QSize(resolution, resolution))
-    pixmap.fill(background_color)
-
-    painter = QtGui.QPainter(pixmap)
-    painter.setRenderHint(painter.Antialiasing)
-
-    painter.setPen(QtCore.Qt.PenStyle.NoPen)
-    painter.setBrush(QtGui.QBrush(gradient))
-    painter.drawEllipse(center, dot_size, dot_size)
-    painter.end()
-    return pixmap
 
 
 class NavigableGraphicView(QtWidgets.QGraphicsView):
@@ -124,6 +98,7 @@ class NavigableGraphicView(QtWidgets.QGraphicsView):
             return
 
         new_zoom = self._zoom * amount
+        new_zoom = round(new_zoom, 6)
 
         # limit zoom
         if new_zoom < self.zoom_min or new_zoom > self.zoom_max:
@@ -220,46 +195,33 @@ class LIVGraphicView(NavigableGraphicView):
         self,
         scene: LIVGraphicScene,
         key_shortcuts: Optional[LIVKeyShortcuts] = None,
-        background_style: Optional[BackgroundStyle] = None,
+        background_style: Optional[BaseBackgroundStyle] = None,
     ):
         super().__init__(scene=scene, key_shortcuts=key_shortcuts)
         self._scene: LIVGraphicScene = scene
         self._plugins: list[BasePluginType] = []
 
-        self._background_style = background_style or BackgroundStyle.dark_grid_dot
-        self._grid_cache = self._cache_grid()
+        self._background_style = (
+            background_style or BackgroundStyleLibrary.dark_grid_dot
+        )
 
         self.setCacheMode(self.CacheBackground)
         self.setRenderHint(QtGui.QPainter.Antialiasing)
         self._center_image()
 
     @property
-    def background_style(self) -> BackgroundStyle:
+    def background_style(self) -> BaseBackgroundStyle:
         return self._background_style
 
     @background_style.setter
-    def background_style(self, new_background_style: BackgroundStyle):
+    def background_style(self, new_background_style: BaseBackgroundStyle):
         self._background_style = new_background_style
+        self.resetCachedContent()
+        self.update()
 
     @property
     def image_item(self) -> ImageItem:
         return self._scene.image_item
-
-    def _cache_grid(self):
-        grid_shape = create_dot_grid(
-            self._background_style.value.primary,
-            self._background_style.value.secondary,
-        )
-
-        grid_brush = QtGui.QBrush(self._background_style.value.primary)
-        grid_brush.setTexture(grid_shape)
-        # hack to avoid pixelated image when zooming
-        transform = QtGui.QTransform()
-        transform.scale(0.05, 0.05)
-        grid_brush.setTransform(transform)
-
-        self._grid_cache = grid_brush
-        return self._grid_cache
 
     def _center_image(self):
         image_rect = self.get_image_rect()
@@ -304,9 +266,8 @@ class LIVGraphicView(NavigableGraphicView):
         """
         Generated a grid pattern as background.
         """
-        brush = self._background_style.value.primary
-        if self._zoom > 0.3 and self._background_style.value.draw_grid:
-            brush = self._grid_cache
+        draw_texture = self._background_style.should_use_background_texture(self._zoom)
+        brush = self._background_style.generate_background_brush(draw_texture)
         painter.fillRect(rect, brush)
 
     def keyPressEvent(self, event: QtGui.QKeyEvent):
@@ -314,8 +275,7 @@ class LIVGraphicView(NavigableGraphicView):
         Configure key shortucts.
         """
         if self._shortcuts.change_background.match_event(event):
-            self._background_style = self._background_style.next(self._background_style)
-            self._cache_grid()
+            self._background_style = BackgroundStyleLibrary.next(self._background_style)
             self.resetCachedContent()
             self.update()
             return
