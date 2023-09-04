@@ -85,6 +85,7 @@ class LqtImageViewport(QtWidgets.QWidget):
             array = ensure_rgba_array(array)
 
         self.graphic_scene.image_item.set_image_array(array)
+        [plugin.reload() for plugin in self._plugins]
 
     def add_plugin(self, plugin: BasePluginType):
         """
