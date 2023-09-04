@@ -10,6 +10,7 @@ from Qt import QtWidgets
 
 from lqtImageViewer._item import ImageItem
 from lqtImageViewer._scene import LIVGraphicScene
+from lqtImageViewer._config import LIVKeyShortcuts
 
 
 LOGGER = logging.getLogger(__name__)
@@ -70,6 +71,16 @@ class BaseScreenSpacePlugin(QtWidgets.QGraphicsItem):
         if not image:
             return None
         return self.map_to_screenspace(self.image_item.sceneBoundingRect())
+
+    @property
+    def shortcuts(self) -> Optional[LIVKeyShortcuts]:
+        """
+        Key shortcuts curtenly configured for the application.
+        """
+        scene: LIVGraphicScene = self.scene()
+        if not scene:
+            return None
+        return scene.shortcuts
 
     @typing.overload
     def map_from_screenspace(self, obj: QtGui.QPainterPath) -> QtGui.QPainterPath:

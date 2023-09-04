@@ -49,6 +49,7 @@ class LqtImageViewport(QtWidgets.QWidget):
         # 3. Modify
         self.layout_main.setContentsMargins(0, 0, 0, 0)
         self.graphic_scene.installEventFilter(self)
+        self.graphic_scene.shortcuts = self._shortcuts
 
     def eventFilter(self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
         if watched is self.graphic_scene:
