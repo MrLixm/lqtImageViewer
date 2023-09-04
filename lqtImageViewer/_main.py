@@ -11,7 +11,7 @@ from lqtImageViewer._view import LIVGraphicView
 from lqtImageViewer._encoding import convert_bit_depth
 from lqtImageViewer._encoding import ensure_rgba_array
 from lqtImageViewer.plugins import BasePluginType
-from lqtImageViewer.plugins import BaseScreenSpacePlugin
+from lqtImageViewer.plugins import CoordinatesGridPlugin
 
 LOGGER = logging.getLogger(__name__)
 
@@ -39,10 +39,12 @@ class LqtImageViewport(QtWidgets.QWidget):
             scene=self.graphic_scene,
             key_shortcuts=self._shortcuts,
         )
+        self.plugins_coord = CoordinatesGridPlugin()
 
         # 2. Add
         self.setLayout(self.layout_main)
         self.layout_main.addWidget(self.graphic_view)
+        self.add_plugin(self.plugins_coord)
 
         # 3. Modify
         self.layout_main.setContentsMargins(0, 0, 0, 0)
