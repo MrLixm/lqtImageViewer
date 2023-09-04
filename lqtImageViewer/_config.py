@@ -103,20 +103,31 @@ class LIVKeyShortcuts:
             reset_zoom=LIVKeyShortcut(QtCore.Qt.Key_Home, tuple()),
             reset_pan=LIVKeyShortcut(QtCore.Qt.Key_F, tuple()),
             change_background=LIVKeyShortcut(QtCore.Qt.Key_B, tuple()),
-            pan1=LIVKeyShortcut(QtCore.Qt.LeftButton, (QtCore.Qt.AltModifier,)),
+            pan1=LIVKeyShortcut(
+                QtCore.Qt.LeftButton,
+                (QtCore.Qt.AltModifier,),
+                ShortcutModifierMatching.contains_all,
+            ),
             pan2=LIVKeyShortcut(QtCore.Qt.MiddleButton, (QtCore.Qt.NoModifier,)),
-            zoom2=LIVKeyShortcut(QtCore.Qt.MiddleButton, (QtCore.Qt.AltModifier,)),
+            zoom2=LIVKeyShortcut(
+                QtCore.Qt.MiddleButton,
+                (QtCore.Qt.AltModifier,),
+                ShortcutModifierMatching.contains_all,
+            ),
             pick=LIVKeyShortcut(QtCore.Qt.LeftButton, (QtCore.Qt.ShiftModifier,)),
             unpick=LIVKeyShortcut(QtCore.Qt.LeftButton, (QtCore.Qt.ControlModifier,)),
             view_coordinates1=LIVKeyShortcut(
-                QtCore.Qt.Key_Alt, (QtCore.Qt.ShiftModifier, QtCore.Qt.AltModifier)
+                QtCore.Qt.Key_Alt,
+                (QtCore.Qt.ShiftModifier, QtCore.Qt.AltModifier),
             ),
             view_coordinates2=LIVKeyShortcut(
-                QtCore.Qt.Key_Shift, (QtCore.Qt.AltModifier, QtCore.Qt.ShiftModifier)
+                QtCore.Qt.Key_Shift,
+                (QtCore.Qt.AltModifier, QtCore.Qt.ShiftModifier),
             ),
             # not actually used
             set_coordinates_tiles=LIVKeyShortcut(
-                QtCore.Qt.MiddleButton, (QtCore.Qt.AltModifier, QtCore.Qt.ShiftModifier)
+                QtCore.Qt.MiddleButton,
+                (QtCore.Qt.AltModifier, QtCore.Qt.ShiftModifier),
             ),
         )
 
