@@ -8,10 +8,31 @@ from Qt import QtGui
 from Qt import QtWidgets
 
 
+class ShortcutModifierMatching(enum.Enum):
+    exact = enum.auto()
+    contains_all = enum.auto()
+    contains_any = enum.auto()
+
+
 @dataclasses.dataclass
 class LIVKeyShortcut:
     key: Union[QtCore.Qt.Key, QtCore.Qt.MouseButton]
-    modifier: Optional[QtCore.Qt.KeyboardModifier]
+    """
+    Main input to match the event against
+    """
+
+    modifiers: Optional[tuple[QtCore.Qt.KeyboardModifier]]
+    """
+    Modifiers keys that must be active along the main key to be matched.
+    
+    - None means to ignore modifiers.
+    - To specify that you don't want modifier pass an empty tuple.
+    """
+
+    modifier_matching: ShortcutModifierMatching = ShortcutModifierMatching.exact
+    """
+    Determine how strict the modifier must be matched against the event 
+    """
 
     def match_event(self, event: QtCore.QEvent):
         """
@@ -24,7 +45,28 @@ class LIVKeyShortcut:
         else:
             return False
 
-        if self.modifier is not None and event.modifiers() != self.modifier:
+        modifiers = self.modifiers or tuple()
+        exact_modifiers = QtCore.Qt.NoModifier
+        for _modifier in modifiers:
+            exact_modifiers = exact_modifiers | _modifier
+
+        if (
+            self.modifiers is not None
+            and self.modifier_matching == ShortcutModifierMatching.exact
+            and event.modifiers() != exact_modifiers
+        ):
+            return False
+        elif (
+            self.modifiers is not None
+            and self.modifier_matching == ShortcutModifierMatching.contains_all
+            and not all([event.modifiers() & modifier for modifier in self.modifiers])
+        ):
+            return False
+        elif (
+            self.modifiers is not None
+            and self.modifier_matching == ShortcutModifierMatching.contains_any
+            and not any([event.modifiers() & modifier for modifier in self.modifiers])
+        ):
             return False
 
         if self.key != key:
@@ -47,14 +89,14 @@ class LIVKeyShortcuts:
     @classmethod
     def get_default(cls):
         return cls(
-            reset_zoom=LIVKeyShortcut(QtCore.Qt.Key_Home, None),
-            change_background=LIVKeyShortcut(QtCore.Qt.Key_B, None),
-            reset_pan=LIVKeyShortcut(QtCore.Qt.Key_F, None),
-            pan1=LIVKeyShortcut(QtCore.Qt.LeftButton, QtCore.Qt.AltModifier),
-            pan2=LIVKeyShortcut(QtCore.Qt.MiddleButton, QtCore.Qt.NoModifier),
-            zoom2=LIVKeyShortcut(QtCore.Qt.MiddleButton, QtCore.Qt.AltModifier),
-            pick=LIVKeyShortcut(QtCore.Qt.LeftButton, QtCore.Qt.ShiftModifier),
-            unpick=LIVKeyShortcut(QtCore.Qt.LeftButton, QtCore.Qt.ControlModifier),
+            reset_zoom=LIVKeyShortcut(QtCore.Qt.Key_Home, tuple()),
+            reset_pan=LIVKeyShortcut(QtCore.Qt.Key_F, tuple()),
+            change_background=LIVKeyShortcut(QtCore.Qt.Key_B, tuple()),
+            pan1=LIVKeyShortcut(QtCore.Qt.LeftButton, (QtCore.Qt.AltModifier,)),
+            pan2=LIVKeyShortcut(QtCore.Qt.MiddleButton, (QtCore.Qt.NoModifier,)),
+            zoom2=LIVKeyShortcut(QtCore.Qt.MiddleButton, (QtCore.Qt.AltModifier,)),
+            pick=LIVKeyShortcut(QtCore.Qt.LeftButton, (QtCore.Qt.ShiftModifier,)),
+            unpick=LIVKeyShortcut(QtCore.Qt.LeftButton, (QtCore.Qt.ControlModifier,)),
         )
 
     def get_event_matching_shortcut(
