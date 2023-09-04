@@ -273,7 +273,7 @@ class LIVGraphicView(NavigableGraphicView):
         """
         for plugin in self._plugins:
             plugin.transform = self.transform()
-            plugin.prepareGeometryChange()
+            plugin.reload()
 
     def add_plugin(self, plugin: BasePluginType):
         """
@@ -284,6 +284,7 @@ class LIVGraphicView(NavigableGraphicView):
 
         self._plugins.append(plugin)
         self.scene().addItem(plugin)
+        plugin.reload()
 
     def get_image_rect(self) -> QtCore.QRectF:
         """

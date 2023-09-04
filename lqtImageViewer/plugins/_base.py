@@ -138,6 +138,14 @@ class BaseScreenSpacePlugin(QtWidgets.QGraphicsItem):
             return matrix.mapRect(obj)
         return matrix.map(obj)
 
+    def reload(self):
+        """
+        Perform any action necessary for the plugin to be reloaded visually.
+
+        Made to be overriden, don't forget to call super at the end.
+        """
+        self.prepareGeometryChange()
+
     # Overrides
 
     @abc.abstractmethod
