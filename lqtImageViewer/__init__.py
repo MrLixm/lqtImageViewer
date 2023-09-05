@@ -1,3 +1,6 @@
+from . import config
+from .config import BaseBackgroundStyle
+from .config import LIVKeyShortcut
 from ._encoding import convert_bit_depth
 from ._encoding import ensure_rgba_array
 from ._item import ImageItem
@@ -7,5 +10,3 @@ from .plugins import ColorPickerPlugin
 from ._scene import LIVGraphicScene
 from ._view import LIVGraphicView
 from ._main import LqtImageViewport
-from ._config import BaseBackgroundStyle
-from ._config import LIVKeyShortcut

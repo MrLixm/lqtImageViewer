@@ -6,9 +6,9 @@ from Qt import QtCore
 from Qt import QtGui
 from Qt import QtWidgets
 
-from ._config import LIVKeyShortcuts
-from ._config import BaseBackgroundStyle
-from ._config import BackgroundStyleLibrary
+from .config import LIVKeyShortcuts
+from .config import BaseBackgroundStyle
+from .config import BackgroundStyleLibrary
 from ._item import ImageItem
 from ._scene import LIVGraphicScene
 from .plugins import BasePluginType

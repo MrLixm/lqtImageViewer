@@ -10,7 +10,7 @@ from Qt import QtWidgets
 
 from lqtImageViewer._item import ImageItem
 from lqtImageViewer._scene import LIVGraphicScene
-from lqtImageViewer._config import LIVKeyShortcuts
+from lqtImageViewer.config import LIVKeyShortcuts
 
 
 LOGGER = logging.getLogger(__name__)

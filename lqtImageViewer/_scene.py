@@ -5,7 +5,7 @@ from Qt import QtGui
 from Qt import QtWidgets
 
 from ._item import ImageItem
-from ._config import LIVKeyShortcuts
+from .config import LIVKeyShortcuts
 
 LOGGER = logging.getLogger(__name__)
 

@@ -5,7 +5,7 @@ from Qt import QtCore
 from Qt import QtGui
 from Qt import QtWidgets
 
-from lqtImageViewer._config import LIVKeyShortcuts
+from lqtImageViewer.config import LIVKeyShortcuts
 from lqtImageViewer._scene import LIVGraphicScene
 from lqtImageViewer._view import LIVGraphicView
 from lqtImageViewer._encoding import convert_bit_depth
