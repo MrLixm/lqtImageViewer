@@ -123,13 +123,13 @@ class BackgroundStyleLibrary:
         QtGui.QColor(125, 125, 125),
         QtGui.QColor(100, 100, 100),
     )
-    dark_grid_dot = DottedBackgroundStyle(
-        "Dark Grid of Dots",
+    black_grid_dot = DottedBackgroundStyle(
+        "Black Grid of Dots",
         QtGui.QColor(0, 0, 0),
         QtGui.QColor(30, 30, 30),
     )
-    dark = BaseBackgroundStyle(
-        "Dark",
+    black = BaseBackgroundStyle(
+        "Black",
         QtGui.QColor(0, 0, 0),
         QtGui.QColor(30, 30, 30),
     )
@@ -141,8 +141,8 @@ class BackgroundStyleLibrary:
             cls.light,
             cls.light_grid_dot,
             cls.mid_grey,
-            cls.dark,
-            cls.dark_grid_dot,
+            cls.black,
+            cls.black_grid_dot,
         ]
         all_styles.extend(cls.customs)
         return all_styles

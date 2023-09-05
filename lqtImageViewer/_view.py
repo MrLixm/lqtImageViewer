@@ -202,7 +202,7 @@ class LIVGraphicView(NavigableGraphicView):
         self._plugins: list[BasePluginType] = []
 
         self._background_style = (
-            background_style or BackgroundStyleLibrary.dark_grid_dot
+            background_style or BackgroundStyleLibrary.black_grid_dot
         )
 
         self.setCacheMode(self.CacheBackground)
