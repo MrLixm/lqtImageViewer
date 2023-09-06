@@ -72,9 +72,9 @@ class NavigableGraphicView(QtWidgets.QGraphicsView):
         scene_rect = self.sceneRect()
 
         if self.zoom_enable:
-            # -0.5 to avoid instability, else we sometime have scrollbar popping
-            width = self.viewport().size().width() / self._zoom - 0.5
-            height = self.viewport().size().height() / self._zoom - 0.5
+            # XXX: -1.0 is to compensate for hardcoded margins, 0.5 is for rounding up
+            width = self.viewport().size().width() / self._zoom - 1.5
+            height = self.viewport().size().height() / self._zoom - 1.5
         else:
             width = self.viewport().size().width()
             height = self.viewport().size().height()
