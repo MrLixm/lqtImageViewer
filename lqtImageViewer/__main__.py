@@ -18,20 +18,33 @@ except ImportError:
 
 
 from lqtImageViewer import LqtImageViewport
+from lqtImageViewer._debugger import GraphicViewSceneDebugger
 
 
 LOGGER = logging.getLogger(__name__)
+
+
+class DockedDebugger(QtWidgets.QDockWidget):
+    def __init__(self, image_viewer: LqtImageViewport):
+        super().__init__("GraphicsView Debugger")
+        self.debugger = GraphicViewSceneDebugger(image_viewer.graphic_view)
+        self.debugger.layout_main.addStretch(-1)
+        self.debugger.setFixedWidth(420)
+        self.setWidget(self.debugger)
 
 
 class InteractiveImageViewer(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.image_viewer = LqtImageViewport()
+        self.dock_debugger = DockedDebugger(self.image_viewer)
 
         LOGGER.debug("registering shortcut Ctrl+O")
         QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+O"), self, self.open_image_browser)
 
         self.setCentralWidget(self.image_viewer)
+        self.addDockWidget(QtCore.Qt.RightDockWidgetArea, self.dock_debugger)
+
         self.setWindowTitle("LqtImageViewer")
         self.statusBar().showMessage("Use Ctrl+O to open an image.")
 
@@ -71,7 +84,7 @@ def main():
     LOGGER.info("Starting InteractiveImageViewer ...")
 
     window = InteractiveImageViewer()
-    window.resize(1300, 800)
+    window.resize(1600, 850)
     window.show()
 
     sys.exit(app.exec_())
