@@ -1,7 +1,8 @@
-import Qt
 from Qt import QtCore
 from Qt import QtGui
 from Qt import QtWidgets
+
+from ._main import LqtImageViewport
 
 
 def stringify_qobject(qobject: QtCore.QObject) -> str:
@@ -130,7 +131,6 @@ class GraphicViewSceneDebugger(QtWidgets.QWidget):
         # 2. Add
         self.setLayout(self.layout_main)
         self.layout_main.addLayout(self.layout_grid)
-        row_index = 0
         for row_index, widgets in enumerate(label_mapping):
             widget, label = widgets
             label = QtWidgets.QLabel(label, self)
@@ -159,3 +159,48 @@ class GraphicViewSceneDebugger(QtWidgets.QWidget):
         self.label_scene_selection_area.setText(
             stringify_qobject(self._view.scene().selectionArea())
         )
+
+
+class ImageViewportDebugger(QtWidgets.QWidget):
+    def __init__(self, liv: LqtImageViewport, parent: QtWidgets.QWidget = None):
+        super().__init__(parent)
+
+        self._liv = liv
+
+        # 1. Create
+        self.timer_refresh = QtCore.QTimer()
+        self.layout_main = QtWidgets.QVBoxLayout()
+        self.layout_grid = QtWidgets.QGridLayout()
+
+        self.label_image = QtWidgets.QLabel()
+        self.label_plugins = QtWidgets.QLabel()
+        self.label_bg_style = QtWidgets.QLabel()
+
+        label_mapping = [
+            (self.label_image, "QImage"),
+            (self.label_plugins, "Plugins"),
+            (self.label_bg_style, "Background Style"),
+        ]
+
+        # 2. Add
+        self.setLayout(self.layout_main)
+        self.layout_main.addLayout(self.layout_grid)
+        for row_index, widgets in enumerate(label_mapping):
+            widget, label = widgets
+            label = QtWidgets.QLabel(label, self)
+            label.setDisabled(True)
+            self.layout_grid.addWidget(label, row_index, 0)
+            self.layout_grid.addWidget(widget, row_index, 1)
+
+        # 3. Modify
+        self.layout_main.setContentsMargins(0, 0, 0, 0)
+        self.layout_grid.setContentsMargins(0, 0, 0, 0)
+        self.timer_refresh.start(50)
+
+        # 4. Connections
+        self.timer_refresh.timeout.connect(self.update_ui)
+
+    def update_ui(self):
+        self.label_image.setText(stringify_qobject(self._liv._image_item._image))
+        self.label_plugins.setText(f"{len(self._liv._plugins)}")
+        self.label_bg_style.setText(f"{repr(self._liv.graphic_view._background_style)}")

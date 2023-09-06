@@ -69,7 +69,7 @@ class ImageItem(QtWidgets.QGraphicsItem):
         super().__init__(parent)
 
         self._image: QtGui.QImage = default_image or _generate_default_image()
-        self._array: Optional[numpy.ndarray] = None
+        self._array: Optional[bytes] = None
 
     def set_image_array(self, array: Optional[numpy.ndarray]):
         """

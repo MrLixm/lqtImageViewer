@@ -22,17 +22,28 @@ from lqtImageViewer import LqtImageViewport
 from lqtImageViewer._encoding import convert_bit_depth
 from lqtImageViewer._encoding import ensure_rgba_array
 from lqtImageViewer._debugger import GraphicViewSceneDebugger
+from lqtImageViewer._debugger import ImageViewportDebugger
 
 LOGGER = logging.getLogger(__name__)
 
 
 class DockedDebugger(QtWidgets.QDockWidget):
     def __init__(self, image_viewer: LqtImageViewport):
-        super().__init__("GraphicsView Debugger")
-        self.debugger = GraphicViewSceneDebugger(image_viewer.graphic_view)
-        self.debugger.layout_main.addStretch(-1)
-        self.debugger.setFixedWidth(420)
-        self.setWidget(self.debugger)
+        super().__init__("Debugger")
+
+        self.widget_main = QtWidgets.QWidget()
+        self.layout_main = QtWidgets.QVBoxLayout()
+        self.view_debugger = GraphicViewSceneDebugger(image_viewer.graphic_view)
+        self.liv_debugger = ImageViewportDebugger(image_viewer)
+
+        self.widget_main.setFixedWidth(500)
+
+        self.setWidget(self.widget_main)
+        self.widget_main.setLayout(self.layout_main)
+        self.layout_main.addWidget(self.view_debugger)
+        self.layout_main.addWidget(QtWidgets.QLabel("-" * 100))
+        self.layout_main.addWidget(self.liv_debugger)
+        self.layout_main.addStretch(-1)
 
 
 class InteractiveImageViewer(QtWidgets.QMainWindow):
