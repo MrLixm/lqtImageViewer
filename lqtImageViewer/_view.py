@@ -34,6 +34,8 @@ class NavigableGraphicView(QtWidgets.QGraphicsView):
     zoom_min = 0.1
     zoom_max = 20
 
+    round_amount = 3
+
     def __init__(
         self,
         scene: QtWidgets.QGraphicsScene,
@@ -54,6 +56,8 @@ class NavigableGraphicView(QtWidgets.QGraphicsView):
             x_amount: amount to pan on the x axis, 0 to not pan [+-1-1+] range
             y_amount: amount to pan on the y axis, 0 to not pan [+-1-1+] range
         """
+        x_amount = round(x_amount, self.round_amount)
+        y_amount = round(y_amount, self.round_amount)
         scene_rect = self.sceneRect()
         new_scene_rect = scene_rect.adjusted(x_amount, y_amount, x_amount, y_amount)
         self.setSceneRect(new_scene_rect)
@@ -98,7 +102,7 @@ class NavigableGraphicView(QtWidgets.QGraphicsView):
             return
 
         new_zoom = self._zoom * amount
-        new_zoom = round(new_zoom, 6)
+        new_zoom = round(new_zoom, self.round_amount)
 
         # limit zoom
         if new_zoom < self.zoom_min or new_zoom > self.zoom_max:
