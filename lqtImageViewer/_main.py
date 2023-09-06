@@ -64,30 +64,6 @@ class LqtImageViewport(QtWidgets.QWidget):
         """
         return self.plugin_color_picker
 
-    def eventFilter(self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
-        if watched is self.graphic_scene:
-            [plugin.set_visibility_from_scene_event(event) for plugin in self._plugins]
-        return super().eventFilter(watched, event)
-
-    def set_image_from_array(self, array: numpy.ndarray):
-        """
-        Set the image displayed, from a numpy array.
-
-        Args:
-            array: SHOULD be an uint16 R-G-B-A array (4 channels), else the method will
-            try to uniform it, so it become encoded as such.
-        """
-        if array.dtype != numpy.core.uint16:
-            LOGGER.debug(f"converting array dtype from {array.dtype} to uint16 ...")
-            array = convert_bit_depth(array, numpy.core.uint16)
-
-        if len(array.shape) == 2 or array.shape[2] != 4:
-            LOGGER.debug(f"ensuring array of shape {array.shape} has 4 channels ...")
-            array = ensure_rgba_array(array)
-
-        self.graphic_scene.image_item.set_image_array(array)
-        [plugin.reload() for plugin in self._plugins]
-
     def add_plugin(self, plugin: BasePluginType):
         """
         Add the given plugin to handle.
@@ -111,3 +87,29 @@ class LqtImageViewport(QtWidgets.QWidget):
         if not self.plugin_color_picker.isVisible():
             return None
         return self.plugin_color_picker.get_picked_area()
+
+    def set_image_from_array(self, array: numpy.ndarray):
+        """
+        Set the image displayed, from a numpy array.
+
+        Args:
+            array: SHOULD be an uint16 R-G-B-A array (4 channels), else the method will
+            try to uniform it, so it become encoded as such.
+        """
+        if array.dtype != numpy.core.uint16:
+            LOGGER.debug(f"converting array dtype from {array.dtype} to uint16 ...")
+            array = convert_bit_depth(array, numpy.core.uint16)
+
+        if len(array.shape) == 2 or array.shape[2] != 4:
+            LOGGER.debug(f"ensuring array of shape {array.shape} has 4 channels ...")
+            array = ensure_rgba_array(array)
+
+        self.graphic_scene.image_item.set_image_array(array)
+        [plugin.reload() for plugin in self._plugins]
+
+    # Overrides
+
+    def eventFilter(self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
+        if watched is self.graphic_scene:
+            [plugin.set_visibility_from_scene_event(event) for plugin in self._plugins]
+        return super().eventFilter(watched, event)
