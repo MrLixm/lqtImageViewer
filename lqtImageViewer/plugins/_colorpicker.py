@@ -65,7 +65,7 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
         """
         Return the area that is currently being picked, in image scene coordinates.
         """
-        return QtCore.QRect(self._scene_rect)
+        return QtCore.QRect(self._scene_rect).normalized()
 
     # Overrides
 
