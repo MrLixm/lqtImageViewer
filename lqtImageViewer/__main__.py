@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 from warnings import warn
 
+import numpy
 from Qt import QtGui
 from Qt import QtWidgets
 from Qt import QtCore
@@ -18,8 +19,9 @@ except ImportError:
 
 
 from lqtImageViewer import LqtImageViewport
+from lqtImageViewer._encoding import convert_bit_depth
+from lqtImageViewer._encoding import ensure_rgba_array
 from lqtImageViewer._debugger import GraphicViewSceneDebugger
-
 
 LOGGER = logging.getLogger(__name__)
 
@@ -36,6 +38,12 @@ class DockedDebugger(QtWidgets.QDockWidget):
 class InteractiveImageViewer(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
+
+        self._array = None
+        """
+        32bit R-G-B-A array
+        """
+
         self.image_viewer = LqtImageViewport()
         self.dock_debugger = DockedDebugger(self.image_viewer)
 
@@ -68,14 +76,30 @@ class InteractiveImageViewer(QtWidgets.QMainWindow):
             )
 
         LOGGER.info(f"loading image array <{array.dtype} {array.shape}> ...")
+        self._array = ensure_rgba_array(array.copy())
+        # we only store the array as 32bit, we let the viewer handle 16bit conversion
+        self._array = convert_bit_depth(array, numpy.core.float32)
+
         self.image_viewer.set_image_from_array(array)
 
     @QtCore.Slot()
     def on_color_picked_changed(self):
+        message = ""
         area = self.image_viewer.get_color_picked_area()
         if area:
-            area = f"x:{area.x()} y:{area.y()} - {area.width()}x{area.height()}"
-        self.statusBar().showMessage(str(area))
+            message += f"x:{area.x()} y:{area.y()} - {area.width()}x{area.height()}"
+
+        if self._array is not None:
+            sliced = self._array[
+                area.y() : area.y() + area.height(),
+                area.x() : area.x() + area.width(),
+                ...,
+            ]
+            average = numpy.mean(sliced, axis=(0, 1))
+            average = numpy.array2string(average, precision=3, separator=",")
+            message += f" average: {average}"
+
+        self.statusBar().showMessage(message)
 
 
 def main():
