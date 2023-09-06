@@ -30,7 +30,11 @@ class LqtImageViewport(QtWidgets.QWidget):
     color-management and so on. It just displays directly the numpy array.
     """
 
-    def __init__(self, parent: QtWidgets.QWidget = None):
+    def __init__(
+        self,
+        parent: QtWidgets.QWidget = None,
+        default_image_visible: bool = True,
+    ):
         super().__init__(parent)
 
         self._plugins: list[BasePluginType] = []
@@ -63,6 +67,7 @@ class LqtImageViewport(QtWidgets.QWidget):
         self.layout_main.setContentsMargins(0, 0, 0, 0)
         self.graphic_scene.installEventFilter(self)
         self.graphic_scene.shortcuts = self._shortcuts
+        self._image_item.setVisible(default_image_visible)
 
     @property
     def color_picker(self):
@@ -113,6 +118,10 @@ class LqtImageViewport(QtWidgets.QWidget):
 
         self._image_item.set_image_array(array)
         [(plugin.reload(), plugin.on_image_changed()) for plugin in self._plugins]
+
+        if not self._image_item.isVisible():
+            self._image_item.show()
+            self.graphic_view.center_image()
 
     # Overrides
 

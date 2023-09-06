@@ -44,7 +44,7 @@ class InteractiveImageViewer(QtWidgets.QMainWindow):
         32bit R-G-B-A array
         """
 
-        self.image_viewer = LqtImageViewport()
+        self.image_viewer = LqtImageViewport(default_image_visible=True)
         self.dock_debugger = DockedDebugger(self.image_viewer)
 
         LOGGER.debug("registering shortcut Ctrl+O")
