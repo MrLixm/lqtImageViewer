@@ -28,11 +28,20 @@ class LqtImageViewport(QtWidgets.QWidget):
 
     That viewport doesn't know anything about image processing, like isolating channels,
     color-management and so on. It just displays directly the numpy array.
+
+    Args:
+        parent: usual parent QWidget
+        default_image:
+            a QImage to use when no other image as been loaded yet.
+            If None a default image will be generated.
+        default_image_visible:
+            True to make the default image visble, else only the background will be visible.
     """
 
     def __init__(
         self,
         parent: QtWidgets.QWidget = None,
+        default_image: Optional[QtGui.QImage] = None,
         default_image_visible: bool = True,
     ):
         super().__init__(parent)
@@ -41,7 +50,7 @@ class LqtImageViewport(QtWidgets.QWidget):
         self._shortcuts = LIVKeyShortcuts.get_default()
         # 1. Create
         self.layout_main = QtWidgets.QVBoxLayout()
-        self._image_item = ImageItem()
+        self._image_item = ImageItem(default_image=default_image)
         self.graphic_scene = LIVGraphicScene(
             self._image_item, -1280 / 2, -720 / 2, 1280, 720
         )

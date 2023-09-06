@@ -1,6 +1,5 @@
 import logging
 import random
-import time
 from typing import Optional
 
 import numpy
@@ -62,10 +61,14 @@ def _generate_default_image(image_size=512, tile_number=5, noise_opacity=5):
 
 
 class ImageItem(QtWidgets.QGraphicsItem):
-    def __init__(self, parent: Optional[QtWidgets.QGraphicsItem] = None) -> None:
+    def __init__(
+        self,
+        parent: Optional[QtWidgets.QGraphicsItem] = None,
+        default_image: Optional[QtGui.QImage] = None,
+    ) -> None:
         super().__init__(parent)
-        # TODO expose default image as parameter
-        self._image: QtGui.QImage = _generate_default_image()
+
+        self._image: QtGui.QImage = default_image or _generate_default_image()
         self._array: Optional[numpy.ndarray] = None
 
     def set_image_array(self, array: Optional[numpy.ndarray]):
