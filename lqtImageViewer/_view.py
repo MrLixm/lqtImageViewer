@@ -211,7 +211,7 @@ class LIVGraphicView(NavigableGraphicView):
 
         self.setCacheMode(self.CacheBackground)
         self.setRenderHint(QtGui.QPainter.Antialiasing)
-        self._center_image()
+        self.center_image()
 
     @property
     def background_style(self) -> BaseBackgroundStyle:
@@ -226,12 +226,6 @@ class LIVGraphicView(NavigableGraphicView):
     @property
     def image_item(self) -> ImageItem:
         return self._scene.image_item
-
-    def _center_image(self):
-        image_rect = self.get_image_rect()
-        scene_rect = self.sceneRect()
-        scene_rect.moveCenter(image_rect.center())
-        self.setSceneRect(scene_rect)
 
     def _update_plugins(self):
         """
@@ -251,6 +245,12 @@ class LIVGraphicView(NavigableGraphicView):
         self._plugins.append(plugin)
         self.scene().addItem(plugin)
         plugin.reload()
+
+    def center_image(self):
+        image_rect = self.get_image_rect()
+        scene_rect = self.sceneRect()
+        scene_rect.moveCenter(image_rect.center())
+        self.setSceneRect(scene_rect)
 
     def get_image_rect(self) -> QtCore.QRectF:
         """
@@ -285,7 +285,7 @@ class LIVGraphicView(NavigableGraphicView):
             return
 
         elif self._shortcuts.reset_pan.match_event(event):
-            self._center_image()
+            self.center_image()
             return
 
         super().keyPressEvent(event)
