@@ -2,6 +2,8 @@
 
 A simple but flexible image viewer for PyQt that take numpy array as input.
 
+![demo video showcasing the features](./doc/img/demo.mp4)
+
 # usage
 
 ## developer
