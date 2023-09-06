@@ -158,6 +158,17 @@ class BaseScreenSpacePlugin(QtWidgets.QGraphicsItem):
             return matrix.mapRect(obj)
         return matrix.map(obj)
 
+    def on_image_changed(self):
+        """
+        This method is called right after a new image has been loaded.
+
+        You can override it and perform action to update your plugin with the new image.
+        The base implementation does nothing.
+
+        Note that the :meth:`reload` method is also called first.
+        """
+        pass
+
     def reload(self):
         """
         Perform any action necessary for the plugin to be reloaded visually.

@@ -82,6 +82,10 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
 
     # Overrides
 
+    def on_image_changed(self):
+        self.hide()
+        self.signals.picked_color_changed.emit()
+
     def set_visibility_from_scene_event(self, event: QtCore.QEvent):
         if not isinstance(event, QtWidgets.QGraphicsSceneMouseEvent):
             return
