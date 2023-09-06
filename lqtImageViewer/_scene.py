@@ -11,9 +11,9 @@ LOGGER = logging.getLogger(__name__)
 
 
 class LIVGraphicScene(QtWidgets.QGraphicsScene):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, image_item: ImageItem, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._image_item = ImageItem()
+        self._image_item = image_item
         self._shortcuts = LIVKeyShortcuts.get_default()
         self.addItem(self._image_item)
 

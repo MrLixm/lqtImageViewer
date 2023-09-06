@@ -7,6 +7,7 @@ from Qt import QtGui
 from Qt import QtWidgets
 
 from lqtImageViewer.config import LIVKeyShortcuts
+from lqtImageViewer._item import ImageItem
 from lqtImageViewer._scene import LIVGraphicScene
 from lqtImageViewer._view import LIVGraphicView
 from lqtImageViewer._encoding import convert_bit_depth
@@ -36,7 +37,10 @@ class LqtImageViewport(QtWidgets.QWidget):
         self._shortcuts = LIVKeyShortcuts.get_default()
         # 1. Create
         self.layout_main = QtWidgets.QVBoxLayout()
-        self.graphic_scene = LIVGraphicScene(-1280 / 2, -720 / 2, 1280, 720)
+        self._image_item = ImageItem()
+        self.graphic_scene = LIVGraphicScene(
+            self._image_item, -1280 / 2, -720 / 2, 1280, 720
+        )
         self.graphic_view = LIVGraphicView(
             scene=self.graphic_scene,
             key_shortcuts=self._shortcuts,
@@ -107,7 +111,7 @@ class LqtImageViewport(QtWidgets.QWidget):
             LOGGER.debug(f"ensuring array of shape {array.shape} has 4 channels ...")
             array = ensure_rgba_array(array)
 
-        self.graphic_scene.image_item.set_image_array(array)
+        self._image_item.set_image_array(array)
         [(plugin.reload(), plugin.on_image_changed()) for plugin in self._plugins]
 
     # Overrides
