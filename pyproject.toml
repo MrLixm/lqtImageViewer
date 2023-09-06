@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "lqtimageviewer"
-version = "0.1.0"
-description = "A PyQT image viewer for numpy arrays."
+version = "0.2.0"
+description = "A simple but flexible image viewer for PyQt that take numpy array as input."
 authors = ["Liam Collod <monsieurlixm@gmail.com>"]
 readme = "README.md"
 packages = [
