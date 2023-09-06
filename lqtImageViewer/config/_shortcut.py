@@ -48,7 +48,7 @@ class LIVKeyShortcut:
 
         if isinstance(event, QtGui.QKeyEvent):
             key = event.key()
-        elif isinstance(event, QtGui.QMouseEvent):
+        elif isinstance(event, (QtGui.QMouseEvent, QtWidgets.QGraphicsSceneMouseEvent)):
             key = event.button()
         else:
             return False
@@ -92,6 +92,8 @@ class LIVKeyShortcuts:
     pan2: LIVKeyShortcut
     zoom2: LIVKeyShortcut
     pick: LIVKeyShortcut
+    pick_area_start: LIVKeyShortcut
+    pick_area_expand: LIVKeyShortcut
     unpick: LIVKeyShortcut
     view_coordinates1: LIVKeyShortcut
     view_coordinates2: LIVKeyShortcut
@@ -114,8 +116,16 @@ class LIVKeyShortcuts:
                 (QtCore.Qt.AltModifier,),
                 ShortcutModifierMatching.contains_all,
             ),
-            pick=LIVKeyShortcut(QtCore.Qt.LeftButton, (QtCore.Qt.ShiftModifier,)),
-            unpick=LIVKeyShortcut(QtCore.Qt.LeftButton, (QtCore.Qt.ControlModifier,)),
+            pick=LIVKeyShortcut(QtCore.Qt.LeftButton, (QtCore.Qt.ControlModifier,)),
+            pick_area_start=LIVKeyShortcut(
+                QtCore.Qt.LeftButton,
+                (QtCore.Qt.ControlModifier, QtCore.Qt.ShiftModifier),
+            ),
+            pick_area_expand=LIVKeyShortcut(
+                QtCore.Qt.NoButton,
+                (QtCore.Qt.ControlModifier, QtCore.Qt.ShiftModifier),
+            ),
+            unpick=LIVKeyShortcut(QtCore.Qt.RightButton, (QtCore.Qt.ControlModifier,)),
             view_coordinates1=LIVKeyShortcut(
                 QtCore.Qt.Key_Alt,
                 (QtCore.Qt.ShiftModifier, QtCore.Qt.AltModifier),

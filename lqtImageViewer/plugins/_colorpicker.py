@@ -26,17 +26,24 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
         self._control_state: ColorPickerControlState = ColorPickerControlState.none
         # in image pixel scene coordinates
         self._scene_rect = QtCore.QRect(0, 0, 10, 10)
+        self._primary_color = QtGui.QColor(250, 10, 10)
         self._update_position()
+        self.hide()
 
     def _surface_rect(self, center: Optional[QtCore.QPointF] = None) -> QtCore.QRectF:
         surface = QtCore.QRectF(self._scene_rect)
         surface.moveCenter(center or QtCore.QPointF(0.0, 0.0))
         return self.map_to_screenspace(surface)
 
+    def _center_rect(self) -> QtCore.QRectF:
+        center_rect = QtCore.QRectF(0, 0, 12, 12)
+        center_rect.moveCenter(self._surface_rect().center())
+        return center_rect
+
     def _update_position(self):
-        target = self._scene_rect.center()
+        target = QtCore.QRectF(self._scene_rect).center()
         # setPos expect scene coordinates
-        self.setPos(QtCore.QPointF(target))
+        self.setPos(target)
 
     def _update_center_from(self, event_pos: QtCore.QPointF):
         """
@@ -44,19 +51,48 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
             event_pos: in world scene coordinates
         """
         pixel_coord = event_pos
-        pixel_coord = pixel_coord.toPoint()
+        # XXX: toPoint() round 0.5 to 1.0, we don't want that
+        pixel_coord = QtCore.QPoint(int(pixel_coord.x()), int(pixel_coord.y()))
         self._scene_rect.moveCenter(pixel_coord)
         self._update_position()
 
-    def set_center(self, center: QtCore.QPoint):
-        """
-
-        Args:
-            center: in world scene coordinates
-        """
-        self._scene_rect.moveCenter(center)
-
     # Overrides
+
+    def set_visibility_from_scene_event(self, event: QtCore.QEvent):
+        if (
+            (event.type() == event.GraphicsSceneMousePress)
+            and isinstance(event, QtWidgets.QGraphicsSceneMouseEvent)
+            and (
+                self.shortcuts.pick.match_event(event)
+                or self.shortcuts.pick_area_start.match_event(event)
+            )
+            and self.image_scene_rect.contains(
+                self.map_to_screenspace(event.scenePos())
+            )
+        ):
+            self.show()
+            event_pos = event.scenePos()
+            # toPoint() round 0.5+ to 1.0, we don't want that
+            event_pos = QtCore.QPoint(int(event_pos.x()), int(event_pos.y()))
+            self._scene_rect.setTopLeft(event_pos)
+            self._scene_rect.setSize(QtCore.QSize(1, 1))
+            self._update_position()
+
+        elif (
+            (event.type() == event.GraphicsSceneMouseMove)
+            and isinstance(event, QtWidgets.QGraphicsSceneMouseEvent)
+            and self.shortcuts.pick_area_expand.match_event(event)
+        ):
+            event_pos = event.scenePos()
+            # XXX: toPoint() round 0.5+ to 1.0, we don't want that
+            event_pos = QtCore.QPoint(int(event_pos.x()), int(event_pos.y()))
+            self._scene_rect.setBottomRight(event_pos)
+            self._update_position()
+
+        elif (event.type() == event.GraphicsSceneMousePress) and (
+            self.shortcuts.unpick.match_event(event)
+        ):
+            self.hide()
 
     def boundingRect(self) -> QtCore.QRectF:
         bounds = self._surface_rect()
@@ -71,31 +107,29 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
         widget: Optional[QtWidgets.QWidget] = None,
     ) -> None:
         paint_rect = self._surface_rect()
-        painter.setPen(QtGui.QPen(QtGui.QColor("red"), 2))
+        painter.setPen(QtGui.QPen(self._primary_color, 1))
         painter.drawRect(paint_rect)
 
         if self._scene_rect.size() != QtCore.QSize(1, 1):
             pen = painter.pen()
-            pen.setWidth(4)
+            pen.setWidth(5)
             painter.setPen(pen)
             painter.drawPoint(paint_rect.center())
-
-        painter.setPen(QtGui.QPen(QtGui.QColor("blue"), 2))
+            center_color = QtGui.QColor(self._primary_color)
+            center_color.setAlpha(50)
+            painter.setPen(QtGui.QPen(center_color, 1))
+            painter.drawRect(self._center_rect())
 
     def mousePressEvent(self, event: QtWidgets.QGraphicsSceneMouseEvent):
-        if event.button() != QtCore.Qt.LeftButton:
+        if not self.shortcuts.pick.match_event(event):
             return
-
-        image_rect = self.image_scene_rect
-        pos = self.map_to_screenspace(event.scenePos())
-        # TODO delete cause this should never happen
-        if not image_rect.contains(pos):
-            return
-
+        # LOGGER.debug(f"//mousePressEvent         {event.button()}")
         # local widget coordinates
-        center_rect = QtCore.QRectF(0, 0, 8, 8)
-        center_rect.moveCenter(self._surface_rect().center())
-        if center_rect.contains(event.pos()):
+        center_rect = self._center_rect()
+
+        if self._scene_rect.size() == QtCore.QSize(1, 1) or center_rect.contains(
+            event.pos()
+        ):
             self._control_state = self.states.center
         else:
             self._control_state = self.states.border
