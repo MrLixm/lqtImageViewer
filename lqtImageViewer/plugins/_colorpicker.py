@@ -12,6 +12,13 @@ from ._base import BaseScreenSpacePlugin
 LOGGER = logging.getLogger(__name__)
 
 
+def _pointf_to_point(pointf: QtCore.QPointF) -> QtCore.QPoint:
+    """
+    As toPoint() round 0.5 to 1.0, this is the alternative to round to lowest.
+    """
+    return QtCore.QPoint(int(pointf.x()), int(pointf.y()))
+
+
 class ColorPickerControlState(enum.IntEnum):
     none = enum.auto()
     expand = enum.auto()
@@ -35,6 +42,13 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
         self._update_position()
         self.hide()
 
+    def _is_point_inside_image(self, point: QtCore.QPointF) -> bool:
+        """
+        Args:
+            point: scene coordinates
+        """
+        return self.image_scene_rect.contains(self.map_to_screenspace(point))
+
     def _surface_rect(self, center: Optional[QtCore.QPointF] = None) -> QtCore.QRectF:
         surface = QtCore.QRectF(self._scene_rect)
         surface.moveCenter(center or QtCore.QPointF(0.0, 0.0))
@@ -56,8 +70,7 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
             event_pos: in world scene coordinates
         """
         pixel_coord = event_pos
-        # XXX: toPoint() round 0.5 to 1.0, we don't want that
-        pixel_coord = QtCore.QPoint(int(pixel_coord.x()), int(pixel_coord.y()))
+        pixel_coord = _pointf_to_point(pixel_coord)
         self._scene_rect.moveCenter(pixel_coord)
         self._update_position()
 
@@ -70,21 +83,21 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
     # Overrides
 
     def set_visibility_from_scene_event(self, event: QtCore.QEvent):
+        if not isinstance(event, QtWidgets.QGraphicsSceneMouseEvent):
+            return
+
+        event_pos = event.scenePos()
+
         if (
             (event.type() == event.GraphicsSceneMousePress)
-            and isinstance(event, QtWidgets.QGraphicsSceneMouseEvent)
             and (
                 self.shortcuts.pick.match_event(event)
                 or self.shortcuts.pick_area_start.match_event(event)
             )
-            and self.image_scene_rect.contains(
-                self.map_to_screenspace(event.scenePos())
-            )
+            and self._is_point_inside_image(event_pos)
         ):
             self.show()
-            event_pos = event.scenePos()
-            # toPoint() round 0.5+ to 1.0, we don't want that
-            event_pos = QtCore.QPoint(int(event_pos.x()), int(event_pos.y()))
+            event_pos = _pointf_to_point(event_pos)
             self._scene_rect.setTopLeft(event_pos)
             self._scene_rect.setSize(QtCore.QSize(1, 1))
             self._update_position()
@@ -92,12 +105,10 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
 
         elif (
             (event.type() == event.GraphicsSceneMouseMove)
-            and isinstance(event, QtWidgets.QGraphicsSceneMouseEvent)
             and self.shortcuts.pick_area_expand.match_event(event)
+            and self._is_point_inside_image(event_pos)
         ):
-            event_pos = event.scenePos()
-            # XXX: toPoint() round 0.5+ to 1.0, we don't want that
-            event_pos = QtCore.QPoint(int(event_pos.x()), int(event_pos.y()))
+            event_pos = _pointf_to_point(event_pos)
             self._scene_rect.setBottomRight(event_pos)
             self._update_position()
             self.signals.picked_color_changed.emit()
