@@ -35,6 +35,17 @@ class BaseBackgroundStyle:
         self.use_background_texture = use_background_texture
         self.texture_zoom_range = texture_zoom_range
 
+    def __repr__(self) -> str:
+        return (
+            f"{self.__class__.__name__}("
+            f"label={self.label},"
+            f"background={self.primary},"
+            f"foreground={self.secondary},"
+            f"use_background_texture={self.use_background_texture},"
+            f"texture_zoom_range={self.texture_zoom_range},"
+            f")"
+        )
+
     def should_use_background_texture(self, zoom: Optional[float] = None) -> bool:
         """
         Return True if the instance config imply that the backgroudn texture must be used.
