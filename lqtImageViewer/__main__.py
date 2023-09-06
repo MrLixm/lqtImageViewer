@@ -5,6 +5,7 @@ from warnings import warn
 
 from Qt import QtGui
 from Qt import QtWidgets
+from Qt import QtCore
 
 try:
     import imageio.v3 as imageio
@@ -34,6 +35,10 @@ class InteractiveImageViewer(QtWidgets.QMainWindow):
         self.setWindowTitle("LqtImageViewer")
         self.statusBar().showMessage("Use Ctrl+O to open an image.")
 
+        self.image_viewer.picked_color_changed_signal.connect(
+            self.on_color_picked_changed
+        )
+
     def open_image_browser(self):
         file_path, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open Image")
         if not file_path:
@@ -51,6 +56,13 @@ class InteractiveImageViewer(QtWidgets.QMainWindow):
 
         LOGGER.info(f"loading image array <{array.dtype} {array.shape}> ...")
         self.image_viewer.set_image_from_array(array)
+
+    @QtCore.Slot()
+    def on_color_picked_changed(self):
+        area = self.image_viewer.get_color_picked_area()
+        if area:
+            area = f"x:{area.x()} y:{area.y()} - {area.width()}x{area.height()}"
+        self.statusBar().showMessage(str(area))
 
 
 def main():

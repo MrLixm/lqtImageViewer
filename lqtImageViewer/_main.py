@@ -43,6 +43,9 @@ class LqtImageViewport(QtWidgets.QWidget):
         )
         self.plugin_color_picker = ColorPickerPlugin()
         self.plugins_coord = CoordinatesGridPlugin()
+        self.picked_color_changed_signal = (
+            self.plugin_color_picker.signals.picked_color_changed
+        )
 
         # 2. Add
         self.setLayout(self.layout_main)

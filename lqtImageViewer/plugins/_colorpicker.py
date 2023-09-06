@@ -21,12 +21,16 @@ class ColorPickerControlState(enum.IntEnum):
 class ColorPickerPlugin(BaseScreenSpacePlugin):
     states = ColorPickerControlState
 
+    class _Signals(QtCore.QObject):
+        picked_color_changed = QtCore.Signal()
+
     def __init__(self) -> None:
         super().__init__()
         self._control_state: ColorPickerControlState = ColorPickerControlState.none
         # in image pixel scene coordinates
         self._scene_rect = QtCore.QRect(0, 0, 10, 10)
         self._primary_color = QtGui.QColor(250, 10, 10)
+        self.signals = self._Signals()
         self._update_position()
         self.hide()
 
@@ -83,6 +87,7 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
             self._scene_rect.setTopLeft(event_pos)
             self._scene_rect.setSize(QtCore.QSize(1, 1))
             self._update_position()
+            self.signals.picked_color_changed.emit()
 
         elif (
             (event.type() == event.GraphicsSceneMouseMove)
@@ -94,11 +99,13 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
             event_pos = QtCore.QPoint(int(event_pos.x()), int(event_pos.y()))
             self._scene_rect.setBottomRight(event_pos)
             self._update_position()
+            self.signals.picked_color_changed.emit()
 
         elif (event.type() == event.GraphicsSceneMousePress) and (
             self.shortcuts.unpick.match_event(event)
         ):
             self.hide()
+            self.signals.picked_color_changed.emit()
 
     def boundingRect(self) -> QtCore.QRectF:
         bounds = self._surface_rect()
@@ -154,6 +161,7 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
                 return
 
             self._update_center_from(pos)
+            self.signals.picked_color_changed.emit()
 
     def mouseReleaseEvent(self, event: QtWidgets.QGraphicsSceneMouseEvent):
         self._control_state = self.states.none
