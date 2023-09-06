@@ -1,4 +1,5 @@
 import logging
+from typing import Optional
 
 import numpy
 from Qt import QtCore
@@ -100,3 +101,13 @@ class LqtImageViewport(QtWidgets.QWidget):
             return
         self._plugins.append(plugin)
         self.graphic_view.add_plugin(plugin)
+
+    def get_color_picked_area(self) -> Optional[QtCore.QRect]:
+        """
+        Return the area that is currently being color picked, in pixel scene coordinates.
+
+        Retrun None if no area is being picked right now.
+        """
+        if not self.plugin_color_picker.isVisible():
+            return None
+        return self.plugin_color_picker.get_picked_area()

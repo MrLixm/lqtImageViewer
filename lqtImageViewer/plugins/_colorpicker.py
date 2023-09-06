@@ -56,6 +56,12 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
         self._scene_rect.moveCenter(pixel_coord)
         self._update_position()
 
+    def get_picked_area(self) -> QtCore.QRect:
+        """
+        Return the area that is currently being picked, in image scene coordinates.
+        """
+        return QtCore.QRect(self._scene_rect)
+
     # Overrides
 
     def set_visibility_from_scene_event(self, event: QtCore.QEvent):
