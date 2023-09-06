@@ -89,15 +89,15 @@ class InteractiveImageViewer(QtWidgets.QMainWindow):
         if area:
             message += f"x:{area.x()} y:{area.y()} - {area.width()}x{area.height()}"
 
-        if self._array is not None:
-            sliced = self._array[
-                area.y() : area.y() + area.height(),
-                area.x() : area.x() + area.width(),
-                ...,
-            ]
-            average = numpy.mean(sliced, axis=(0, 1))
-            average = numpy.array2string(average, precision=3, separator=",")
-            message += f" average: {average}"
+            if self._array is not None:
+                sliced = self._array[
+                    area.y() : area.y() + area.height(),
+                    area.x() : area.x() + area.width(),
+                    ...,
+                ]
+                average = numpy.mean(sliced, axis=(0, 1))
+                average = numpy.array2string(average, precision=3, separator=",")
+                message += f" average: {average}"
 
         self.statusBar().showMessage(message)
 
