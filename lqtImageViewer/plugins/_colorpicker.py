@@ -14,6 +14,7 @@ LOGGER = logging.getLogger(__name__)
 
 class ColorPickerControlState(enum.IntEnum):
     none = enum.auto()
+    expand = enum.auto()
     center = enum.auto()
     border = enum.auto()
 
@@ -100,6 +101,7 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
             self._scene_rect.setBottomRight(event_pos)
             self._update_position()
             self.signals.picked_color_changed.emit()
+            self._control_state = self.states.expand
 
         elif (event.type() == event.GraphicsSceneMousePress) and (
             self.shortcuts.unpick.match_event(event)
@@ -134,9 +136,8 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
             painter.drawRect(self._center_rect())
 
     def mousePressEvent(self, event: QtWidgets.QGraphicsSceneMouseEvent):
-        if not self.shortcuts.pick.match_event(event):
+        if event.button() != QtCore.Qt.LeftButton:
             return
-        # LOGGER.debug(f"//mousePressEvent         {event.button()}")
         # local widget coordinates
         center_rect = self._center_rect()
 
