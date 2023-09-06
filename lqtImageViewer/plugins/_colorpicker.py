@@ -121,7 +121,7 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
             self.signals.picked_color_changed.emit()
 
     def boundingRect(self) -> QtCore.QRectF:
-        bounds = self._surface_rect()
+        bounds = self._surface_rect().normalized()
         padding = 4
         # add 2 pixel of padding
         return bounds.adjusted(-padding, -padding, padding, padding)
@@ -132,7 +132,7 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
         option: QtWidgets.QStyleOptionGraphicsItem,
         widget: Optional[QtWidgets.QWidget] = None,
     ) -> None:
-        paint_rect = self._surface_rect()
+        paint_rect = self._surface_rect().normalized()
         painter.setPen(QtGui.QPen(self._primary_color, 1))
         painter.drawRect(paint_rect)
 
