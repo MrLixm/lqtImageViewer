@@ -38,8 +38,10 @@ def convert_bit_depth(
             array = (array / 65535).astype(target_dtype)
     elif source_dtype in (float16, float32, float64):
         if bit_depth == uint8:
+            array = numpy.clip(array, 0, 1)
             array = numpy.around(array * 255).astype(target_dtype)
         elif bit_depth == uint16:
+            array = numpy.clip(array, 0, 1)
             array = numpy.around(array * 65535).astype(target_dtype)
         elif bit_depth in (float16, float32, float64):
             array = array.astype(target_dtype)
