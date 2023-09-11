@@ -9,4 +9,4 @@ from .plugins import BaseScreenSpacePlugin
 from .plugins import ColorPickerPlugin
 from ._scene import LIVGraphicScene
 from ._view import LIVGraphicView
-from ._main import LqtImageViewport
+from ._viewport import LqtImageViewport

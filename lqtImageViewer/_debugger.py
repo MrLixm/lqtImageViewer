@@ -2,7 +2,7 @@ from Qt import QtCore
 from Qt import QtGui
 from Qt import QtWidgets
 
-from ._main import LqtImageViewport
+from ._viewport import LqtImageViewport
 
 
 def stringify_qobject(qobject: QtCore.QObject) -> str:
