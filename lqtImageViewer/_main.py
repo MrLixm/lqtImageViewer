@@ -39,6 +39,8 @@ class LqtImageViewport(QtWidgets.QWidget):
             True to make the default image visble, else only the background will be visible.
     """
 
+    image_cleared_signal = QtCore.Signal()
+
     def __init__(
         self,
         parent: QtWidgets.QWidget = None,
@@ -183,7 +185,15 @@ class LqtImageViewport(QtWidgets.QWidget):
         self.set_image_from_array(new_array)
         return self._rotation_angle
 
-    # TODO: clear_image method
+    def clear_image(self):
+        """
+        Clear the image currently displayed, to nothing, or the default image.
+        """
+        self._image_array = None
+        self._image_item.set_image_array(None)
+        self.graphic_scene.update()
+        [(plugin.reload(), plugin.on_image_changed()) for plugin in self._plugins]
+        self.image_cleared_signal.emit()
 
     # Overrides
 
@@ -203,6 +213,11 @@ class LqtImageViewport(QtWidgets.QWidget):
 
         if self._shortcuts.rotate_90_down.match_event(event):
             self.rotate_image_90(-90, add_existing=True)
+            return
+
+        if self._shortcuts.clear.match_event(event):
+            LOGGER.debug(f"clearing image ...")
+            self.clear_image()
             return
 
         return super().keyPressEvent(event)

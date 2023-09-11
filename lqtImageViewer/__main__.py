@@ -71,6 +71,7 @@ class InteractiveImageViewer(QtWidgets.QMainWindow):
         self.image_viewer.picked_color_changed_signal.connect(
             self.on_color_picked_changed
         )
+        self.image_viewer.image_cleared_signal.connect(self._on_image_cleared)
 
     def open_image_browser(self):
         file_path, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open Image")
@@ -120,6 +121,10 @@ class InteractiveImageViewer(QtWidgets.QMainWindow):
                 message += f" average: {average}"
 
         self.statusBar().showMessage(message)
+
+    @QtCore.Slot()
+    def _on_image_cleared(self):
+        self._array = None
 
 
 def main():
