@@ -1,5 +1,6 @@
 import logging
 import sys
+import time
 from pathlib import Path
 from warnings import warn
 
@@ -78,6 +79,8 @@ class InteractiveImageViewer(QtWidgets.QMainWindow):
 
         file_path = Path(file_path)
 
+        time_pre = time.time()
+
         LOGGER.info(f"reading {file_path} ...")
         try:
             array = imageio.imread(file_path)
@@ -86,10 +89,16 @@ class InteractiveImageViewer(QtWidgets.QMainWindow):
                 f"Cannot read image {file_path}, it might not be a supported format: {error}"
             )
 
+        time_pre = time.time() - time_pre
+        time_post = time.time()
+
         LOGGER.info(f"loading image array <{array.dtype} {array.shape}> ...")
         self._array = ensure_rgba_array(array.copy())
         # we only store the array as 32bit, we let the viewer handle 16bit conversion
         self._array = convert_bit_depth(array, numpy.core.float32)
+
+        time_post = time.time() - time_post
+        LOGGER.debug(f"   stats: imread={time_pre}s, convert={time_post}s,")
 
         self.image_viewer.set_image_from_array(array)
 

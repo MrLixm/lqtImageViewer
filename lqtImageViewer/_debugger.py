@@ -177,6 +177,8 @@ class ImageViewportDebugger(QtWidgets.QWidget):
         self.label_bg_style = QtWidgets.QLabel()
         self.label_rotation = QtWidgets.QLabel()
         self.label_array = QtWidgets.QLabel()
+        self.label_time_pre = QtWidgets.QLabel()
+        self.label_time_post = QtWidgets.QLabel()
 
         label_mapping = [
             (self.label_image, "QImage"),
@@ -184,6 +186,8 @@ class ImageViewportDebugger(QtWidgets.QWidget):
             (self.label_bg_style, "Background Style"),
             (self.label_rotation, "Rotation Angle"),
             (self.label_array, "Ndarray"),
+            (self.label_time_pre, "Image preprocess time"),
+            (self.label_time_post, "Image graphics process time"),
         ]
 
         # 2. Add
@@ -215,3 +219,5 @@ class ImageViewportDebugger(QtWidgets.QWidget):
             self.label_array.setText(
                 f"<{self._liv._image_array.dtype} {self._liv._image_array.shape}>"
             )
+        self.label_time_pre.setText(f"{self._liv._last_image_loading_time[0]}s")
+        self.label_time_post.setText(f"{self._liv._last_image_loading_time[1]}s")

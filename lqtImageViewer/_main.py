@@ -1,4 +1,5 @@
 import logging
+import time
 from typing import Optional
 
 import numpy
@@ -49,6 +50,8 @@ class LqtImageViewport(QtWidgets.QWidget):
         self._image_array: Optional[numpy.ndarray] = None
         # by 90degree increment only
         self._rotation_angle: int = 0
+        # tuple[preprocessing-time, loading-time]
+        self._last_image_loading_time: tuple[float, float] = (0.0, 0.0)
         self._plugins: list[BasePluginType] = []
         self._shortcuts = LIVKeyShortcuts.get_default()
         # 1. Create
@@ -120,6 +123,8 @@ class LqtImageViewport(QtWidgets.QWidget):
             array: SHOULD be an uint16 R-G-B-A array (4 channels), else the method will
             try to uniform it, so it become encoded as such.
         """
+        pre_time = time.time()
+
         if array.dtype != numpy.core.uint16:
             LOGGER.debug(f"converting array dtype from {array.dtype} to uint16 ...")
             array = convert_bit_depth(array, numpy.core.uint16)
@@ -127,6 +132,9 @@ class LqtImageViewport(QtWidgets.QWidget):
         if len(array.shape) == 2 or array.shape[2] != 4:
             LOGGER.debug(f"ensuring array of shape {array.shape} has 4 channels ...")
             array = ensure_rgba_array(array)
+
+        pre_time = time.time() - pre_time
+        post_time = time.time()
 
         self._image_array = array
         self._image_item.set_image_array(array)
@@ -137,6 +145,9 @@ class LqtImageViewport(QtWidgets.QWidget):
         if not self._image_item.isVisible():
             self._image_item.show()
             self.graphic_view.center_image()
+
+        post_time = time.time() - post_time
+        self._last_image_loading_time = (pre_time, post_time)
 
     def rotate_image_90(self, angle: int, add_existing=True):
         """
