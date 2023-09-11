@@ -46,6 +46,9 @@ class LqtImageViewport(QtWidgets.QWidget):
     ):
         super().__init__(parent)
 
+        self._image_array: Optional[numpy.ndarray] = None
+        # by 90degree increment only
+        self._rotation_angle: int = 0
         self._plugins: list[BasePluginType] = []
         self._shortcuts = LIVKeyShortcuts.get_default()
         # 1. Create
@@ -125,12 +128,51 @@ class LqtImageViewport(QtWidgets.QWidget):
             LOGGER.debug(f"ensuring array of shape {array.shape} has 4 channels ...")
             array = ensure_rgba_array(array)
 
+        self._image_array = array
         self._image_item.set_image_array(array)
+        # we also need the background to be updated
+        self.graphic_scene.update()
         [(plugin.reload(), plugin.on_image_changed()) for plugin in self._plugins]
 
         if not self._image_item.isVisible():
             self._image_item.show()
             self.graphic_view.center_image()
+
+    def rotate_image_90(self, angle: int, add_existing=True):
+        """
+        Rotate the image displayed by 90degree.
+
+        The developer is reponsible to also rotate its initial array that was passed
+        to this ImageViewport, so it is in sync with this one.
+
+        Note the rotation is still stored even if there is no image set.
+
+        Args:
+            angle: must be a 90 degree increment (positive or negative)
+            add_existing: True to add the given angle to the current one.
+
+        Returns:
+            final angle used to rotate the image
+        """
+        if angle % 90 != 0:
+            raise ValueError(f"Got angle={angle}, expected 90degree increment only.")
+
+        if add_existing:
+            self._rotation_angle += angle
+            rotation = angle
+        else:
+            self._rotation_angle = angle
+            rotation = self._rotation_angle
+
+        if self._image_array is None:
+            return
+
+        LOGGER.debug(f"rotating array by {self._rotation_angle} degrees ...")
+        new_array = numpy.rot90(self._image_array, k=rotation // 90)
+        self.set_image_from_array(new_array)
+        return self._rotation_angle
+
+    # TODO: clear_image method
 
     # Overrides
 
@@ -138,3 +180,18 @@ class LqtImageViewport(QtWidgets.QWidget):
         if watched is self.graphic_scene:
             [plugin.set_visibility_from_scene_event(event) for plugin in self._plugins]
         return super().eventFilter(watched, event)
+
+    def keyPressEvent(self, event: QtGui.QKeyEvent):
+        """
+        Handle some user shortcuts that cannot e handled at lower level (view/graphics).
+        """
+
+        if self._shortcuts.rotate_90_up.match_event(event):
+            self.rotate_image_90(90, add_existing=True)
+            return
+
+        if self._shortcuts.rotate_90_down.match_event(event):
+            self.rotate_image_90(-90, add_existing=True)
+            return
+
+        return super().keyPressEvent(event)

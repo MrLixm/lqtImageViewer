@@ -175,11 +175,15 @@ class ImageViewportDebugger(QtWidgets.QWidget):
         self.label_image = QtWidgets.QLabel()
         self.label_plugins = QtWidgets.QLabel()
         self.label_bg_style = QtWidgets.QLabel()
+        self.label_rotation = QtWidgets.QLabel()
+        self.label_array = QtWidgets.QLabel()
 
         label_mapping = [
             (self.label_image, "QImage"),
             (self.label_plugins, "Plugins"),
             (self.label_bg_style, "Background Style"),
+            (self.label_rotation, "Rotation Angle"),
+            (self.label_array, "Ndarray"),
         ]
 
         # 2. Add
@@ -204,3 +208,10 @@ class ImageViewportDebugger(QtWidgets.QWidget):
         self.label_image.setText(stringify_qobject(self._liv._image_item._image))
         self.label_plugins.setText(f"{len(self._liv._plugins)}")
         self.label_bg_style.setText(f"{repr(self._liv.graphic_view._background_style)}")
+        self.label_rotation.setText(f"{self._liv._rotation_angle}")
+        if self._liv._image_array is None:
+            self.label_array.setText("None")
+        else:
+            self.label_array.setText(
+                f"<{self._liv._image_array.dtype} {self._liv._image_array.shape}>"
+            )

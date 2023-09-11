@@ -84,6 +84,8 @@ keyboard :
 - `home` reset the zoom to 1:1
 - `B` switch between background styles
 - `F` reset the viewport position to origin
+- `Q` rotate the image by +90 degree
+- `E` rotate the image by -90 degree
 
 mouse:
 

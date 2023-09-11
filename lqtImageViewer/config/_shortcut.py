@@ -98,6 +98,8 @@ class LIVKeyShortcuts:
     view_coordinates1: LIVKeyShortcut
     view_coordinates2: LIVKeyShortcut
     set_coordinates_tiles: LIVKeyShortcut
+    rotate_90_up: LIVKeyShortcut
+    rotate_90_down: LIVKeyShortcut
 
     @classmethod
     def get_default(cls):
@@ -138,6 +140,14 @@ class LIVKeyShortcuts:
             set_coordinates_tiles=LIVKeyShortcut(
                 QtCore.Qt.MiddleButton,
                 (QtCore.Qt.AltModifier, QtCore.Qt.ShiftModifier),
+            ),
+            rotate_90_up=LIVKeyShortcut(
+                QtCore.Qt.Key_Q,
+                tuple(),
+            ),
+            rotate_90_down=LIVKeyShortcut(
+                QtCore.Qt.Key_E,
+                tuple(),
             ),
         )
 
