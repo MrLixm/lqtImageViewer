@@ -4,6 +4,9 @@ A simple but flexible image viewer for PyQt that take numpy array as input.
 
 ![demo video showcasing the features](./doc/img/demo.mp4)
 
+[QtPy](https://github.com/spyder-ide/qtpy) is used to handle compatibility between
+python Qt versions. The app has been tested for PySide2 and PySide6.
+
 # usage
 
 ## developer
