@@ -22,11 +22,11 @@ def _generate_default_image(image_size=512, tile_number=5, noise_opacity=5):
     """
     tile_size = image_size / tile_number
 
-    image = QtGui.QImage(image_size, image_size, QtGui.QImage.Format_RGB888)
+    image = QtGui.QImage(image_size, image_size, QtGui.QImage.Format.Format_RGB888)
     image.fill(QtGui.QColor(100, 100, 100))
 
     painter = QtGui.QPainter(image)
-    painter.setRenderHint(painter.Antialiasing, False)
+    painter.setRenderHint(painter.RenderHint.Antialiasing, False)
 
     # we precalculate a tile of noise that will be repeated, to avoid performance hit
     # it is faster than iterating over all the image pixel to draw a random color
@@ -93,7 +93,7 @@ class ImageItem(QtWidgets.QGraphicsItem):
             self._array,
             array.shape[1],
             array.shape[0],
-            QtGui.QImage.Format_RGBA64,
+            QtGui.QImage.Format.Format_RGBA64,
         )
         self.update()
 

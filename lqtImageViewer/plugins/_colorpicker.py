@@ -93,7 +93,7 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
         event_pos = event.scenePos()
 
         if (
-            (event.type() == event.GraphicsSceneMousePress)
+            (event.type() == event.Type.GraphicsSceneMousePress)
             and (
                 self.shortcuts.pick.match_event(event)
                 or self.shortcuts.pick_area_start.match_event(event)
@@ -108,7 +108,7 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
             self.signals.picked_color_changed.emit()
 
         elif (
-            (event.type() == event.GraphicsSceneMouseMove)
+            (event.type() == event.Type.GraphicsSceneMouseMove)
             and self.shortcuts.pick_area_expand.match_event(event)
             and self._is_point_inside_image(event_pos)
         ):
@@ -118,7 +118,7 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
             self.signals.picked_color_changed.emit()
             self._control_state = self.states.expand
 
-        elif (event.type() == event.GraphicsSceneMousePress) and (
+        elif (event.type() == event.Type.GraphicsSceneMousePress) and (
             self.shortcuts.unpick.match_event(event)
         ):
             self.hide()
@@ -151,7 +151,7 @@ class ColorPickerPlugin(BaseScreenSpacePlugin):
             painter.drawRect(self._center_rect())
 
     def mousePressEvent(self, event: QtWidgets.QGraphicsSceneMouseEvent):
-        if event.button() != QtCore.Qt.LeftButton:
+        if event.button() != QtCore.Qt.MouseButton.LeftButton:
             return
         # local widget coordinates
         center_rect = self._center_rect()

@@ -209,8 +209,8 @@ class LIVGraphicView(NavigableGraphicView):
             background_style or BackgroundStyleLibrary.black_grid_dot
         )
 
-        self.setCacheMode(self.CacheBackground)
-        self.setRenderHint(QtGui.QPainter.Antialiasing)
+        self.setCacheMode(self.CacheModeFlag.CacheBackground)
+        self.setRenderHint(QtGui.QPainter.RenderHint.Antialiasing)
         self.center_image()
 
     @property

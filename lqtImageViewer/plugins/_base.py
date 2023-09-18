@@ -30,7 +30,7 @@ class BaseScreenSpacePlugin(QtWidgets.QGraphicsItem):
 
     def __init__(self) -> None:
         super().__init__()
-        self.setFlag(self.ItemIgnoresTransformations)
+        self.setFlag(self.GraphicsItemFlag.ItemIgnoresTransformations)
         self._transform = QtGui.QTransform()
 
     @property

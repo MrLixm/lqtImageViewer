@@ -100,12 +100,12 @@ class DottedBackgroundStyle(BaseBackgroundStyle):
         pixmap.fill(self.primary)
 
         gradient = QtGui.QRadialGradient(center, 50)
-        gradient.setColorAt(1, QtCore.Qt.transparent)
+        gradient.setColorAt(1, QtCore.Qt.GlobalColor.transparent)
         gradient.setColorAt(0, self.secondary)
         gradient.setFocalRadius(44)
 
         painter = QtGui.QPainter(pixmap)
-        painter.setRenderHint(painter.Antialiasing)
+        painter.setRenderHint(painter.RenderHint.Antialiasing)
 
         painter.setPen(QtCore.Qt.PenStyle.NoPen)
         painter.setBrush(QtGui.QBrush(gradient))

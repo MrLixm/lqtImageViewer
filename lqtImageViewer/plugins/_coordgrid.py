@@ -2,6 +2,7 @@ import logging
 import time
 from typing import Optional
 
+import qtpy
 from qtpy import QtCore
 from qtpy import QtGui
 from qtpy import QtWidgets
@@ -71,23 +72,25 @@ def _draw_coordinates_grid(
         x = screenspace_point.x()
         y = screenspace_point.y()
 
-        alignment = QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop
+        AlignFlag = QtCore.Qt.AlignmentFlag
+
+        alignment = AlignFlag.AlignHCenter | AlignFlag.AlignTop
         text_rect.moveCenter(screenspace_point)
         # negative offset is the margin between the point and the text
         text_rect.moveBottom(y - 5)
 
         if x == screenspace_surface.left():
-            alignment = alignment ^ QtCore.Qt.AlignHCenter | QtCore.Qt.AlignLeft
+            alignment = alignment ^ AlignFlag.AlignHCenter | AlignFlag.AlignLeft
             text_rect.moveLeft(x)
         elif x >= screenspace_surface.width() + screenspace_surface.left():
-            alignment = alignment ^ QtCore.Qt.AlignHCenter | QtCore.Qt.AlignRight
+            alignment = alignment ^ AlignFlag.AlignHCenter | AlignFlag.AlignRight
             text_rect.moveRight(x)
         if y == screenspace_surface.top():
-            alignment = alignment ^ QtCore.Qt.AlignTop | QtCore.Qt.AlignBottom
+            alignment = alignment ^ AlignFlag.AlignTop | AlignFlag.AlignBottom
             text_rect.moveTop(y)
         # useless but there by default
         elif y >= screenspace_surface.height() + screenspace_surface.top():
-            alignment = alignment ^ QtCore.Qt.AlignTop | QtCore.Qt.AlignTop
+            alignment = alignment ^ AlignFlag.AlignTop | AlignFlag.AlignTop
             text_rect.moveBottom(y)
 
         painter.save()
@@ -120,14 +123,15 @@ class CoordinatesGridPlugin(BaseScreenSpacePlugin):
         )
 
         if (
-            event.type() == event.ShortcutOverride or event.type() == event.KeyPress
+            event.type() == event.Type.ShortcutOverride
+            or event.type() == event.Type.KeyPress
         ) and (
             self.shortcuts.view_coordinates1.match_event(event)
             or self.shortcuts.view_coordinates2.match_event(event)
         ):
             self.show()
 
-        elif event.type() == event.KeyRelease and (
+        elif event.type() == event.Type.KeyRelease and (
             self.shortcuts.view_coordinates1.match_event(event, modifier_matching_any)
             or self.shortcuts.view_coordinates2.match_event(
                 event, modifier_matching_any
@@ -163,9 +167,12 @@ class CoordinatesGridPlugin(BaseScreenSpacePlugin):
     ) -> None:
         painter.setPen(QtGui.QPen(QtGui.QColor(0, 0, 0, 150), 3))
         font = QtGui.QFont("Monospace")
-        font.setStyleHint(QtGui.QFont.TypeWriter)
+        font.setStyleHint(QtGui.QFont.StyleHint.TypeWriter)
         font.setPointSize(8)
-        font.setWeight(500)
+        if qtpy.QT6:
+            font.setWeight(font.Weight.Medium)
+        else:
+            font.setWeight(500)
         painter.setFont(font)
 
         grid = _generate_point_grid(self._rect, self._tiles_number)

@@ -54,7 +54,7 @@ class LIVKeyShortcut:
             return False
 
         modifiers = self.modifiers or tuple()
-        exact_modifiers = QtCore.Qt.NoModifier
+        exact_modifiers = QtCore.Qt.KeyboardModifier.NoModifier
         for _modifier in modifiers:
             exact_modifiers = exact_modifiers | _modifier
 
@@ -104,55 +104,66 @@ class LIVKeyShortcuts:
 
     @classmethod
     def get_default(cls):
+        Modifiers = QtCore.Qt.KeyboardModifier
+
         return cls(
-            reset_zoom=LIVKeyShortcut(QtCore.Qt.Key_Home, tuple()),
-            reset_pan=LIVKeyShortcut(QtCore.Qt.Key_F, tuple()),
-            change_background=LIVKeyShortcut(QtCore.Qt.Key_B, tuple()),
+            reset_zoom=LIVKeyShortcut(QtCore.Qt.Key.Key_Home, tuple()),
+            reset_pan=LIVKeyShortcut(QtCore.Qt.Key.Key_F, tuple()),
+            change_background=LIVKeyShortcut(QtCore.Qt.Key.Key_B, tuple()),
             pan1=LIVKeyShortcut(
-                QtCore.Qt.LeftButton,
-                (QtCore.Qt.AltModifier,),
+                QtCore.Qt.MouseButton.LeftButton,
+                (Modifiers.AltModifier,),
                 ShortcutModifierMatching.contains_all,
             ),
-            pan2=LIVKeyShortcut(QtCore.Qt.MiddleButton, (QtCore.Qt.NoModifier,)),
+            pan2=LIVKeyShortcut(
+                QtCore.Qt.MouseButton.MiddleButton,
+                (Modifiers.NoModifier,),
+            ),
             zoom2=LIVKeyShortcut(
-                QtCore.Qt.MiddleButton,
-                (QtCore.Qt.AltModifier,),
+                QtCore.Qt.MouseButton.MiddleButton,
+                (Modifiers.AltModifier,),
                 ShortcutModifierMatching.contains_all,
             ),
-            pick=LIVKeyShortcut(QtCore.Qt.LeftButton, (QtCore.Qt.ControlModifier,)),
+            pick=LIVKeyShortcut(
+                QtCore.Qt.MouseButton.LeftButton,
+                (Modifiers.ControlModifier,),
+            ),
             pick_area_start=LIVKeyShortcut(
-                QtCore.Qt.LeftButton,
-                (QtCore.Qt.ControlModifier, QtCore.Qt.ShiftModifier),
+                QtCore.Qt.MouseButton.LeftButton,
+                (Modifiers.ControlModifier, Modifiers.ShiftModifier),
             ),
             pick_area_expand=LIVKeyShortcut(
-                QtCore.Qt.NoButton,
-                (QtCore.Qt.ControlModifier, QtCore.Qt.ShiftModifier),
+                QtCore.Qt.MouseButton.NoButton,
+                (Modifiers.ControlModifier, Modifiers.ShiftModifier),
             ),
-            unpick=LIVKeyShortcut(QtCore.Qt.RightButton, (QtCore.Qt.ControlModifier,)),
+            unpick=LIVKeyShortcut(
+                QtCore.Qt.MouseButton.RightButton,
+                (Modifiers.ControlModifier,),
+            ),
             view_coordinates1=LIVKeyShortcut(
-                QtCore.Qt.Key_Alt,
-                (QtCore.Qt.ShiftModifier, QtCore.Qt.AltModifier),
+                QtCore.Qt.Key.Key_Alt,
+                (Modifiers.ShiftModifier, Modifiers.AltModifier),
             ),
             view_coordinates2=LIVKeyShortcut(
-                QtCore.Qt.Key_Shift,
-                (QtCore.Qt.AltModifier, QtCore.Qt.ShiftModifier),
+                QtCore.Qt.Key.Key_Shift,
+                (Modifiers.AltModifier, Modifiers.ShiftModifier),
             ),
             # not actually used
             set_coordinates_tiles=LIVKeyShortcut(
-                QtCore.Qt.MiddleButton,
-                (QtCore.Qt.AltModifier, QtCore.Qt.ShiftModifier),
+                QtCore.Qt.MouseButton.MiddleButton,
+                (Modifiers.AltModifier, Modifiers.ShiftModifier),
             ),
             rotate_90_up=LIVKeyShortcut(
-                QtCore.Qt.Key_Q,
+                QtCore.Qt.Key.Key_Q,
                 tuple(),
             ),
             rotate_90_down=LIVKeyShortcut(
-                QtCore.Qt.Key_E,
+                QtCore.Qt.Key.Key_E,
                 tuple(),
             ),
             clear=LIVKeyShortcut(
-                QtCore.Qt.Key_C,
-                (QtCore.Qt.AltModifier,),
+                QtCore.Qt.Key.Key_C,
+                (Modifiers.AltModifier,),
             ),
         )
 

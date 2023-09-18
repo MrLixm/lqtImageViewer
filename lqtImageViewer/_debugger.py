@@ -24,22 +24,22 @@ def stringify_qobject(qobject: QtCore.QObject) -> str:
 def modifier_to_str(modifiers: QtCore.Qt.KeyboardModifier) -> list[str]:
     modifiers_names = []
 
-    if modifiers & QtCore.Qt.ShiftModifier:
+    if modifiers & QtCore.Qt.KeyboardModifier.ShiftModifier:
         modifiers_names.append("Shift")
-    if modifiers & QtCore.Qt.AltModifier:
+    if modifiers & QtCore.Qt.KeyboardModifier.AltModifier:
         modifiers_names.append("Alt")
-    if modifiers & QtCore.Qt.ControlModifier:
+    if modifiers & QtCore.Qt.KeyboardModifier.ControlModifier:
         modifiers_names.append("Ctrl")
 
     return modifiers_names
 
 
 def mouse_button_to_str(mouse_button: QtCore.Qt.MouseButton):
-    if mouse_button == QtCore.Qt.LeftButton:
+    if mouse_button == QtCore.Qt.MouseButton.LeftButton:
         return "LMB"
-    if mouse_button == QtCore.Qt.RightButton:
+    if mouse_button == QtCore.Qt.MouseButton.RightButton:
         return "RMB"
-    if mouse_button == QtCore.Qt.MiddleButton:
+    if mouse_button == QtCore.Qt.MouseButton.MiddleButton:
         return "MMB"
 
 
@@ -62,21 +62,21 @@ class KeyMouseDisplayWidget(QtWidgets.QLabel):
         mouse_text = ""
         need_update = False
 
-        if event.type() == QtCore.QEvent.KeyPress:
+        if event.type() == QtCore.QEvent.Type.KeyPress:
             event: QtGui.QKeyEvent
             modifier_text = modifier_to_str(event.modifiers())
             modifier_text = " + ".join(modifier_text)
             key_text = f"{event.text()}"
             need_update = True
 
-        elif event.type() == QtCore.QEvent.MouseButtonPress:
+        elif event.type() == QtCore.QEvent.Type.MouseButtonPress:
             event: QtGui.QMouseEvent
             modifier_text = modifier_to_str(event.modifiers())
             modifier_text = " + ".join(modifier_text)
             mouse_text = mouse_button_to_str(event.button())
             need_update = True
 
-        elif event.type() == QtCore.QEvent.Wheel:
+        elif event.type() == QtCore.QEvent.Type.Wheel:
             mouse_text = "Scroll"
             need_update = True
 
@@ -88,9 +88,9 @@ class KeyMouseDisplayWidget(QtWidgets.QLabel):
             self.setText(display_text)
 
         if event.type() in (
-            QtCore.QEvent.KeyRelease,
-            QtCore.QEvent.MouseButtonRelease,
-            QtCore.QEvent.Wheel,
+            QtCore.QEvent.Type.KeyRelease,
+            QtCore.QEvent.Type.MouseButtonRelease,
+            QtCore.QEvent.Type.Wheel,
         ):
             self._timer_update.start(self.fade_out_timer)
 
