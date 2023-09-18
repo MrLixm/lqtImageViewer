@@ -1,6 +1,6 @@
-from Qt import QtCore
-from Qt import QtGui
-from Qt import QtWidgets
+from qtpy import QtCore
+from qtpy import QtGui
+from qtpy import QtWidgets
 
 from ._viewport import LqtImageViewport
 

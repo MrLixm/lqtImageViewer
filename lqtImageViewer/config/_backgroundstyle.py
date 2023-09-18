@@ -1,9 +1,9 @@
 import functools
 from typing import Optional
 
-from Qt import QtCore
-from Qt import QtGui
-from Qt import QtWidgets
+from qtpy import QtCore
+from qtpy import QtGui
+from qtpy import QtWidgets
 
 
 # note: not using a dataclass because unhashable QColor

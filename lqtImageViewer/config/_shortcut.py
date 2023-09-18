@@ -3,9 +3,9 @@ import enum
 from typing import Optional
 from typing import Union
 
-from Qt import QtCore
-from Qt import QtGui
-from Qt import QtWidgets
+from qtpy import QtCore
+from qtpy import QtGui
+from qtpy import QtWidgets
 
 
 class ShortcutModifierMatching(enum.Enum):

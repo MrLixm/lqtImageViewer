@@ -5,9 +5,9 @@ from pathlib import Path
 from warnings import warn
 
 import numpy
-from Qt import QtGui
-from Qt import QtWidgets
-from Qt import QtCore
+from qtpy import QtGui
+from qtpy import QtWidgets
+from qtpy import QtCore
 
 try:
     import imageio.v3 as imageio

@@ -4,9 +4,9 @@ import logging
 import typing
 from typing import Optional
 
-from Qt import QtCore
-from Qt import QtGui
-from Qt import QtWidgets
+from qtpy import QtCore
+from qtpy import QtGui
+from qtpy import QtWidgets
 
 from lqtImageViewer._item import ImageItem
 from lqtImageViewer._scene import LIVGraphicScene
