@@ -7,7 +7,25 @@ A simple but flexible image viewer for PyQt that take numpy array as input.
 [QtPy](https://github.com/spyder-ide/qtpy) is used to handle compatibility between
 python Qt versions. The app has been tested for PySide2 and PySide6.
 
+The API doesn't perform any I.O. and let the developer handles how arrays are
+generated.
+
 # usage
+
+## installation
+
+The repository is managed through [uv](https://docs.astral.sh/uv/) and use the
+standard python `pyproject.toml` to declare its dependencies.
+
+If you wish to quickly test the widget before integrating it into your app as
+dependency you can use:
+
+```
+cd path/to/repo
+uv run python -m lqtImageViewer
+```
+Which will display a GUI allowing you to load an image file with `Ctrl+O`
+(IO is managed using OpenImageIO extra dependency)
 
 ## developer
 
