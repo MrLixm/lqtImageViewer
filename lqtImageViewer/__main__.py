@@ -5,19 +5,22 @@ from pathlib import Path
 from warnings import warn
 
 import numpy
+
+
+try:
+    import OpenImageIO as oiio
+except ImportError:
+    warn("OpenImageIO dependency not installed, some feature will be missing")
+
+    class oiio:
+        def __getattr__(self, item):
+            raise RuntimeError("OpenImageIO dependency not installed")
+
+
+# must be imported AFTER OpenImageIO (else crash?!)
 from qtpy import QtGui
 from qtpy import QtWidgets
 from qtpy import QtCore
-
-try:
-    import imageio.v3 as imageio
-except ImportError:
-    warn("imageio dependency not installed, some feature will be missing")
-
-    class imageio:
-        def __getattr__(self, item):
-            raise RuntimeError("imageio dependency not installed")
-
 
 from lqtImageViewer import LqtImageViewport
 from lqtImageViewer._encoding import convert_bit_depth
@@ -26,6 +29,24 @@ from lqtImageViewer._debugger import GraphicViewSceneDebugger
 from lqtImageViewer._debugger import ImageViewportDebugger
 
 LOGGER = logging.getLogger(__name__)
+
+
+def read_image(path: Path) -> numpy.ndarray:
+    """
+    Args:
+        path: filesystem path to an existing image file
+
+    Returns:
+        image as RGBA array (shape=(height, width, 4))
+    """
+    imagein: oiio.ImageInput = oiio.ImageInput.open(str(path))
+    if not imagein:
+        raise IOError(f"Could not open image '{path}': {oiio.geterror()}")
+    # https://openimageio.readthedocs.io/en/latest/pythonbindings.html#ImageInput.read_image
+    array = imagein.read_image(chbegin=0, chend=4, format="unknown")
+    LOGGER.debug(f"metadata: {imagein.spec().to_xml()}")
+    imagein.close()
+    return array
 
 
 class DockedDebugger(QtWidgets.QDockWidget):
@@ -83,12 +104,7 @@ class InteractiveImageViewer(QtWidgets.QMainWindow):
         time_pre = time.time()
 
         LOGGER.info(f"reading {file_path} ...")
-        try:
-            array = imageio.imread(file_path)
-        except Exception as error:
-            raise IOError(
-                f"Cannot read image {file_path}, it might not be a supported format: {error}"
-            )
+        array = read_image(file_path)
 
         time_pre = time.time() - time_pre
         time_post = time.time()
@@ -96,7 +112,7 @@ class InteractiveImageViewer(QtWidgets.QMainWindow):
         LOGGER.info(f"loading image array <{array.dtype} {array.shape}> ...")
         self._array = ensure_rgba_array(array.copy())
         # we only store the array as 32bit, we let the viewer handle 16bit conversion
-        self._array = convert_bit_depth(array, numpy.core.float32)
+        self._array = convert_bit_depth(array, numpy.float32)
 
         time_post = time.time() - time_post
         LOGGER.debug(f"   stats: imread={time_pre}s, convert={time_post}s,")

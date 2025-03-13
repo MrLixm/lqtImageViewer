@@ -8,7 +8,7 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.9,<3.11"
 dependencies = [
-    "numpy>=1.25",
+    "numpy>=1.25,<2",
     "QtPy>=2.4",
 ]
 
@@ -16,6 +16,7 @@ dependencies = [
 dev-dependencies = [
     "black>=24.10.0",
     "PySide2>=5.15",
+    "OpenImageIO>=3.0",
     "PySide2-stubs",
 ]
 
