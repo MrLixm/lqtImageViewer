@@ -1,28 +1,25 @@
-[tool.poetry]
+[project]
 name = "lqtimageviewer"
 version = "0.4.1"
 description = "A simple but flexible image viewer for PyQt that take numpy array as input."
-authors = ["Liam Collod <monsieurlixm@gmail.com>"]
+authors = [
+    {name="Liam Collod", email = "monsieurlixm@gmail.com"},
+]
 readme = "README.md"
-packages = [
-    { include = "lqtImageViewer" }
+requires-python = ">=3.9,<3.11"
+dependencies = [
+    "numpy>=1.25",
+    "QtPy>=2.4",
 ]
 
-[tool.poetry.dependencies]
-python = ">=3.9,<3.11"
-numpy = "^1.25"
-QtPy = "^2.4"
+[tool.uv]
+dev-dependencies = [
+    "black>=24.10.0",
+    "PySide2>=5.15",
+    "PySide2-stubs",
+]
 
-[tool.poetry.group.imageio]
-optional = true
-[tool.poetry.group.imageio.dependencies]
-imageio = "*"
-
-[tool.poetry.dev-dependencies]
-black = "*"
-PySide2 = "^5.15"
-PySide2-stubs = "*"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[dependency-groups]
+imageio = [
+    "imageio",
+]
