@@ -8,7 +8,8 @@ from qtpy import QtWidgets
 
 from .config import LIVKeyShortcuts
 from .config import BaseBackgroundStyle
-from .config import BackgroundStyleLibrary
+from .config import DEFAULT_BACKGROUND_LIBRARY
+from .config import DEFAULT_BACKGROUND
 from ._item import ImageItem
 from ._scene import LIVGraphicScene
 from .plugins import BasePluginType
@@ -200,14 +201,16 @@ class LIVGraphicView(NavigableGraphicView):
         scene: LIVGraphicScene,
         key_shortcuts: Optional[LIVKeyShortcuts] = None,
         background_style: Optional[BaseBackgroundStyle] = None,
+        background_library: list[BaseBackgroundStyle] = None,
     ):
         super().__init__(scene=scene, key_shortcuts=key_shortcuts)
         self._scene: LIVGraphicScene = scene
         self._plugins: list[BasePluginType] = []
 
-        self._background_style = (
-            background_style or BackgroundStyleLibrary.black_grid_dot
+        self._background_library: list[BaseBackgroundStyle] = (
+            background_library or DEFAULT_BACKGROUND_LIBRARY.copy()
         )
+        self._background_style = background_style or DEFAULT_BACKGROUND
 
         self.setCacheMode(self.CacheModeFlag.CacheBackground)
         self.setRenderHint(QtGui.QPainter.RenderHint.Antialiasing)
@@ -222,6 +225,19 @@ class LIVGraphicView(NavigableGraphicView):
         self._background_style = new_background_style
         self.resetCachedContent()
         self.update()
+
+    @property
+    def background_library(self) -> list[BaseBackgroundStyle]:
+        """
+        List of backgrounds styles the user can switch between.
+
+        You can add a new background by appending directly to the returned object.
+        """
+        return self._background_library
+
+    @background_library.setter
+    def background_library(self, new_background_library: list[BaseBackgroundStyle]):
+        self._background_library = new_background_library
 
     @property
     def image_item(self) -> ImageItem:
@@ -279,7 +295,15 @@ class LIVGraphicView(NavigableGraphicView):
         Configure key shortucts.
         """
         if self._shortcuts.change_background.match_event(event):
-            self._background_style = BackgroundStyleLibrary.next(self._background_style)
+            try:
+                index = self._background_library.index(self._background_style)
+            except IndexError:
+                pass
+            else:
+                try:
+                    self._background_style = self._background_library[index + 1]
+                except IndexError:
+                    self._background_style = self._background_library[0]
             self.resetCachedContent()
             self.update()
             return

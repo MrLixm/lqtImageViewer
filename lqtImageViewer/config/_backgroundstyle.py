@@ -114,67 +114,37 @@ class DottedBackgroundStyle(BaseBackgroundStyle):
         return pixmap
 
 
-class BackgroundStyleLibrary:
-    """
-    Collection of style the background of the viewport can be set to.
-    """
-
-    light = BaseBackgroundStyle(
+DEFAULT_BACKGROUND_LIBRARY: list[BaseBackgroundStyle] = [
+    BaseBackgroundStyle(
         "Light",
         QtGui.QColor(240, 240, 238),
         QtGui.QColor(200, 200, 200),
-    )
-    light_grid_dot = DottedBackgroundStyle(
+    ),
+    DottedBackgroundStyle(
         "Light Grid of Dots",
         QtGui.QColor(240, 240, 238),
         QtGui.QColor(200, 200, 200),
-    )
-    mid_grey = BaseBackgroundStyle(
+    ),
+    BaseBackgroundStyle(
         "Mid Grey",
         QtGui.QColor(125, 125, 125),
         QtGui.QColor(100, 100, 100),
-    )
-    black_grid_dot = DottedBackgroundStyle(
+    ),
+    DottedBackgroundStyle(
         "Black Grid of Dots",
         QtGui.QColor(0, 0, 0),
         QtGui.QColor(30, 30, 30),
-    )
-    black = BaseBackgroundStyle(
+    ),
+    BaseBackgroundStyle(
         "Black",
         QtGui.QColor(0, 0, 0),
         QtGui.QColor(30, 30, 30),
-    )
-    dark_grid_dot = DottedBackgroundStyle(
+    ),
+    DottedBackgroundStyle(
         "Dark Grid of Dots",
         QtGui.QColor(25, 25, 25),
         QtGui.QColor(18, 18, 18),
-    )
-    customs: list[BaseBackgroundStyle] = []
+    ),
+]
 
-    @classmethod
-    def all(cls):
-        all_styles = [
-            cls.light,
-            cls.light_grid_dot,
-            cls.mid_grey,
-            cls.black,
-            cls.black_grid_dot,
-            cls.dark_grid_dot,
-        ]
-        all_styles.extend(cls.customs)
-        return all_styles
-
-    @classmethod
-    def next(cls, style: BaseBackgroundStyle) -> BaseBackgroundStyle:
-        all_styles = cls.all()
-        index = all_styles.index(style)
-        try:
-            return all_styles[index + 1]
-        except IndexError:
-            return all_styles[0]
-
-    @classmethod
-    def add_custom_style(cls, new_style: BaseBackgroundStyle):
-        if new_style in cls.customs:
-            return
-        cls.customs.append(new_style)
+DEFAULT_BACKGROUND = DEFAULT_BACKGROUND_LIBRARY[-3]

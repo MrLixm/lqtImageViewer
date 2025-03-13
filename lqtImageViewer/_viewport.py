@@ -8,6 +8,7 @@ from qtpy import QtGui
 from qtpy import QtWidgets
 
 from lqtImageViewer.config import LIVKeyShortcuts
+from lqtImageViewer.config import BaseBackgroundStyle
 from lqtImageViewer._item import ImageItem
 from lqtImageViewer._scene import LIVGraphicScene
 from lqtImageViewer._view import LIVGraphicView
@@ -37,6 +38,8 @@ class LqtImageViewport(QtWidgets.QWidget):
             If None a default image will be generated.
         default_image_visible:
             True to make the default image visble, else only the background will be visible.
+        background_library:
+             List of backgrounds styles the user can switch between.
     """
 
     image_cleared_signal = QtCore.Signal()
@@ -46,6 +49,7 @@ class LqtImageViewport(QtWidgets.QWidget):
         parent: QtWidgets.QWidget = None,
         default_image: Optional[QtGui.QImage] = None,
         default_image_visible: bool = True,
+        background_library: list[BaseBackgroundStyle] = None,
     ):
         super().__init__(parent)
 
@@ -65,6 +69,7 @@ class LqtImageViewport(QtWidgets.QWidget):
         self.graphic_view = LIVGraphicView(
             scene=self.graphic_scene,
             key_shortcuts=self._shortcuts,
+            background_library=background_library,
         )
         self.plugin_color_picker = ColorPickerPlugin()
         self.plugins_coord = CoordinatesGridPlugin()
