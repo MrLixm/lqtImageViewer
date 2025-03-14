@@ -27,15 +27,29 @@ class GraphicViewState(enum.IntFlag):
 
 class NavigableGraphicView(QtWidgets.QGraphicsView):
     states = GraphicViewState
+    """
+    Different cumulative states the view can be set to.
+    """
 
     zoom_enable = True
     """
     Used to disable zoom capabilities on subclasses
     """
+
     zoom_min = 0.1
+    """
+    Minimum amount of zoom for the user.
+    """
+
     zoom_max = 20
+    """
+    Maximum amount of zoom for the user.
+    """
 
     round_amount = 3
+    """
+    Number of decimals to keep for the zoom amount.
+    """
 
     def __init__(
         self,

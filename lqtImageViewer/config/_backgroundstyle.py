@@ -12,10 +12,11 @@ class BaseBackgroundStyle:
 
     Args:
         label: a pretty name for this style
-        background:
-        foreground:
+        background: the primary color of the background
+        foreground: a second color to layer on top of the background
         use_background_texture:
-            False indicate we don't care abotu the background texture
+            False indicate we don't care about using a texture for the background
+            (`generate_background_texture` is not implemented).
         texture_zoom_range:
             allow to hide the background texture depending on the view zoom level.
             zoom range is [0-1+] where 1 == no zoom

@@ -9,6 +9,10 @@ from qtpy import QtWidgets
 
 
 class ShortcutModifierMatching(enum.Enum):
+    """
+    Amount of precision required to match an event modifiers against a known collection of modifiers.
+    """
+
     exact = enum.auto()
     contains_all = enum.auto()
     contains_any = enum.auto()
@@ -16,6 +20,10 @@ class ShortcutModifierMatching(enum.Enum):
 
 @dataclasses.dataclass
 class LIVKeyShortcut:
+    """
+    Store a unique combinations of key to verify it matches against Qt QEvent.
+    """
+
     key: Union[QtCore.Qt.Key, QtCore.Qt.MouseButton]
     """
     Main input to match the event against
@@ -85,6 +93,10 @@ class LIVKeyShortcut:
 
 @dataclasses.dataclass
 class LIVKeyShortcuts:
+    """
+    Mapping of shortcuts with their intended usage across the image viewer.
+    """
+
     reset_zoom: LIVKeyShortcut
     change_background: LIVKeyShortcut
     reset_pan: LIVKeyShortcut
@@ -104,6 +116,9 @@ class LIVKeyShortcuts:
 
     @classmethod
     def get_default(cls):
+        """
+        Generate an instance with defaults key bindings.
+        """
         Modifiers = QtCore.Qt.KeyboardModifier
 
         return cls(
