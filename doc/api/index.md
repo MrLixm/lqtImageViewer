@@ -40,7 +40,7 @@ from lqtImageViewer import ensure_rgba_array
     options:
         members: false
 
-See [config.md]()
+See [config](config.md).
 
 ::: lqtImageViewer.BaseBackgroundStyle
 
