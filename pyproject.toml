@@ -24,3 +24,8 @@ dev-dependencies = [
 imageio = [
     "imageio",
 ]
+doc = [
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.6.8",
+    "mkdocstrings[python]>=0.29.0",
+]

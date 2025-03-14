@@ -2,15 +2,18 @@
 
 A simple but flexible image viewer for PyQt that take numpy array as input.
 
-![demo video showcasing the features](./doc/img/demo.mp4)
-
-[QtPy](https://github.com/spyder-ide/qtpy) is used to handle compatibility between
-python Qt versions. The app has been tested for PySide2 and PySide6.
-
 The API doesn't perform any I.O. and let the developer handles how arrays are
 generated.
 
-# usage
+<video controls src="./img/demo.mp4"></video>
+
+## prerequisites
+
+[QtPy](https://github.com/spyder-ide/qtpy) is used to handle compatibility between
+python Qt versions. 
+
+The app has been tested for PySide2 and PySide6 and doesn't declare one or the
+other in its dependencies.
 
 ## installation
 
@@ -20,14 +23,14 @@ standard python `pyproject.toml` to declare its dependencies.
 If you wish to quickly test the widget before integrating it into your app as
 dependency you can use:
 
-```
+```bash
 cd path/to/repo
 uv run python -m lqtImageViewer
 ```
 Which will display a GUI allowing you to load an image file with `Ctrl+O`
 (IO is managed using OpenImageIO extra dependency)
 
-## developer
+## usage-developer
 
 Most basic example :
 
@@ -94,9 +97,7 @@ def print_picked():
 viewer.picked_color_changed_signal.connect(print_picked)
 ```
 
-
-
-## user
+## usage-user
 
 ### key binding
 

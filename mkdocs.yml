@@ -1,0 +1,95 @@
+site_name: lqtImageViewer
+site_url: https://mrlixm.github.io/lqtImageViewer
+site_author: Liam Collod
+site_description: A simple but flexible image viewer for PyQt that take numpy array as input.
+copyright: Copyright &copy; 2025 Liam Collod
+repo_url: https://github.com/MrLixm/lqtImageViewer
+
+docs_dir: 'doc'
+site_dir: 'build'
+
+theme:
+  name: material
+  favicon: img/favicon.ico
+  palette:
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      primary: 'custom'
+      accent: 'custom'
+      toggle:
+        icon: octicons/moon-16
+        name: Switch to dark mode
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      primary: 'custom'
+      accent: 'custom'
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - search.suggest
+    - content.code.annotate
+    - content.code.copy
+    - content.tabs.link
+    - navigation.top
+
+extra_css:
+  - extra.css
+
+nav:
+  - Overview: index.md
+  - Public API: api.md
+  - Contributing: contributing.md
+
+plugins:
+  - search
+  - privacy
+  - mkdocstrings:
+      custom_templates: doc/templates
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            docstring_section_style: list
+            show_source: false
+            merge_init_into_class: true
+
+            inherited_members: true
+            filters: ["!^_[^_]"]
+
+            heading_level: 3
+            show_root_heading: true
+            show_root_full_path: false
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            show_if_no_docstring: true
+
+            separate_signature: true
+            show_signature_annotations: true
+            signature_crossrefs: true
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      options:
+        custom_icons:
+          - overrides/.icons
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.keys
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - toc:
+      permalink: true
