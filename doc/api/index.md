@@ -1,4 +1,4 @@
-# Public API
+# lqtImageViewer
 
 Those are the available objects that can be imported from :
 
@@ -7,21 +7,26 @@ import lqtImageViewer
 ```
 
 ```python
+# widgets
+from lqtImageViewer import LqtImageViewport
+from lqtImageViewer import LIVGraphicView
+from lqtImageViewer import LIVGraphicScene
+from lqtImageViewer import ImageItem
+
+# configuration
 from lqtImageViewer import config
 from lqtImageViewer import BaseBackgroundStyle
 from lqtImageViewer import LIVKeyShortcut
-from lqtImageViewer import convert_bit_depth
-from lqtImageViewer import ensure_rgba_array
-from lqtImageViewer import ImageItem
+
+# plugins
 from lqtImageViewer import BasePluginType
 from lqtImageViewer import BaseScreenSpacePlugin
 from lqtImageViewer import ColorPickerPlugin
-from lqtImageViewer import LIVGraphicScene
-from lqtImageViewer import LIVGraphicView
-from lqtImageViewer import LqtImageViewport
-```
 
-## widgets
+# utilities
+from lqtImageViewer import convert_bit_depth
+from lqtImageViewer import ensure_rgba_array
+```
 
 ::: lqtImageViewer.LqtImageViewport
 
@@ -31,24 +36,21 @@ from lqtImageViewer import LqtImageViewport
 
 ::: lqtImageViewer.ImageItem
 
-## configuration
-
 ::: lqtImageViewer.config
+    options:
+        members: false
+
+See [config.md]()
 
 ::: lqtImageViewer.BaseBackgroundStyle
 
 ::: lqtImageViewer.LIVKeyShortcut
-
-
-## plugins
 
 ::: lqtImageViewer.BasePluginType
 
 ::: lqtImageViewer.BaseScreenSpacePlugin
 
 ::: lqtImageViewer.ColorPickerPlugin
-
-## utilities
 
 ::: lqtImageViewer.convert_bit_depth
 

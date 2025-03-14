@@ -27,6 +27,13 @@ class ColorPickerControlState(enum.IntEnum):
 
 
 class ColorPickerPlugin(BaseScreenSpacePlugin):
+    """
+    A screenspace plugin which allow to select a pixel area on an image.
+
+    The plugin doesn't actually handle any pixel picking, it just returns an area
+    and its up to the developer to extract the color values from the image array.
+    """
+
     states = ColorPickerControlState
 
     class _Signals(QtCore.QObject):

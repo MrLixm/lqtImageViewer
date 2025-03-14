@@ -18,7 +18,7 @@ def _generate_default_image(image_size=512, tile_number=5, noise_opacity=5):
     Args:
         image_size: in pixels, width and height of the image.
         tile_number: number of checker tile visible. MUST be uneven number.
-        noise_opacity: [0-255] range, opcaity of the random nosie layered on top.
+        noise_opacity: [0-255] range, opacity of the random nosie layered on top.
     """
     tile_size = image_size / tile_number
 
@@ -61,6 +61,10 @@ def _generate_default_image(image_size=512, tile_number=5, noise_opacity=5):
 
 
 class ImageItem(QtWidgets.QGraphicsItem):
+    """
+    A QGraphicsItem that can draw a 2D image array on its surface.
+    """
+
     def __init__(
         self,
         parent: Optional[QtWidgets.QGraphicsItem] = None,

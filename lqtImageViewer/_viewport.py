@@ -37,7 +37,7 @@ class LqtImageViewport(QtWidgets.QWidget):
             a QImage to use when no other image as been loaded yet.
             If None a default image will be generated.
         default_image_visible:
-            True to make the default image visble, else only the background will be visible.
+            True to make the default image visible, else only the background will be visible.
         background_library:
              List of backgrounds styles the user can switch between.
     """
@@ -128,7 +128,7 @@ class LqtImageViewport(QtWidgets.QWidget):
 
         Args:
             array: SHOULD be an uint16 R-G-B-A array (4 channels), else the method will
-            try to uniform it, so it become encoded as such.
+                    try to uniform it, so it become encoded as such.
         """
         pre_time = time.time()
 
@@ -156,7 +156,7 @@ class LqtImageViewport(QtWidgets.QWidget):
         post_time = time.time() - post_time
         self._last_image_loading_time = (pre_time, post_time)
 
-    def rotate_image_90(self, angle: int, add_existing=True):
+    def rotate_image_90(self, angle: int, add_existing: bool = True) -> Optional[int]:
         """
         Rotate the image displayed by 90degree.
 
@@ -183,7 +183,7 @@ class LqtImageViewport(QtWidgets.QWidget):
             rotation = self._rotation_angle
 
         if self._image_array is None:
-            return
+            return None
 
         LOGGER.debug(f"rotating array by {self._rotation_angle} degrees ...")
         new_array = numpy.rot90(self._image_array, k=rotation // 90)
@@ -209,7 +209,7 @@ class LqtImageViewport(QtWidgets.QWidget):
 
     def keyPressEvent(self, event: QtGui.QKeyEvent):
         """
-        Handle some user shortcuts that cannot e handled at lower level (view/graphics).
+        Handle some user shortcuts that cannot be handled at lower level (view/graphics).
         """
 
         if self._shortcuts.rotate_90_up.match_event(event):

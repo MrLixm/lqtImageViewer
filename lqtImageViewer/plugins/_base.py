@@ -23,9 +23,10 @@ class BaseScreenSpacePlugin(QtWidgets.QGraphicsItem):
     As an example zooming the view will not affect the width of a line drawn in this item.
 
     Assuming we have an image of size 128,128 where top left is at 0,0 in scene coordinates :
-        - with no zoom the bottom right is at 128,128 in scene coordinates AND screenspace ones
-        - with a zoom-in (image bigger), scene coordinates doesn't move but screenspace become bigger
-        - with a zoom-out (image smaller), scene coordinates doesn't move but screenspace become smalle
+
+    - with no zoom the bottom right is at 128,128 in scene coordinates AND screenspace ones
+    - with a zoom-in (image bigger), scene coordinates doesn't move but screenspace become bigger
+    - with a zoom-out (image smaller), scene coordinates doesn't move but screenspace become smaller
     """
 
     def __init__(self) -> None:
@@ -36,7 +37,7 @@ class BaseScreenSpacePlugin(QtWidgets.QGraphicsItem):
     @property
     def transform(self) -> QtGui.QTransform:
         """
-        Transofrm matrix to apply for converting from and to image coordinates
+        Transform matrix to apply for converting from and to image coordinates
         """
         return self._transform
 
@@ -151,7 +152,7 @@ class BaseScreenSpacePlugin(QtWidgets.QGraphicsItem):
         """
         Convert image world scene coordinates to screenspace scene coordinates.
 
-        Warning the transformation might round float values.
+        Watch out as the transformation might round float values !
         """
         matrix = self._transform
         if isinstance(obj, (QtCore.QRect, QtCore.QRectF)):
@@ -165,7 +166,8 @@ class BaseScreenSpacePlugin(QtWidgets.QGraphicsItem):
         You can override it and perform action to update your plugin with the new image.
         The base implementation does nothing.
 
-        Note that the :meth:`reload` method is also called first.
+        Note that the [`reload`][lqtImageViewer.BaseScreenSpacePlugin.reload] method is
+        called just before this callback.
         """
         pass
 

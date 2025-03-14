@@ -196,6 +196,12 @@ class NavigableGraphicView(QtWidgets.QGraphicsView):
 
 
 class LIVGraphicView(NavigableGraphicView):
+    """
+    The QGraphicsView responsible on displaying the QGraphicsScene.
+
+    It handles background drawing and plugins management.
+    """
+
     def __init__(
         self,
         scene: LIVGraphicScene,
@@ -218,6 +224,9 @@ class LIVGraphicView(NavigableGraphicView):
 
     @property
     def background_style(self) -> BaseBackgroundStyle:
+        """
+        Current background style being displayed.
+        """
         return self._background_style
 
     @background_style.setter
@@ -241,6 +250,9 @@ class LIVGraphicView(NavigableGraphicView):
 
     @property
     def image_item(self) -> ImageItem:
+        """
+        The current image being displayed.
+        """
         return self._scene.image_item
 
     def _update_plugins(self):
@@ -263,6 +275,9 @@ class LIVGraphicView(NavigableGraphicView):
         plugin.reload()
 
     def center_image(self):
+        """
+        Center the view to the active image (no zoom).
+        """
         image_rect = self.get_image_rect()
         scene_rect = self.sceneRect()
         scene_rect.moveCenter(image_rect.center())
@@ -292,7 +307,7 @@ class LIVGraphicView(NavigableGraphicView):
 
     def keyPressEvent(self, event: QtGui.QKeyEvent):
         """
-        Configure key shortucts.
+        Configure key shortcuts.
         """
         if self._shortcuts.change_background.match_event(event):
             try:

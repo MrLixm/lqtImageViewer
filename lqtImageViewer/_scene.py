@@ -11,6 +11,12 @@ LOGGER = logging.getLogger(__name__)
 
 
 class LIVGraphicScene(QtWidgets.QGraphicsScene):
+    """
+    A QGraphicsScene that holds the image to display.
+
+    It also stores the shortcuts for user interaction.
+    """
+
     def __init__(self, image_item: ImageItem, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._image_item = image_item

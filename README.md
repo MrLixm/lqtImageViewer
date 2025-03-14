@@ -2,8 +2,8 @@
 
 A simple but flexible image viewer for PyQt that take numpy array as input.
 
-The API doesn't perform any I.O. and let the developer handles how arrays are
-generated.
+The API doesn't perform any I/O or image-processing and let the developer 
+handles how arrays are generated.
 
 <video controls src="./img/demo.mp4"></video>
 
