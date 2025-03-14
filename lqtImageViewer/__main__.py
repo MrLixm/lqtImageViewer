@@ -55,7 +55,7 @@ class DockedDebugger(QtWidgets.QDockWidget):
 
         self.widget_main = QtWidgets.QWidget()
         self.layout_main = QtWidgets.QVBoxLayout()
-        self.view_debugger = GraphicViewSceneDebugger(image_viewer.graphic_view)
+        self.view_debugger = GraphicViewSceneDebugger(image_viewer._graphic_view)
         self.liv_debugger = ImageViewportDebugger(image_viewer)
 
         self.widget_main.setFixedWidth(500)

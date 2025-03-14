@@ -61,34 +61,34 @@ class LqtImageViewport(QtWidgets.QWidget):
         self._plugins: list[BasePluginType] = []
         self._shortcuts = LIVKeyShortcuts.get_default()
         # 1. Create
-        self.layout_main = QtWidgets.QVBoxLayout()
+        self._layout_main = QtWidgets.QVBoxLayout()
         self._image_item = ImageItem(default_image=default_image)
-        self.graphic_scene = LIVGraphicScene(
+        self._graphic_scene = LIVGraphicScene(
             self._image_item, -1280 / 2, -720 / 2, 1280, 720
         )
-        self.graphic_view = LIVGraphicView(
-            scene=self.graphic_scene,
+        self._graphic_view = LIVGraphicView(
+            scene=self._graphic_scene,
             key_shortcuts=self._shortcuts,
             background_library=background_library,
         )
-        self.plugin_color_picker = ColorPickerPlugin()
-        self.plugins_coord = CoordinatesGridPlugin()
+        self._plugin_color_picker = ColorPickerPlugin()
+        self._plugins_coord = CoordinatesGridPlugin()
         self.picked_color_changed_signal = (
-            self.plugin_color_picker.signals.picked_color_changed
+            self._plugin_color_picker.signals.picked_color_changed
         )
 
         # 2. Add
-        self.setLayout(self.layout_main)
-        self.layout_main.addWidget(self.graphic_view)
-        LOGGER.debug(f"registering builtin plugin {self.plugins_coord}")
-        self.add_plugin(self.plugins_coord)
-        LOGGER.debug(f"registering builtin plugin {self.plugin_color_picker}")
-        self.add_plugin(self.plugin_color_picker)
+        self.setLayout(self._layout_main)
+        self._layout_main.addWidget(self._graphic_view)
+        LOGGER.debug(f"registering builtin plugin {self._plugins_coord}")
+        self.add_plugin(self._plugins_coord)
+        LOGGER.debug(f"registering builtin plugin {self._plugin_color_picker}")
+        self.add_plugin(self._plugin_color_picker)
 
         # 3. Modify
-        self.layout_main.setContentsMargins(0, 0, 0, 0)
-        self.graphic_scene.installEventFilter(self)
-        self.graphic_scene.shortcuts = self._shortcuts
+        self._layout_main.setContentsMargins(0, 0, 0, 0)
+        self._graphic_scene.installEventFilter(self)
+        self._graphic_scene.shortcuts = self._shortcuts
         self._image_item.setVisible(default_image_visible)
 
     @property
@@ -96,7 +96,7 @@ class LqtImageViewport(QtWidgets.QWidget):
         """
         Get the color picker builtin plugin.
         """
-        return self.plugin_color_picker
+        return self._plugin_color_picker
 
     def add_plugin(self, plugin: BasePluginType):
         """
@@ -110,7 +110,7 @@ class LqtImageViewport(QtWidgets.QWidget):
         if plugin in self._plugins:
             return
         self._plugins.append(plugin)
-        self.graphic_view.add_plugin(plugin)
+        self._graphic_view.add_plugin(plugin)
 
     def get_color_picked_area(self) -> Optional[QtCore.QRect]:
         """
@@ -118,9 +118,9 @@ class LqtImageViewport(QtWidgets.QWidget):
 
         Retrun None if no area is being picked right now.
         """
-        if not self.plugin_color_picker.isVisible():
+        if not self._plugin_color_picker.isVisible():
             return None
-        return self.plugin_color_picker.get_picked_area()
+        return self._plugin_color_picker.get_picked_area()
 
     def set_image_from_array(self, array: numpy.ndarray):
         """
@@ -146,12 +146,12 @@ class LqtImageViewport(QtWidgets.QWidget):
         self._image_array = array
         self._image_item.set_image_array(array)
         # we also need the background to be updated
-        self.graphic_scene.update()
+        self._graphic_scene.update()
         [(plugin.reload(), plugin.on_image_changed()) for plugin in self._plugins]
 
         if not self._image_item.isVisible():
             self._image_item.show()
-            self.graphic_view.center_image()
+            self._graphic_view.center_image()
 
         post_time = time.time() - post_time
         self._last_image_loading_time = (pre_time, post_time)
@@ -196,14 +196,14 @@ class LqtImageViewport(QtWidgets.QWidget):
         """
         self._image_array = None
         self._image_item.set_image_array(None)
-        self.graphic_scene.update()
+        self._graphic_scene.update()
         [(plugin.reload(), plugin.on_image_changed()) for plugin in self._plugins]
         self.image_cleared_signal.emit()
 
     # Overrides
 
     def eventFilter(self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
-        if watched is self.graphic_scene:
+        if watched is self._graphic_scene:
             [plugin.set_visibility_from_scene_event(event) for plugin in self._plugins]
         return super().eventFilter(watched, event)
 
