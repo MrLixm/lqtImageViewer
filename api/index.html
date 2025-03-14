@@ -1,0 +1,4489 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A simple but flexible image viewer for PyQt that take numpy array as input.">
+      
+      
+        <meta name="author" content="Liam Collod">
+      
+      
+        <link rel="canonical" href="https://mrlixm.github.io/lqtImageViewer/api/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="config/">
+      
+      
+      <link rel="icon" href="../img/liv-logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
+    
+    
+      
+        <title>lqtImageViewer - lqtImageViewer</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="../assets/external/fonts.googleapis.com/css.49ea35f2.css">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lqtimageviewer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="lqtImageViewer" class="md-header__button md-logo" aria-label="lqtImageViewer" data-md-component="logo">
+      
+  <img src="../img/liv-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            lqtImageViewer
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              lqtImageViewer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.598 1.591a.75.75 0 0 1 .785-.175 7.001 7.001 0 1 1-8.967 8.967.75.75 0 0 1 .961-.96 5.5 5.5 0 0 0 7.046-7.046.75.75 0 0 1 .175-.786m1.616 1.945a7 7 0 0 1-7.678 7.678 5.499 5.499 0 1 0 7.678-7.678"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MrLixm/lqtImageViewer" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="lqtImageViewer" class="md-nav__button md-logo" aria-label="lqtImageViewer" data-md-component="logo">
+      
+  <img src="../img/liv-logo.svg" alt="logo">
+
+    </a>
+    lqtImageViewer
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MrLixm/lqtImageViewer" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Public API
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Public API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    lqtImageViewer
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    lqtImageViewer
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;LqtImageViewport
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" LqtImageViewport">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.color_picker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;color_picker
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.image_cleared_signal" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;image_cleared_signal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.picked_color_changed_signal" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;picked_color_changed_signal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.add_plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;add_plugin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.clear_image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;clear_image
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.eventFilter" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;eventFilter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.get_color_picked_area" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;get_color_picked_area
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.keyPressEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;keyPressEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.rotate_image_90" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;rotate_image_90
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.set_image_from_array" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;set_image_from_array
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;LIVGraphicView
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" LIVGraphicView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.background_library" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;background_library
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.background_style" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;background_style
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.image_item" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;image_item
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.round_amount" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;round_amount
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.states" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;states
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.zoom_enable" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;zoom_enable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.zoom_max" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;zoom_max
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.zoom_min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;zoom_min
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.add_plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;add_plugin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.center_image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;center_image
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.drawBackground" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;drawBackground
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.get_image_rect" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;get_image_rect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.keyPressEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;keyPressEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.mouseMoveEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;mouseMoveEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.mousePressEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;mousePressEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.mouseReleaseEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;mouseReleaseEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.resizeEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;resizeEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.wheelEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;wheelEvent
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicScene" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;LIVGraphicScene
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" LIVGraphicScene">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicScene.image_item" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;image_item
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicScene.shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;shortcuts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.ImageItem" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;ImageItem
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" ImageItem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ImageItem.boundingRect" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;boundingRect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ImageItem.paint" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;paint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ImageItem.set_image_array" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;set_image_array
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.config" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;config
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;BaseBackgroundStyle
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" BaseBackgroundStyle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle.label" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;label
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle.primary" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;primary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle.secondary" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;secondary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle.texture_zoom_range" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;texture_zoom_range
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle.use_background_texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;use_background_texture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle.generate_background_brush" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;generate_background_brush
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle.generate_background_texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;generate_background_texture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle.should_use_background_texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;should_use_background_texture
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVKeyShortcut" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;LIVKeyShortcut
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" LIVKeyShortcut">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVKeyShortcut.key" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVKeyShortcut.modifier_matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;modifier_matching
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVKeyShortcut.modifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;modifiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVKeyShortcut.match_event" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;match_event
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.BasePluginType" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;BasePluginType
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;BaseScreenSpacePlugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" BaseScreenSpacePlugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.image_item" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;image_item
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.image_scene_rect" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;image_scene_rect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;shortcuts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;transform
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.boundingRect" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;boundingRect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.map_from_screenspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;map_from_screenspace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.map_to_screenspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;map_to_screenspace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.on_image_changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;on_image_changed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.paint" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;paint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.reload" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;reload
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.set_visibility_from_scene_event" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;set_visibility_from_scene_event
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;ColorPickerPlugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" ColorPickerPlugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.image_item" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;image_item
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.image_scene_rect" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;image_scene_rect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;shortcuts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;signals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.states" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;states
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;transform
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.boundingRect" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;boundingRect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.get_picked_area" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;get_picked_area
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.map_from_screenspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;map_from_screenspace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.map_to_screenspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;map_to_screenspace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.mouseMoveEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;mouseMoveEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.mousePressEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;mousePressEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.mouseReleaseEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;mouseReleaseEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.on_image_changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;on_image_changed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.paint" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;paint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.reload" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;reload
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.set_visibility_from_scene_event" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;set_visibility_from_scene_event
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.convert_bit_depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;convert_bit_depth
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.ensure_rgba_array" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;ensure_rgba_array
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lqtImageViewer.config
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lqtImageViewer.plugins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;LqtImageViewport
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" LqtImageViewport">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.color_picker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;color_picker
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.image_cleared_signal" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;image_cleared_signal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.picked_color_changed_signal" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;picked_color_changed_signal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.add_plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;add_plugin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.clear_image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;clear_image
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.eventFilter" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;eventFilter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.get_color_picked_area" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;get_color_picked_area
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.keyPressEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;keyPressEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.rotate_image_90" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;rotate_image_90
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LqtImageViewport.set_image_from_array" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;set_image_from_array
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;LIVGraphicView
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" LIVGraphicView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.background_library" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;background_library
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.background_style" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;background_style
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.image_item" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;image_item
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.round_amount" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;round_amount
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.states" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;states
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.zoom_enable" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;zoom_enable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.zoom_max" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;zoom_max
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.zoom_min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;zoom_min
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.add_plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;add_plugin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.center_image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;center_image
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.drawBackground" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;drawBackground
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.get_image_rect" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;get_image_rect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.keyPressEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;keyPressEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.mouseMoveEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;mouseMoveEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.mousePressEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;mousePressEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.mouseReleaseEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;mouseReleaseEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.resizeEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;resizeEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicView.wheelEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;wheelEvent
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicScene" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;LIVGraphicScene
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" LIVGraphicScene">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicScene.image_item" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;image_item
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVGraphicScene.shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;shortcuts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.ImageItem" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;ImageItem
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" ImageItem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ImageItem.boundingRect" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;boundingRect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ImageItem.paint" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;paint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ImageItem.set_image_array" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;set_image_array
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.config" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;config
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;BaseBackgroundStyle
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" BaseBackgroundStyle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle.label" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;label
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle.primary" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;primary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle.secondary" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;secondary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle.texture_zoom_range" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;texture_zoom_range
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle.use_background_texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;use_background_texture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle.generate_background_brush" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;generate_background_brush
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle.generate_background_texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;generate_background_texture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseBackgroundStyle.should_use_background_texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;should_use_background_texture
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVKeyShortcut" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;LIVKeyShortcut
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" LIVKeyShortcut">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVKeyShortcut.key" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVKeyShortcut.modifier_matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;modifier_matching
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVKeyShortcut.modifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;modifiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.LIVKeyShortcut.match_event" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;match_event
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.BasePluginType" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;BasePluginType
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;BaseScreenSpacePlugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" BaseScreenSpacePlugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.image_item" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;image_item
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.image_scene_rect" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;image_scene_rect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;shortcuts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;transform
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.boundingRect" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;boundingRect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.map_from_screenspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;map_from_screenspace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.map_to_screenspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;map_to_screenspace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.on_image_changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;on_image_changed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.paint" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;paint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.reload" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;reload
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.BaseScreenSpacePlugin.set_visibility_from_scene_event" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;set_visibility_from_scene_event
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;ColorPickerPlugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" ColorPickerPlugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.image_item" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;image_item
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.image_scene_rect" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;image_scene_rect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;shortcuts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;signals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.states" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;states
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;transform
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.boundingRect" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;boundingRect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.get_picked_area" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;get_picked_area
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.map_from_screenspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;map_from_screenspace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.map_to_screenspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;map_to_screenspace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.mouseMoveEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;mouseMoveEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.mousePressEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;mousePressEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.mouseReleaseEvent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;mouseReleaseEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.on_image_changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;on_image_changed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.paint" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;paint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.reload" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;reload
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lqtImageViewer.ColorPickerPlugin.set_visibility_from_scene_event" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;set_visibility_from_scene_event
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.convert_bit_depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;convert_bit_depth
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lqtImageViewer.ensure_rgba_array" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;ensure_rgba_array
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="lqtimageviewer">lqtImageViewer<a class="headerlink" href="#lqtimageviewer" title="Permanent link">&para;</a></h1>
+<p>Those are the available objects that can be imported from :</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">lqtImageViewer</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># widgets</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lqtImageViewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">LqtImageViewport</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lqtImageViewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">LIVGraphicView</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lqtImageViewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">LIVGraphicScene</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lqtImageViewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageItem</span>
+
+<span class="c1"># configuration</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lqtImageViewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lqtImageViewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseBackgroundStyle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lqtImageViewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">LIVKeyShortcut</span>
+
+<span class="c1"># plugins</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lqtImageViewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasePluginType</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lqtImageViewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseScreenSpacePlugin</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lqtImageViewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColorPickerPlugin</span>
+
+<span class="c1"># utilities</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lqtImageViewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">convert_bit_depth</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lqtImageViewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">ensure_rgba_array</span>
+</code></pre></div>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="lqtImageViewer.LqtImageViewport" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">LqtImageViewport</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LqtImageViewport" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">LqtImageViewport</span><span class="p">(</span>
+    <span class="n">parent</span><span class="p">:</span> <span class="n"><span title="qtpy.QtWidgets.QWidget">QWidget</span></span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">default_image</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="qtpy.QtGui.QImage">QImage</span></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">default_image_visible</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">background_library</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            BaseBackgroundStyle
+
+ (lqtImageViewer.config.BaseBackgroundStyle)" href="config/#lqtImageViewer.config.BaseBackgroundStyle">BaseBackgroundStyle</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="qtpy.QtWidgets.QWidget">QWidget</span></code></p>
+
+
+        <p>A widget showing a rectangular area called "viewport". The viewport is an infinite
+2D canvas containing the image to display.</p>
+<p>You can move in that canvas freely, using panning or zooming.</p>
+<p>That viewport doesn't know anything about image processing, like isolating channels,
+color-management and so on. It just displays directly the numpy array.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>parent</code></b>
+              (<code><span title="qtpy.QtWidgets.QWidget">QWidget</span></code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>usual parent QWidget</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>default_image</code></b>
+              (<code><span title="typing.Optional">Optional</span>[<span title="qtpy.QtGui.QImage">QImage</span>]</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>a QImage to use when no other image as been loaded yet.
+If None a default image will be generated.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>default_image_visible</code></b>
+              (<code><span title="bool">bool</span></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>True to make the default image visible, else only the background will be visible.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>background_library</code></b>
+              (<code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            BaseBackgroundStyle
+
+ (lqtImageViewer.config.BaseBackgroundStyle)" href="config/#lqtImageViewer.config.BaseBackgroundStyle">BaseBackgroundStyle</a>]</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>List of backgrounds styles the user can switch between.</p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.LqtImageViewport.color_picker" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">color_picker</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LqtImageViewport.color_picker" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">color_picker</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Get the color picker builtin plugin.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.LqtImageViewport.image_cleared_signal" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">image_cleared_signal</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LqtImageViewport.image_cleared_signal" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">image_cleared_signal</span> <span class="o">=</span> <span class="n"><span title="qtpy.QtCore.Signal">Signal</span></span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.LqtImageViewport.picked_color_changed_signal" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">picked_color_changed_signal</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LqtImageViewport.picked_color_changed_signal" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">picked_color_changed_signal</span> <span class="o">=</span> <span class="n"><span title="lqtImageViewer._viewport.LqtImageViewport(self)._plugin_color_picker.signals.picked_color_changed">picked_color_changed</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LqtImageViewport.add_plugin" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">add_plugin</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LqtImageViewport.add_plugin" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">add_plugin</span><span class="p">(</span><span class="n">plugin</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            BasePluginType
+
+ (lqtImageViewer.plugins.BasePluginType)" href="plugins/#lqtImageViewer.plugins.BasePluginType">BasePluginType</a></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Add the given plugin to handle.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>plugin</code></b>
+              (<code><a class="autorefs autorefs-internal" title="            BasePluginType
+
+ (lqtImageViewer.plugins.BasePluginType)" href="plugins/#lqtImageViewer.plugins.BasePluginType">BasePluginType</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>instance of the plugin to draw when necessary.
+already-added plugins are handled properly (discarded).</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LqtImageViewport.clear_image" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">clear_image</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LqtImageViewport.clear_image" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">clear_image</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Clear the image currently displayed, to nothing, or the default image.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LqtImageViewport.eventFilter" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">eventFilter</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LqtImageViewport.eventFilter" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">eventFilter</span><span class="p">(</span><span class="n">watched</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QObject">QObject</span></span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QEvent">QEvent</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="bool">bool</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LqtImageViewport.get_color_picked_area" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">get_color_picked_area</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LqtImageViewport.get_color_picked_area" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">get_color_picked_area</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="qtpy.QtCore.QRect">QRect</span></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return the area that is currently being color picked, in pixel scene coordinates.</p>
+<p>Retrun None if no area is being picked right now.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LqtImageViewport.keyPressEvent" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">keyPressEvent</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LqtImageViewport.keyPressEvent" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">keyPressEvent</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QKeyEvent">QKeyEvent</span></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Handle some user shortcuts that cannot be handled at lower level (view/graphics).</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LqtImageViewport.rotate_image_90" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">rotate_image_90</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LqtImageViewport.rotate_image_90" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">rotate_image_90</span><span class="p">(</span>
+    <span class="n">angle</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">add_existing</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="int">int</span></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Rotate the image displayed by 90degree.</p>
+<p>The developer is reponsible to also rotate its initial array that was passed
+to this ImageViewport, so it is in sync with this one.</p>
+<p>Note the rotation is still stored even if there is no image set.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>angle</code></b>
+              (<code><span title="int">int</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>must be a 90 degree increment (positive or negative)</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>add_existing</code></b>
+              (<code><span title="bool">bool</span></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>True to add the given angle to the current one.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="typing.Optional">Optional</span>[<span title="int">int</span>]</code>
+          –
+          <div class="doc-md-description">
+            <p>final angle used to rotate the image</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LqtImageViewport.set_image_from_array" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">set_image_from_array</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LqtImageViewport.set_image_from_array" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">set_image_from_array</span><span class="p">(</span><span class="n">array</span><span class="p">:</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Set the image displayed, from a numpy array.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>array</code></b>
+              (<code><span title="numpy.ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>SHOULD be an uint16 R-G-B-A array (4 channels), else the method will
+    try to uniform it, so it become encoded as such.</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="lqtImageViewer.LIVGraphicView" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">LIVGraphicView</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">LIVGraphicView</span><span class="p">(</span>
+    <span class="n">scene</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            LIVGraphicScene
+
+ (lqtImageViewer._scene.LIVGraphicScene)" href="#lqtImageViewer.LIVGraphicScene">LIVGraphicScene</a></span><span class="p">,</span>
+    <span class="n">key_shortcuts</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            LIVKeyShortcuts
+
+ (lqtImageViewer.config.LIVKeyShortcuts)" href="config/#lqtImageViewer.config.LIVKeyShortcuts">LIVKeyShortcuts</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">background_style</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            BaseBackgroundStyle
+
+ (lqtImageViewer.config.BaseBackgroundStyle)" href="config/#lqtImageViewer.config.BaseBackgroundStyle">BaseBackgroundStyle</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">background_library</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            BaseBackgroundStyle
+
+ (lqtImageViewer.config.BaseBackgroundStyle)" href="config/#lqtImageViewer.config.BaseBackgroundStyle">BaseBackgroundStyle</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="lqtImageViewer._view.NavigableGraphicView">NavigableGraphicView</span></code></p>
+
+
+        <p>The QGraphicsView responsible on displaying the QGraphicsScene.</p>
+<p>It handles background drawing and plugins management.</p>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.background_library" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">background_library</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.background_library" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">background_library</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            BaseBackgroundStyle
+
+ (lqtImageViewer.config.BaseBackgroundStyle)" href="config/#lqtImageViewer.config.BaseBackgroundStyle">BaseBackgroundStyle</a></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>List of backgrounds styles the user can switch between.</p>
+<p>You can add a new background by appending directly to the returned object.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.background_style" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">background_style</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.background_style" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">background_style</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            BaseBackgroundStyle
+
+ (lqtImageViewer.config.BaseBackgroundStyle)" href="config/#lqtImageViewer.config.BaseBackgroundStyle">BaseBackgroundStyle</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Current background style being displayed.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.image_item" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">image_item</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.image_item" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">image_item</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            ImageItem
+
+ (lqtImageViewer._item.ImageItem)" href="#lqtImageViewer.ImageItem">ImageItem</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>The current image being displayed.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.round_amount" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">round_amount</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.round_amount" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">round_amount</span> <span class="o">=</span> <span class="mi">3</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Number of decimals to keep for the zoom amount.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.states" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">states</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.states" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">states</span> <span class="o">=</span> <span class="n"><span title="lqtImageViewer._view.GraphicViewState">GraphicViewState</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Different cumulative states the view can be set to.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.zoom_enable" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">zoom_enable</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.zoom_enable" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">zoom_enable</span> <span class="o">=</span> <span class="kc">True</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Used to disable zoom capabilities on subclasses</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.zoom_max" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">zoom_max</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.zoom_max" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">zoom_max</span> <span class="o">=</span> <span class="mi">20</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Maximum amount of zoom for the user.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.zoom_min" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">zoom_min</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.zoom_min" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">zoom_min</span> <span class="o">=</span> <span class="mf">0.1</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Minimum amount of zoom for the user.</p>
+
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.add_plugin" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">add_plugin</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.add_plugin" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">add_plugin</span><span class="p">(</span><span class="n">plugin</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            BasePluginType
+
+ (lqtImageViewer.plugins.BasePluginType)" href="plugins/#lqtImageViewer.plugins.BasePluginType">BasePluginType</a></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Add the given plugin to handle in the scene and view.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.center_image" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">center_image</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.center_image" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">center_image</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Center the view to the active image (no zoom).</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.drawBackground" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">drawBackground</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.drawBackground" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">drawBackground</span><span class="p">(</span><span class="n">painter</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QPainter">QPainter</span></span><span class="p">,</span> <span class="n">rect</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QRectF">QRectF</span></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Generated a grid pattern as background.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.get_image_rect" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">get_image_rect</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.get_image_rect" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">get_image_rect</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QRectF">QRectF</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Get the image area in scene coordinates relative to himself.</p>
+<p>(top-left start at 0,0)</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.keyPressEvent" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">keyPressEvent</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.keyPressEvent" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">keyPressEvent</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QKeyEvent">QKeyEvent</span></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Configure key shortcuts.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.mouseMoveEvent" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">mouseMoveEvent</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.mouseMoveEvent" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">mouseMoveEvent</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QMouseEvent">QMouseEvent</span></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.mousePressEvent" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">mousePressEvent</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.mousePressEvent" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">mousePressEvent</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QMouseEvent">QMouseEvent</span></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>On mouse button pressed, set states depending on buttons.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.mouseReleaseEvent" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">mouseReleaseEvent</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.mouseReleaseEvent" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">mouseReleaseEvent</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QMouseEvent">QMouseEvent</span></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>On mouse button release, reset all variables.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.resizeEvent" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">resizeEvent</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.resizeEvent" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">resizeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QResizeEvent">QResizeEvent</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LIVGraphicView.wheelEvent" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">wheelEvent</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicView.wheelEvent" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">wheelEvent</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QWheelEvent">QWheelEvent</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>On mouse wheel active, zoom the viewport.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="lqtImageViewer.LIVGraphicScene" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">LIVGraphicScene</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicScene" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">LIVGraphicScene</span><span class="p">(</span><span class="n">image_item</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            ImageItem
+
+ (lqtImageViewer._item.ImageItem)" href="#lqtImageViewer.ImageItem">ImageItem</a></span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="qtpy.QtWidgets.QGraphicsScene">QGraphicsScene</span></code></p>
+
+
+        <p>A QGraphicsScene that holds the image to display.</p>
+<p>It also stores the shortcuts for user interaction.</p>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.LIVGraphicScene.image_item" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">image_item</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicScene.image_item" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">image_item</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            ImageItem
+
+ (lqtImageViewer._item.ImageItem)" href="#lqtImageViewer.ImageItem">ImageItem</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.LIVGraphicScene.shortcuts" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">shortcuts</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVGraphicScene.shortcuts" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">shortcuts</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            LIVKeyShortcuts
+
+ (lqtImageViewer.config.LIVKeyShortcuts)" href="config/#lqtImageViewer.config.LIVKeyShortcuts">LIVKeyShortcuts</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="lqtImageViewer.ImageItem" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">ImageItem</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ImageItem" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">ImageItem</span><span class="p">(</span>
+    <span class="n">parent</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="qtpy.QtWidgets.QGraphicsItem">QGraphicsItem</span></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">default_image</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="qtpy.QtGui.QImage">QImage</span></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="qtpy.QtWidgets.QGraphicsItem">QGraphicsItem</span></code></p>
+
+
+        <p>A QGraphicsItem that can draw a 2D image array on its surface.</p>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.ImageItem.boundingRect" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">boundingRect</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ImageItem.boundingRect" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">boundingRect</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QRectF">QRectF</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.ImageItem.paint" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">paint</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ImageItem.paint" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">paint</span><span class="p">(</span>
+    <span class="n">painter</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QPainter">QPainter</span></span><span class="p">,</span>
+    <span class="n">option</span><span class="p">:</span> <span class="n"><span title="qtpy.QtWidgets.QStyleOptionGraphicsItem">QStyleOptionGraphicsItem</span></span><span class="p">,</span>
+    <span class="n">widget</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="qtpy.QtWidgets.QWidget">QWidget</span></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.ImageItem.set_image_array" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">set_image_array</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ImageItem.set_image_array" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">set_image_array</span><span class="p">(</span><span class="n">array</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">])</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+
+<details class="references" open>
+  <summary>References</summary>
+  <ul>
+<li>[1] https://stackoverflow.com/a/55522279/13806195</li>
+</ul>
+</details>
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>array</code></b>
+              (<code><span title="typing.Optional">Optional</span>[<span title="numpy.ndarray">ndarray</span>]</code>)
+          –
+          <div class="doc-md-description">
+            <p>MUST be an uint16 R-G-B-A array (4 channels)</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="lqtImageViewer.config" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <span class="doc doc-object-name doc-module-name">config</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.config" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Objects that can be used to affect the behavior of the viewer.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div><p>See <a href="config/">config</a>.</p>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="lqtImageViewer.BaseBackgroundStyle" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">BaseBackgroundStyle</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseBackgroundStyle" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">BaseBackgroundStyle</span><span class="p">(</span>
+    <span class="n">label</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">,</span>
+    <span class="n">background</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QColor">QColor</span></span><span class="p">,</span>
+    <span class="n">foreground</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QColor">QColor</span></span><span class="p">,</span>
+    <span class="n">use_background_texture</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">texture_zoom_range</span><span class="p">:</span> <span class="n"><span title="tuple">tuple</span></span><span class="p">[</span>
+        <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="float">float</span></span><span class="p">],</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="float">float</span></span><span class="p">]</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>label</code></b>
+              (<code><span title="str">str</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>a pretty name for this style</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>background</code></b>
+              (<code><span title="qtpy.QtGui.QColor">QColor</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>the primary color of the background</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>foreground</code></b>
+              (<code><span title="qtpy.QtGui.QColor">QColor</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>a second color to layer on top of the background</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>use_background_texture</code></b>
+              (<code><span title="bool">bool</span></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>False indicate we don't care about using a texture for the background
+(<code>generate_background_texture</code> is not implemented).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>texture_zoom_range</code></b>
+              (<code><span title="tuple">tuple</span>[<span title="typing.Optional">Optional</span>[<span title="float">float</span>], <span title="typing.Optional">Optional</span>[<span title="float">float</span>]]</code>, default:
+                  <code>(0.3, None)</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>allow to hide the background texture depending on the view zoom level.
+zoom range is [0-1+] where 1 == no zoom</p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.BaseBackgroundStyle.label" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">label</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseBackgroundStyle.label" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">label</span> <span class="o">=</span> <span class="n"><span title="lqtImageViewer.config._backgroundstyle.BaseBackgroundStyle(label)">label</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.BaseBackgroundStyle.primary" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">primary</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseBackgroundStyle.primary" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">primary</span> <span class="o">=</span> <span class="n"><span title="lqtImageViewer.config._backgroundstyle.BaseBackgroundStyle(background)">background</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.BaseBackgroundStyle.secondary" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">secondary</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseBackgroundStyle.secondary" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">secondary</span> <span class="o">=</span> <span class="n"><span title="lqtImageViewer.config._backgroundstyle.BaseBackgroundStyle(foreground)">foreground</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.BaseBackgroundStyle.texture_zoom_range" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">texture_zoom_range</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseBackgroundStyle.texture_zoom_range" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">texture_zoom_range</span> <span class="o">=</span> <span class="n"><span title="lqtImageViewer.config._backgroundstyle.BaseBackgroundStyle(texture_zoom_range)">texture_zoom_range</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.BaseBackgroundStyle.use_background_texture" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">use_background_texture</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseBackgroundStyle.use_background_texture" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">use_background_texture</span> <span class="o">=</span> <span class="n"><span title="lqtImageViewer.config._backgroundstyle.BaseBackgroundStyle(use_background_texture)">use_background_texture</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.BaseBackgroundStyle.generate_background_brush" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">generate_background_brush</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseBackgroundStyle.generate_background_brush" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">generate_background_brush</span><span class="p">(</span><span class="n">draw_texture</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtGui.QBrush">QBrush</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return the QBrush to use for drawing backgrounds.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.BaseBackgroundStyle.generate_background_texture" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">generate_background_texture</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseBackgroundStyle.generate_background_texture" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">generate_background_texture</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="qtpy.QtGui.QPixmap">QPixmap</span></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Generate a QPixmap to tile in a QBrush.</p>
+<p>It is recommended to create a large pattern as this one will be scale down
+in the view, so zooming will not produce pixelised preview.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.BaseBackgroundStyle.should_use_background_texture" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">should_use_background_texture</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseBackgroundStyle.should_use_background_texture" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">should_use_background_texture</span><span class="p">(</span>
+    <span class="n">zoom</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="float">float</span></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="bool">bool</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return True if the instance config imply that the backgroudn texture must be used.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="lqtImageViewer.LIVKeyShortcut" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">LIVKeyShortcut</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVKeyShortcut" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">LIVKeyShortcut</span><span class="p">(</span>
+    <span class="n">key</span><span class="p">:</span> <span class="n"><span title="typing.Union">Union</span></span><span class="p">[</span><span class="n"><span title="qtpy.QtCore.Qt.Key">Key</span></span><span class="p">,</span> <span class="n"><span title="qtpy.QtCore.Qt.MouseButton">MouseButton</span></span><span class="p">],</span>
+    <span class="n">modifiers</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="tuple">tuple</span></span><span class="p">[</span><span class="n"><span title="qtpy.QtCore.Qt.KeyboardModifier">KeyboardModifier</span></span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span>
+    <span class="n">modifier_matching</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            ShortcutModifierMatching
+
+ (lqtImageViewer.config._shortcut.ShortcutModifierMatching)" href="config/#lqtImageViewer.config.ShortcutModifierMatching">ShortcutModifierMatching</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="            exact
+
+ (lqtImageViewer.config._shortcut.ShortcutModifierMatching.exact)" href="config/#lqtImageViewer.config.ShortcutModifierMatching.exact">exact</a></span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+
+        <p>Store a unique combinations of key to verify it matches against Qt QEvent.</p>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.LIVKeyShortcut.key" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">key</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVKeyShortcut.key" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">key</span><span class="p">:</span> <span class="n"><span title="typing.Union">Union</span></span><span class="p">[</span><span class="n"><span title="qtpy.QtCore.Qt.Key">Key</span></span><span class="p">,</span> <span class="n"><span title="qtpy.QtCore.Qt.MouseButton">MouseButton</span></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Main input to match the event against</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.LIVKeyShortcut.modifier_matching" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">modifier_matching</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVKeyShortcut.modifier_matching" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">modifier_matching</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            ShortcutModifierMatching
+
+ (lqtImageViewer.config._shortcut.ShortcutModifierMatching)" href="config/#lqtImageViewer.config.ShortcutModifierMatching">ShortcutModifierMatching</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="            exact
+
+ (lqtImageViewer.config._shortcut.ShortcutModifierMatching.exact)" href="config/#lqtImageViewer.config.ShortcutModifierMatching.exact">exact</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Determine how strict the modifier must be matched against the event</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.LIVKeyShortcut.modifiers" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">modifiers</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVKeyShortcut.modifiers" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">modifiers</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="tuple">tuple</span></span><span class="p">[</span><span class="n"><span title="qtpy.QtCore.Qt.KeyboardModifier">KeyboardModifier</span></span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Modifiers keys that must be active along the main key to be matched.</p>
+<ul>
+<li>None means to ignore modifiers.</li>
+<li>To specify that you don't want modifier pass an empty tuple.</li>
+</ul>
+
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.LIVKeyShortcut.match_event" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">match_event</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.LIVKeyShortcut.match_event" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">match_event</span><span class="p">(</span>
+    <span class="n">event</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QEvent">QEvent</span></span><span class="p">,</span>
+    <span class="n">modifier_matching</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span>
+        <span class="n"><a class="autorefs autorefs-internal" title="            ShortcutModifierMatching
+
+ (lqtImageViewer.config._shortcut.ShortcutModifierMatching)" href="config/#lqtImageViewer.config.ShortcutModifierMatching">ShortcutModifierMatching</a></span>
+    <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return True if the given event match this shortcut.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="lqtImageViewer.BasePluginType" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">BasePluginType</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BasePluginType" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">BasePluginType</span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="            BaseScreenSpacePlugin
+
+ (lqtImageViewer.plugins._base.BaseScreenSpacePlugin)" href="#lqtImageViewer.BaseScreenSpacePlugin">BaseScreenSpacePlugin</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="lqtImageViewer.BaseScreenSpacePlugin" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">BaseScreenSpacePlugin</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseScreenSpacePlugin" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">BaseScreenSpacePlugin</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="qtpy.QtWidgets.QGraphicsItem">QGraphicsItem</span></code></p>
+
+
+        <p>A special QGraphicsItem ignoring view transformations to allow drawing screenspace effect.</p>
+<p>As an example zooming the view will not affect the width of a line drawn in this item.</p>
+<p>Assuming we have an image of size 128,128 where top left is at 0,0 in scene coordinates :</p>
+<ul>
+<li>with no zoom the bottom right is at 128,128 in scene coordinates AND screenspace ones</li>
+<li>with a zoom-in (image bigger), scene coordinates doesn't move but screenspace become bigger</li>
+<li>with a zoom-out (image smaller), scene coordinates doesn't move but screenspace become smaller</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.BaseScreenSpacePlugin.image_item" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">image_item</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseScreenSpacePlugin.image_item" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">image_item</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            ImageItem
+
+ (lqtImageViewer._item.ImageItem)" href="#lqtImageViewer.ImageItem">ImageItem</a></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>The image item living in the same scene as this plugin.</p>
+<p>Return None if the plugin hasn't been loaded into a scene yet.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.BaseScreenSpacePlugin.image_scene_rect" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">image_scene_rect</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseScreenSpacePlugin.image_scene_rect" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">image_scene_rect</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="qtpy.QtCore.QRectF">QRectF</span></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Rectangular area of the image in screenspace coordinates (already mapped).</p>
+<p>Return None if the plugin hasn't been loaded into a scene yet.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.BaseScreenSpacePlugin.shortcuts" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">shortcuts</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseScreenSpacePlugin.shortcuts" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">shortcuts</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            LIVKeyShortcuts
+
+ (lqtImageViewer.config.LIVKeyShortcuts)" href="config/#lqtImageViewer.config.LIVKeyShortcuts">LIVKeyShortcuts</a></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Key shortcuts curtenly configured for the application.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.BaseScreenSpacePlugin.transform" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">transform</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseScreenSpacePlugin.transform" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">transform</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QTransform">QTransform</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Transform matrix to apply for converting from and to image coordinates</p>
+
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.BaseScreenSpacePlugin.boundingRect" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">boundingRect</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseScreenSpacePlugin.boundingRect" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">boundingRect</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QRectF">QRectF</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.BaseScreenSpacePlugin.map_from_screenspace" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">map_from_screenspace</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseScreenSpacePlugin.map_from_screenspace" class="headerlink" title="Permanent link">&para;</a></h3>
+          <div class="doc-overloads">
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_from_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QPainterPath">QPainterPath</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtGui.QPainterPath">QPainterPath</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_from_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QPoint">QPoint</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QPoint">QPoint</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_from_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QPointF">QPointF</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QPointF">QPointF</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_from_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QRect">QRect</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QRect">QRect</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_from_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QRectF">QRectF</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QRectF">QRectF</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_from_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QPolygon">QPolygon</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtGui.QPolygon">QPolygon</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_from_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QPolygonF">QPolygonF</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtGui.QPolygonF">QPolygonF</span></span>
+</code></pre></div>          </div>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_from_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Convert screenspace scene coordinates to image world scene coordinates.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.BaseScreenSpacePlugin.map_to_screenspace" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">map_to_screenspace</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseScreenSpacePlugin.map_to_screenspace" class="headerlink" title="Permanent link">&para;</a></h3>
+          <div class="doc-overloads">
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_to_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QPainterPath">QPainterPath</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtGui.QPainterPath">QPainterPath</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_to_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QPoint">QPoint</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QPoint">QPoint</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_to_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QPointF">QPointF</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QPointF">QPointF</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_to_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QRect">QRect</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QRect">QRect</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_to_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QRectF">QRectF</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QRectF">QRectF</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_to_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QPolygon">QPolygon</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtGui.QPolygon">QPolygon</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_to_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QPolygonF">QPolygonF</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtGui.QPolygonF">QPolygonF</span></span>
+</code></pre></div>          </div>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_to_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Convert image world scene coordinates to screenspace scene coordinates.</p>
+<p>Watch out as the transformation might round float values !</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.BaseScreenSpacePlugin.on_image_changed" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">on_image_changed</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseScreenSpacePlugin.on_image_changed" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">on_image_changed</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>This method is called right after a new image has been loaded.</p>
+<p>You can override it and perform action to update your plugin with the new image.
+The base implementation does nothing.</p>
+<p>Note that the <a class="autorefs autorefs-internal" title="            reload
+
+" href="#lqtImageViewer.BaseScreenSpacePlugin.reload"><code>reload</code></a> method is
+called just before this callback.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.BaseScreenSpacePlugin.paint" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">paint</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseScreenSpacePlugin.paint" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">paint</span><span class="p">(</span>
+    <span class="n">painter</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QPainter">QPainter</span></span><span class="p">,</span>
+    <span class="n">option</span><span class="p">:</span> <span class="n"><span title="qtpy.QtWidgets.QStyleOptionGraphicsItem">QStyleOptionGraphicsItem</span></span><span class="p">,</span>
+    <span class="n">widget</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="qtpy.QtWidgets.QWidget">QWidget</span></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.BaseScreenSpacePlugin.reload" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">reload</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseScreenSpacePlugin.reload" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">reload</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Perform any action necessary for the plugin to be reloaded visually.</p>
+<p>Made to be overriden, don't forget to call super at the end.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.BaseScreenSpacePlugin.set_visibility_from_scene_event" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">set_visibility_from_scene_event</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.BaseScreenSpacePlugin.set_visibility_from_scene_event" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">set_visibility_from_scene_event</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QEvent">QEvent</span></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Method to override in super class that can be used to show or hide the plugin
+based on the current events.</p>
+<p>You are responsible for calling show() or hide() properly and not overriding
+any existing shortcuts.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>event</code></b>
+              (<code><span title="qtpy.QtCore.QEvent">QEvent</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>arbitrary event send to the graphics scene</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="lqtImageViewer.ColorPickerPlugin" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">ColorPickerPlugin</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">ColorPickerPlugin</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            BaseScreenSpacePlugin
+
+ (lqtImageViewer.plugins._base.BaseScreenSpacePlugin)" href="#lqtImageViewer.BaseScreenSpacePlugin">BaseScreenSpacePlugin</a></code></p>
+
+
+        <p>A screenspace plugin which allow to select a pixel area on an image.</p>
+<p>The plugin doesn't actually handle any pixel picking, it just returns an area
+and its up to the developer to extract the color values from the image array.</p>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.image_item" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">image_item</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.image_item" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">image_item</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            ImageItem
+
+ (lqtImageViewer._item.ImageItem)" href="#lqtImageViewer.ImageItem">ImageItem</a></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>The image item living in the same scene as this plugin.</p>
+<p>Return None if the plugin hasn't been loaded into a scene yet.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.image_scene_rect" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">image_scene_rect</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.image_scene_rect" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">image_scene_rect</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="qtpy.QtCore.QRectF">QRectF</span></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Rectangular area of the image in screenspace coordinates (already mapped).</p>
+<p>Return None if the plugin hasn't been loaded into a scene yet.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.shortcuts" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">shortcuts</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.shortcuts" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">shortcuts</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            LIVKeyShortcuts
+
+ (lqtImageViewer.config.LIVKeyShortcuts)" href="config/#lqtImageViewer.config.LIVKeyShortcuts">LIVKeyShortcuts</a></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Key shortcuts curtenly configured for the application.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.signals" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">signals</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.signals" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">signals</span> <span class="o">=</span> <span class="n"><span title="lqtImageViewer.plugins._colorpicker.ColorPickerPlugin(self)._Signals">_Signals</span></span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.states" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">states</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.states" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">states</span> <span class="o">=</span> <span class="n"><span title="lqtImageViewer.plugins._colorpicker.ColorPickerControlState">ColorPickerControlState</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.transform" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">transform</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.transform" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">transform</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QTransform">QTransform</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Transform matrix to apply for converting from and to image coordinates</p>
+
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.boundingRect" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">boundingRect</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.boundingRect" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">boundingRect</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QRectF">QRectF</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.get_picked_area" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">get_picked_area</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.get_picked_area" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">get_picked_area</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QRect">QRect</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return the area that is currently being picked, in image scene coordinates.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.map_from_screenspace" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">map_from_screenspace</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.map_from_screenspace" class="headerlink" title="Permanent link">&para;</a></h3>
+          <div class="doc-overloads">
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_from_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QPainterPath">QPainterPath</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtGui.QPainterPath">QPainterPath</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_from_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QPoint">QPoint</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QPoint">QPoint</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_from_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QPointF">QPointF</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QPointF">QPointF</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_from_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QRect">QRect</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QRect">QRect</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_from_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QRectF">QRectF</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QRectF">QRectF</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_from_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QPolygon">QPolygon</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtGui.QPolygon">QPolygon</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_from_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QPolygonF">QPolygonF</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtGui.QPolygonF">QPolygonF</span></span>
+</code></pre></div>          </div>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_from_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Convert screenspace scene coordinates to image world scene coordinates.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.map_to_screenspace" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">map_to_screenspace</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.map_to_screenspace" class="headerlink" title="Permanent link">&para;</a></h3>
+          <div class="doc-overloads">
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_to_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QPainterPath">QPainterPath</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtGui.QPainterPath">QPainterPath</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_to_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QPoint">QPoint</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QPoint">QPoint</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_to_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QPointF">QPointF</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QPointF">QPointF</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_to_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QRect">QRect</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QRect">QRect</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_to_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QRectF">QRectF</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtCore.QRectF">QRectF</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_to_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QPolygon">QPolygon</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtGui.QPolygon">QPolygon</span></span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_to_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QPolygonF">QPolygonF</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="qtpy.QtGui.QPolygonF">QPolygonF</span></span>
+</code></pre></div>          </div>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">map_to_screenspace</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Convert image world scene coordinates to screenspace scene coordinates.</p>
+<p>Watch out as the transformation might round float values !</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.mouseMoveEvent" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">mouseMoveEvent</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.mouseMoveEvent" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">mouseMoveEvent</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n"><span title="qtpy.QtWidgets.QGraphicsSceneMouseEvent">QGraphicsSceneMouseEvent</span></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.mousePressEvent" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">mousePressEvent</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.mousePressEvent" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">mousePressEvent</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n"><span title="qtpy.QtWidgets.QGraphicsSceneMouseEvent">QGraphicsSceneMouseEvent</span></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.mouseReleaseEvent" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">mouseReleaseEvent</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.mouseReleaseEvent" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">mouseReleaseEvent</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n"><span title="qtpy.QtWidgets.QGraphicsSceneMouseEvent">QGraphicsSceneMouseEvent</span></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.on_image_changed" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">on_image_changed</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.on_image_changed" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">on_image_changed</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.paint" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">paint</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.paint" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">paint</span><span class="p">(</span>
+    <span class="n">painter</span><span class="p">:</span> <span class="n"><span title="qtpy.QtGui.QPainter">QPainter</span></span><span class="p">,</span>
+    <span class="n">option</span><span class="p">:</span> <span class="n"><span title="qtpy.QtWidgets.QStyleOptionGraphicsItem">QStyleOptionGraphicsItem</span></span><span class="p">,</span>
+    <span class="n">widget</span><span class="p">:</span> <span class="n"><span title="typing.Optional">Optional</span></span><span class="p">[</span><span class="n"><span title="qtpy.QtWidgets.QWidget">QWidget</span></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.reload" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">reload</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.reload" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">reload</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Perform any action necessary for the plugin to be reloaded visually.</p>
+<p>Made to be overriden, don't forget to call super at the end.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="lqtImageViewer.ColorPickerPlugin.set_visibility_from_scene_event" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">set_visibility_from_scene_event</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ColorPickerPlugin.set_visibility_from_scene_event" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">set_visibility_from_scene_event</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n"><span title="qtpy.QtCore.QEvent">QEvent</span></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="lqtImageViewer.convert_bit_depth" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">convert_bit_depth</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.convert_bit_depth" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">convert_bit_depth</span><span class="p">(</span>
+    <span class="n">array</span><span class="p">:</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">,</span> <span class="n">bit_depth</span><span class="p">:</span> <span class="n"><span title="numpy.typing.DTypeLike">DTypeLike</span></span> <span class="o">=</span> <span class="n"><span title="numpy.core.float32">float32</span></span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Convert given array to given bit-depth, the current bit-depth of the array
+is used to determine the appropriate conversion path.</p>
+
+
+<details class="references" open>
+  <summary>References</summary>
+  <ul>
+<li>[1] https://github.com/colour-science/colour/blob/develop/colour/io/image.py</li>
+</ul>
+</details>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="lqtImageViewer.ensure_rgba_array" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">ensure_rgba_array</span>
+
+<!--we want to remove labels-->
+<a href="#lqtImageViewer.ensure_rgba_array" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">ensure_rgba_array</span><span class="p">(</span><span class="n">array</span><span class="p">:</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="numpy.ndarray">ndarray</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Ensure the given array has an alpha channel, if not create one with maximum value.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>array</code></b>
+              (<code><span title="numpy.ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>any arbitrary image array</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="numpy.ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>new RGBA array instance</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 Liam Collod
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["search.suggest", "content.code.annotate", "content.code.copy", "content.tabs.link", "navigation.top"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
