@@ -14,7 +14,7 @@ cd /some/place/to/develop
 git clone https://github.com/MrLixm/lqtImageViewer.git
 cd lqtImageViewer
 # create the python venv
-uv sync
+uv sync --all-group
 # create and checkout new branch, DON'T work on main !
 git checkout -b <branchname>
 ```
@@ -32,11 +32,11 @@ git checkout -b <branchname>
 build once:
 
 ```shell
-uv run mkdocs build
+uv run --group doc mkdocs build
 ```
 
 build with live changes detection:
 
 ```shell
-uv run mkdocs serve --watch lqtImageViewer/
+uv run --group doc mkdocs serve --watch lqtImageViewer/
 ```
